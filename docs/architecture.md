@@ -1,56 +1,52 @@
-# CashierFlow System Architecture
+# Arsitektur Sistem CashierFlow
 
-## 1. Document Information
+## 1. Informasi Dokumen
 
-| Attribute | Description |
+| Atribut | Deskripsi |
 |---|---|
-| Project | CashierFlow |
-| Document Version | 1.0 |
-| Product Version | 1.0.0 MVP |
-| Author | ZyxxBoy |
-| Architecture | Modular Monolith |
+| Proyek | CashierFlow |
+| Versi Dokumen | 1.0 |
+| Versi Produk | 1.0.0 MVP |
+| Penulis | ZyxxBoy |
+| Arsitektur | Modular Monolith |
 | Status | Initial Baseline |
 
-## 2. Architecture Overview
+## 2. Gambaran Umum Arsitektur
 
-CashierFlow uses a modular monolith architecture built with
-Next.js, TypeScript, Prisma ORM, and PostgreSQL.
+CashierFlow menggunakan pola arsitektur **Modular Monolith** yang dibangun dengan Next.js, TypeScript, Prisma ORM, dan basis data relasional PostgreSQL.
 
-The frontend and backend are maintained within a single
-application repository while business logic, database access,
-validation, and presentation are separated into logical modules.
+Frontend dan backend dikelola di dalam satu repositori tunggal (monorepo/single codebase), namun logika bisnis, akses basis data, validasi skema, dan lapisan presentasi antarmuka dipisahkan secara tegas ke dalam modul-modul logis.
 
-This architecture minimizes deployment complexity while
-maintaining clear separation of responsibilities.
+Arsitektur ini meminimalkan kompleksitas deployment dan pemeliharaan infrastruktur sekaligus mempertahankan pemisahan tanggung jawab kode yang rapi.
 
-## 3. Architecture Goals
+## 3. Sasaran Arsitektur
 
-- Maintain a simple deployment model.
-- Separate business logic from presentation.
-- Improve maintainability and testability.
-- Enforce consistent security boundaries.
-- Preserve transaction integrity.
-- Support future module expansion.
-- Support automated testing and CI/CD.
-- Avoid unnecessary infrastructure complexity.
+- Mempertahankan model deployment yang sederhana dan hemat sumber daya.
+- Memisahkan logika bisnis secara tegas dari lapisan antarmuka (UI).
+- Meningkatkan kemudahan pemeliharaan (maintainability) dan pengujian otomatis (testability).
+- Menerapkan batasan keamanan yang konsisten di sisi server.
+- Menjamin integritas dan konsistensi transaksi data secara mutlak.
+- Mempermudah pengembangan dan penambahan modul di masa mendatang.
+- Mendukung integrasi alur otomatisasi pengujian dan deployment (CI/CD).
+- Menghindari kerumitan infrastruktur yang berlebihan dan belum diperlukan.
 
-## 4. High-Level System Architecture
+## 4. Arsitektur Sistem Tingkat Tinggi (High-Level)
 
 ```mermaid
 flowchart TD
-    USER[User Browser]
+    USER[Peramban Pengguna / User Browser]
 
-    subgraph VERCEL[Vercel Platform]
-        UI[Next.js Frontend]
+    subgraph VERCEL[Platform Vercel]
+        UI[Frontend Next.js]
         ACTIONS[Server Actions]
         API[Route Handlers]
-        AUTH[Authentication and Authorization]
-        SERVICE[Business Service Layer]
-        REPO[Repository Layer]
+        AUTH[Autentikasi & Otorisasi]
+        SERVICE[Lapisan Layanan Bisnis / Service Layer]
+        REPO[Lapisan Repositori / Repository Layer]
         ORM[Prisma ORM]
     end
 
-    subgraph NEON[Neon Database Platform]
+    subgraph NEON[Platform Basis Data Neon]
         DB[(PostgreSQL)]
     end
 
@@ -65,71 +61,69 @@ flowchart TD
     ORM --> DB
 ```
 
-Server Components may also call authorized server-side services
-directly without making unnecessary internal HTTP requests.
+Server Components juga dapat memanggil lapisan layanan bisnis di sisi server secara langsung tanpa perlu melakukan permintaan HTTP internal yang tidak diperlukan.
 
-Authentication and authorization are logical requirements that
-must be enforced for every protected operation.
+Autentikasi dan otorisasi merupakan persyaratan logis yang wajib dieksekusi pada setiap operasi yang dilindungi.
 
-## 5. Technology Stack
+## 5. Stack Teknologi
 
 ### 5.1 Frontend
 
-| Technology | Responsibility |
+| Teknologi | Tanggung Jawab |
 |---|---|
-| Next.js App Router | Application routing and rendering |
-| React | UI implementation |
-| TypeScript | Static typing |
-| Tailwind CSS | Styling |
-| shadcn/ui | Reusable components |
-| React Hook Form | Form state management |
-| Zod | Input validation |
-| Zustand | POS shopping cart state |
-| Recharts | Optional dashboard visualization |
+| Next.js App Router | Routing aplikasi dan rendering halaman |
+| React | Pustaka antarmuka pengguna (UI) |
+| TypeScript | Pengetikan statis yang ketat (strict typing) |
+| Tailwind CSS | Kerangka kerja styling antarmuka |
+| shadcn/ui | Pustaka komponen UI yang dapat disesuaikan |
+| React Hook Form | Manajemen status formulir |
+| Zod | Validasi skema input |
+| Zustand | Manajemen state keranjang belanja POS pada klien |
+| Recharts | Visualisasi grafik dasbor (opsional) |
 
 ### 5.2 Backend
 
-| Technology | Responsibility |
+| Teknologi | Tanggung Jawab |
 |---|---|
-| Next.js Server Actions | Internal application mutations |
-| Next.js Route Handlers | HTTP endpoints and integrations |
-| Auth.js | Authentication and session management |
-| Zod | Server-side request validation |
-| Prisma | Database access |
-| PostgreSQL | Persistent relational data |
+| Next.js Server Actions | Mutasi data aplikasi internal |
+| Next.js Route Handlers | Endpoint HTTP publik/integrasi |
+| Auth.js | Autentikasi dan manajemen sesi pengguna |
+| Zod | Validasi data permintaan di sisi server |
+| Prisma | Object-Relational Mapping (ORM) basis data |
+| PostgreSQL | Penyimpanan basis data relasional persisten |
 
-### 5.3 Testing
+### 5.3 Pengujian (Testing)
 
-| Technology | Responsibility |
+| Teknologi | Tanggung Jawab |
 |---|---|
-| ESLint | Static analysis |
-| Prettier | Code formatting |
-| TypeScript | Type checking |
-| Vitest | Unit and integration testing |
-| Playwright | End-to-end testing |
+| ESLint | Analisis kode statis (linting) |
+| Prettier | Format kerapian kode otomatis |
+| TypeScript | Pemeriksaan tipe data statis |
+| Vitest | Pengujian unit dan pengujian integrasi |
+| Playwright | Pengujian end-to-end (E2E) alur pengguna |
 
-### 5.4 Infrastructure
+### 5.4 Infrastruktur
 
-| Technology | Responsibility |
+| Teknologi | Tanggung Jawab |
 |---|---|
-| GitHub | Source code management |
-| GitHub Actions | Continuous Integration |
-| Vercel | Application deployment |
-| Neon | Managed PostgreSQL |
-| Docker | Local development and containerization |
-| Vercel Logs | Basic runtime observability |
+| GitHub | Manajemen repositori kode sumber |
+| GitHub Actions | Otomatisasi Continuous Integration (CI) |
+| Vercel | Hosting dan deployment aplikasi web |
+| Neon | Basis data PostgreSQL terkelola (serverless) |
+| Docker | Lingkungan pengembangan lokal & kontainerisasi |
+| Vercel Logs | Observabilitas runtime dan error log bawaan |
 
-## 6. Application Layer Architecture
+## 6. Arsitektur Lapisan Aplikasi
 
 ```mermaid
 flowchart TD
-    PRESENTATION[Presentation Layer]
-    INTERFACE[Application Interface]
-    SECURITY[Authentication and Authorization]
-    BUSINESS[Business Service Layer]
-    DATA[Repository Layer]
+    PRESENTATION[Lapisan Presentasi / Presentation Layer]
+    INTERFACE[Lapisan Antarmuka Aplikasi / Interface Layer]
+    SECURITY[Autentikasi dan Otorisasi]
+    BUSINESS[Lapisan Layanan Bisnis / Service Layer]
+    DATA[Lapisan Repositori Data / Repository Layer]
     PRISMA[Prisma ORM]
-    DATABASE[(PostgreSQL)]
+    DATABASE[(Basis Data PostgreSQL)]
 
     PRESENTATION --> INTERFACE
     INTERFACE --> SECURITY
@@ -139,77 +133,72 @@ flowchart TD
     PRISMA --> DATABASE
 ```
 
-### 6.1 Presentation Layer
+### 6.1 Lapisan Presentasi (Presentation Layer)
 
-Responsibilities:
+Tanggung jawab:
 
-- Application pages.
-- Layouts and navigation.
-- UI components.
-- Forms.
-- Client-side interaction.
-- Loading and error states.
-- Shopping cart interaction.
+- Halaman aplikasi (pages).
+- Tata letak (layouts) dan navigasi.
+- Komponen antarmuka pengguna (UI components).
+- Formulir interaktif.
+- Interaksi sisi klien.
+- Tampilan status pemuatan (loading) dan pesan error.
+- Interaksi pengguna pada keranjang belanja POS.
 
-The presentation layer must not directly access the database
-from Client Components.
+Lapisan presentasi pada Client Components dilarang keras mengakses basis data secara langsung.
 
-### 6.2 Application Interface Layer
+### 6.2 Lapisan Antarmuka Aplikasi (Interface Layer)
 
-Responsibilities:
+Tanggung jawab:
 
 - Server Actions.
 - Route Handlers.
-- Request and response handling.
-- Request validation.
-- Authentication and authorization checks.
-- Delegation to business services.
+- Penanganan request dan response.
+- Validasi awal bentuk permintaan (payload schema).
+- Pemicu pemeriksaan autentikasi dan otorisasi.
+- Mendelegasikan eksekusi ke lapisan layanan bisnis.
 
-Interfaces should not contain complex transaction logic.
+Lapisan antarmuka tidak boleh memuat logika transaksi atau aturan bisnis yang kompleks.
 
-### 6.3 Business Service Layer
+### 6.3 Lapisan Layanan Bisnis (Business Service Layer)
 
-Responsibilities:
+Tanggung jawab:
 
-- Business rule enforcement.
-- Product validation.
-- Inventory calculations.
-- Transaction calculations.
-- Checkout orchestration.
-- Authorization-sensitive business operations.
-- Transaction boundaries.
+- Penegakan aturan bisnis inti.
+- Validasi status dan ketersediaan produk.
+- Perhitungan stok inventaris.
+- Perhitungan total transaksi, diskon, dan kembalian.
+- Orkestrasi alur checkout.
+- Pembatasan logika bisnis berdasarkan izin otorisasi.
+- Penentuan batasan transaksi atomik (transaction boundaries).
 
-The service layer contains the primary application logic.
+Lapisan ini merupakan pusat utama dari seluruh aturan dan alur kerja aplikasi.
 
-### 6.4 Repository Layer
+### 6.4 Lapisan Repositori (Repository Layer)
 
-Responsibilities:
+Tanggung jawab:
 
-- Database queries.
-- Data persistence.
-- Filtering and pagination.
-- Conditional inventory updates.
-- Transaction-aware database operations.
+- Eksekusi query basis data.
+- Persistensi data.
+- Penerapan filter dan paginasi data.
+- Pembaruan kondisional stok inventaris.
+- Operasi basis data yang sadar transaksi (transaction-aware).
 
-Repositories must support receiving a transaction-scoped
-Prisma client when participating in atomic operations.
+Repositori wajib mendukung penerimaan instance klien Prisma dalam konteks transaksi (`tx`) saat terlibat dalam operasi atomik.
 
-### 6.5 Database Layer
+### 6.5 Lapisan Basis Data (Database Layer)
 
-Responsibilities:
+Tanggung jawab:
 
-- Persistent data storage.
-- Primary key constraints.
-- Foreign key relationships.
-- Unique constraints.
-- Check constraints.
-- Database indexes.
-- Atomic transactions.
+- Penyimpanan data persisten yang andal.
+- Penegakan konstrain primary key dan foreign key.
+- Penegakan unique constraints dan check constraints.
+- Pengindeksan kolom untuk kecepatan query.
+- Penjaminan isolasi transaksi atomik (ACID).
 
-## 7. Proposed Project Structure
+## 7. Usulan Struktur Direktori Proyek
 
-The following structure will be introduced progressively
-during implementation.
+Struktur berikut akan diterapkan secara bertahap selama masa pengembangan:
 
 ```text
 cashierflow/
@@ -307,24 +296,21 @@ cashierflow/
 └── README.md
 ```
 
-Optional modules should not be created prematurely.
+Modul opsional tidak boleh dibuat secara prematur sebelum fitur intinya selesai.
 
-The exact framework configuration files will be determined by
-the dependency versions selected during project initialization.
-
-## 8. Module Architecture
+## 8. Arsitektur Modul
 
 ```mermaid
 flowchart TD
-    AUTH[Authentication]
-    USER[User Administration]
-    PRODUCT[Product Management]
-    MASTER[Master Data]
-    INVENTORY[Inventory Management]
+    AUTH[Autentikasi]
+    USER[Administrasi Pengguna]
+    PRODUCT[Manajemen Produk]
+    MASTER[Data Master]
+    INVENTORY[Manajemen Inventaris]
     POS[Point of Sale]
-    SALES[Transaction Management]
-    REPORT[Reporting]
-    DASHBOARD[Dashboard]
+    SALES[Manajemen Transaksi]
+    REPORT[Pelaporan]
+    DASHBOARD[Dasbor Bisnis]
 
     USER --> AUTH
     PRODUCT --> MASTER
@@ -337,47 +323,42 @@ flowchart TD
     DASHBOARD --> REPORT
 ```
 
-All protected modules depend on the shared authentication
-and authorization mechanisms.
+Seluruh modul yang dilindungi bergantung pada mekanisme autentikasi dan otorisasi bersama.
 
-Modules should communicate through well-defined services
-rather than directly modifying each other's database records.
+Antarmodul harus berkomunikasi melalui antarmuka service layer yang terdefinisi dengan baik, bukan dengan mengubah rekaman basis data modul lain secara serampangan.
 
-## 9. Preliminary Database Architecture
+## 9. Arsitektur Basis Data Awal
 
-PostgreSQL is used as the primary relational database.
+PostgreSQL digunakan sebagai basis data relasional utama.
 
-### 9.1 Proposed Core Entities
+### 9.1 Entitas Inti yang Diusulkan
 
-| Entity | Responsibility |
+| Entitas | Tanggung Jawab |
 |---|---|
-| users | Application user accounts |
-| categories | Product classification |
-| units | Product units |
-| products | Product information and current stock |
-| suppliers | Supplier information |
-| stock_movements | Inventory movement history |
-| transactions | Completed sales and cash payment summaries |
-| transaction_items | Purchased products and historical values |
+| users | Akun pengguna aplikasi beserta peran dan kredensialnya |
+| categories | Pengelompokan klasifikasi kategori produk |
+| units | Satuan ukuran unit produk |
+| products | Informasi produk, harga, dan jumlah stok terkini |
+| suppliers | Informasi profil pemasok barang |
+| stock_movements | Riwayat pergerakan dan mutasi stok inventaris |
+| transactions | Transaksi penjualan yang telah selesai dan ringkasan pembayaran |
+| transaction_items | Rincian barang yang dibeli beserta snapshot nilai historisnya |
 
-### 9.2 Optional Entities
+### 9.2 Entitas Opsional
 
-| Entity | Responsibility |
+| Entitas | Tanggung Jawab |
 |---|---|
-| customers | Customer information |
-| activity_logs | General user activity history |
-| store_settings | Store and receipt configuration |
+| customers | Informasi data pelanggan |
+| activity_logs | Catatan riwayat aktivitas penting pengguna |
+| store_settings | Konfigurasi informasi toko dan format struk |
 
-The MVP uses predefined roles. A database enum or equivalent
-constrained role field is sufficient initially.
+Sistem MVP menggunakan peran pengguna bawaan. Enum pada basis data atau kolom teks dengan konstrain sudah memadai untuk tahap awal.
 
-A separate custom-role and permission-management schema is
-not required for the first release.
+Tabel terpisah untuk peran kustom dan manajemen izin granular belum diperlukan pada rilis pertama.
 
-Auth.js-related tables may be introduced if required by the
-selected authentication and session strategy.
+Tabel pendukung untuk Auth.js dapat ditambahkan jika strategi manajemen sesi membutuhkannya.
 
-### 9.3 Preliminary Entity Relationships
+### 9.3 Relasi Entitas Awal (Konseptual)
 
 ```mermaid
 erDiagram
@@ -392,225 +373,209 @@ erDiagram
     TRANSACTIONS o|--o{ STOCK_MOVEMENTS : generates
 ```
 
-This is a conceptual overview, not the final physical ERD.
+Diagram di atas merupakan gambaran konseptual awal, bukan ERD fisik final. Desain basis data fisik lengkap beserta tipe kolom, constraint, indeks, dan aturan cascade akan diselesaikan pada Hari ke-02.
 
-The complete database design, column definitions, constraints,
-indexes, and referential actions will be finalized on Day 02.
+## 10. Strategi Integritas Data
 
-## 10. Data Integrity Strategy
+Sistem wajib menegakkan aturan integritas data berikut:
 
-The system must enforce the following constraints:
+- Primary key untuk setiap entitas persisten.
+- Foreign key untuk menjaga integritas relasi antartabel.
+- Alamat email yang unik dan dinormalisasi.
+- SKU produk yang unik dan dinormalisasi.
+- Barcode yang unik jika diisi (bukan string kosong).
+- Nomor faktur/invoice yang unik secara global.
+- Konstrain nilai stok barang tidak boleh negatif (`stock >= 0`).
+- Kuantitas penjualan wajib berupa bilangan positif (`quantity > 0`).
+- Harga jual wajib lebih besar dari nol (`selling_price > 0`).
+- Harga beli/modal tidak boleh negatif (`purchase_cost >= 0`).
+- Kunci idempotensi unik per akun pengguna.
 
-- Primary keys for persistent entities.
-- Foreign keys for related records.
-- Unique normalized email addresses.
-- Unique normalized product SKUs.
-- Unique non-empty barcodes.
-- Unique invoice numbers.
-- Non-negative product stock.
-- Positive sale quantities.
-- Positive selling prices.
-- Non-negative purchase costs.
-- Unique user-scoped idempotency keys.
+Konstrain basis data yang tidak dapat direpresentasikan secara langsung oleh skema bawaan ORM harus ditambahkan melalui skrip migrasi SQL tertinjau.
 
-Database constraints that are not represented directly by the
-ORM schema must be added through reviewed SQL migrations.
-
-## 11. Checkout Transaction Architecture
+## 11. Arsitektur Transaksi Checkout
 
 ```mermaid
 sequenceDiagram
-    actor Cashier
-    participant UI as POS Interface
-    participant API as Server Action or Route Handler
-    participant Service as Checkout Service
-    participant DB as PostgreSQL
+    actor Cashier as Kasir
+    participant UI as Antarmuka POS
+    participant API as Server Action atau Route Handler
+    participant Service as Layanan Checkout (Service)
+    participant DB as Basis Data PostgreSQL
 
-    Cashier->>UI: Confirm cash payment
-    UI->>API: Submit cart and idempotency key
-    API->>API: Authenticate and authorize
-    API->>API: Validate request structure
-    API->>Service: Execute checkout
-    Service->>DB: Check idempotency
+    Cashier->>UI: Konfirmasi pembayaran tunai
+    UI->>API: Kirim data keranjang & kunci idempotensi
+    API->>API: Autentikasi dan verifikasi izin peran
+    API->>API: Validasi struktur payload (Zod)
+    API->>Service: Eksekusi transaksi checkout
+    Service->>DB: Periksa kunci idempotensi
 
-    alt Existing identical successful request
-        DB-->>Service: Original transaction
-        Service-->>API: Original result
-    else New checkout request
-        Service->>DB: Begin transaction
-        Service->>DB: Validate current products
-        Service->>Service: Recalculate totals
-        Service->>DB: Create transaction and items
-        Service->>DB: Conditionally deduct stock
-        Service->>DB: Create stock movements
+    alt Kunci identik dan transaksi lama sudah berhasil
+        DB-->>Service: Kembalikan data transaksi asli
+        Service-->>API: Kembalikan hasil asli
+    else Permintaan checkout baru
+        Service->>DB: Mulai transaksi atomik (BEGIN)
+        Service->>DB: Baca dan validasi produk terkini
+        Service->>Service: Hitung ulang total di server
+        Service->>DB: Buat rekaman transaksi & item
+        Service->>DB: Potong stok secara kondisional
+        Service->>DB: Buat rekaman mutasi stok (SALE)
 
-        alt All operations succeed
-            Service->>DB: Commit
-            Service-->>API: Completed transaction
-        else Operation fails
-            Service->>DB: Rollback
-            Service-->>API: Structured error
+        alt Seluruh operasi sukses
+            Service->>DB: Commit transaksi (COMMIT)
+            Service-->>API: Hasil transaksi berhasil
+        else Terjadi kegagalan / stok kurang
+            Service->>DB: Batalkan seluruh operasi (ROLLBACK)
+            Service-->>API: Respon error terstruktur
         end
     end
 
-    API-->>UI: Checkout result
-    UI-->>Cashier: Receipt or error message
+    API-->>UI: Kirim hasil ke antarmuka
+    UI-->>Cashier: Tampilkan struk atau pesan error
 ```
 
-### 11.1 Atomicity
+### 11.1 Atomisitas (Atomicity)
 
-Checkout uses a Prisma interactive database transaction.
+Proses checkout menggunakan transaksi interaktif Prisma (`prisma.$transaction`).
 
-The transaction boundary includes:
+Batasan transaksi mencakup:
 
-- Transaction creation.
-- Transaction item creation.
-- Payment information.
-- Inventory deductions.
-- Stock movement records.
-- Idempotency information.
+- Pembuatan rekaman transaksi induk.
+- Pembuatan rekaman rincian item transaksi.
+- Pencatatan informasi pembayaran uang tunai.
+- Pemotongan kuantitas stok barang di tabel produk.
+- Pembuatan rekaman mutasi stok untuk setiap item.
+- Penyimpanan rekaman status kunci idempotensi.
 
-Any failed operation must roll back the complete checkout.
+Jika terjadi satu saja kegagalan dalam proses di atas, seluruh transaksi wajib di-rollback secara penuh.
 
-### 11.2 Concurrency Control
+### 11.2 Kontrol Konkurensi (Concurrency Control)
 
-Inventory updates must not use an unprotected
-read-then-write approach.
+Pembaruan stok inventaris tidak boleh menggunakan pendekatan baca-lalu-tulis (*read-then-write*) yang tidak terlindungi.
 
-The implementation must:
+Implementasi wajib:
 
-1. Validate current product information.
-2. Use conditional inventory updates that verify stock
-   availability at the time of modification.
-3. Check affected row counts.
-4. Abort the transaction if stock becomes insufficient.
-5. Process product identifiers in deterministic order.
-6. Handle transaction conflicts and deadlocks safely.
-7. Retry only appropriate transient failures within
-   bounded retry limits.
+1. Memvalidasi ketersediaan dan status produk terkini.
+2. Menggunakan pembaruan kondisional di basis data yang memverifikasi bahwa stok mencukupi saat perintah pembaruan dijalankan (`WHERE id = ? AND stock >= ?`).
+3. Memeriksa jumlah baris yang terpengaruh (affected rows count).
+4. Membatalkan transaksi jika stok ternyata tidak lagi mencukupi.
+5. Memproses identitas produk dalam urutan deterministik (misal: diurutkan berdasarkan Product ID) untuk mencegah kebuntuan (*deadlock*).
+6. Menangani konflik transaksi dan deadlock dengan aman.
+7. Mengulang (retry) hanya untuk kegagalan transien yang aman dengan batas perulangan terbatas.
 
-Concurrent price and product-status changes must also be
-handled through appropriate transaction isolation, locking,
-or version checks.
+Perubahan harga dan status produk yang terjadi bersamaan juga harus ditangani melalui isolasi transaksi, penguncian baris, atau pemeriksaan versi data yang memadai.
 
-### 11.3 Idempotency
+### 11.3 Idempotensi (Idempotency)
 
-Each intended checkout receives a unique client-generated key.
+Setiap transaksi checkout yang diniatkan di sisi klien wajib menghasilkan kunci acak unik (UUID).
 
-The database enforces uniqueness for the combination of
-requesting user and idempotency key.
+Basis data menegakkan keunikan kombinasi antara ID pengguna pemohon dan kunci idempotensi tersebut.
 
-An identical successful request returns the original result.
+Permintaan identik yang berhasil sebelumnya akan langsung mengembalikan hasil transaksi asli tanpa membuat transaksi baru.
 
-Different request data using the same key returns a conflict.
+Permintaan dengan data yang berbeda menggunakan kunci yang sama akan ditolak dengan error konflik status.
 
-Any concurrent unique-key collision must be reconciled
-against the already committed checkout before replying.
+Tabrakan kunci bersamaan harus direkonsiliasi dengan data yang telah di-commit sebelum merespons ke klien.
 
-## 12. Authentication Architecture
+## 12. Arsitektur Autentikasi
 
 ```mermaid
 flowchart TD
-    LOGIN[Login Form]
-    AUTH[Auth.js Credentials]
-    VALIDATE[Validate Credentials]
-    USER[(User Account)]
-    ACTIVE{Account Active?}
-    PASSWORD{Password Valid?}
-    SESSION[Create Secure Session]
-    PROTECTED[Protected Application]
-    DENIED[Reject Authentication]
+    LOGIN[Formulir Login]
+    AUTH[Auth.js Credentials Provider]
+    VALIDATE[Validasi Kredensial]
+    USER[(Akun Pengguna)]
+    ACTIVE{Akun Aktif?}
+    PASSWORD{Kata Sandi Benar?}
+    SESSION[Buat Sesi Aman]
+    PROTECTED[Masuk ke Aplikasi Terproteksi]
+    DENIED[Tolak Autentikasi]
 
     LOGIN --> AUTH
     AUTH --> VALIDATE
     VALIDATE --> USER
     USER --> ACTIVE
-    ACTIVE -->|Yes| PASSWORD
-    ACTIVE -->|No| DENIED
-    PASSWORD -->|Yes| SESSION
-    PASSWORD -->|No| DENIED
+    ACTIVE -->|Ya| PASSWORD
+    ACTIVE -->|Tidak| DENIED
+    PASSWORD -->|Ya| SESSION
+    PASSWORD -->|Tidak| DENIED
     SESSION --> PROTECTED
 ```
 
-Authentication requirements:
+Persyaratan autentikasi:
 
-- Credentials-based login.
-- Secure password hashing.
-- Secure session management.
-- No public self-registration.
-- Initial Owner account provisioned through a controlled seed.
-- Server-side user status and permission validation.
+- Login berbasis email dan kata sandi.
+- Algoritma hashing kata sandi standar industri yang aman.
+- Manajemen sesi terproteksi dengan cookie aman.
+- Pendaftaran mandiri publik (self-registration) tidak diizinkan.
+- Akun Owner pertama kali dibuat melalui skrip seed yang terkontrol.
+- Validasi status akun dan hak akses pengguna dilakukan di sisi server pada setiap operasi.
 
-The selected session strategy must support effective account
-deactivation and role changes.
+Strategi sesi yang dipilih harus mampu mendeteksi dan menerapkan penonaktifan akun serta perubahan peran secara efektif.
 
-## 13. Authorization Architecture
+## 13. Arsitektur Otorisasi (RBAC)
 
-The application uses Role-Based Access Control.
+Aplikasi menerapkan Kontrol Akses Berbasis Peran (Role-Based Access Control - RBAC).
 
-### Supported Roles
+### Peran yang Didukung
 
-- OWNER
-- ADMIN
-- CASHIER
+- OWNER (Pemilik Usaha)
+- ADMIN (Administrator)
+- CASHIER (Kasir)
 
-Every protected operation follows this logical sequence:
+Setiap operasi terproteksi mengikuti urutan logis berikut:
 
-1. Validate authentication.
-2. Resolve the current active user.
-3. Resolve the user's effective role.
-4. Check operation permission.
-5. Check resource ownership where required.
-6. Execute business logic.
+1. Validasi sesi autentikasi pengguna.
+2. Identifikasi pengguna aktif yang bersangkutan.
+3. Tentukan peran efektif yang dimiliki pengguna.
+4. Periksa apakah peran tersebut memiliki izin untuk operasi ini.
+5. Periksa kepemilikan sumber daya data jika relevan (misal: kasir hanya boleh melihat transaksinya sendiri).
+6. Eksekusi logika bisnis.
 
-UI visibility is not a security boundary.
+Visibilitas tombol atau menu di UI bukanlah batas keamanan sistem.
 
-Restricted database fields must be excluded from unauthorized
-server responses, including serialized Server Component data.
+Kolom-kolom basis data yang bersifat rahasia (seperti harga modal dan estimasi laba kotor) wajib disaring dan ditiadakan dari payload yang dikirimkan ke pengguna yang tidak berhak.
 
-## 14. API and Server Action Strategy
+## 14. Strategi API dan Server Action
 
-The application uses both Server Actions and Route Handlers.
+Aplikasi memanfaatkan kombinasi Server Actions dan Route Handlers.
 
 ### Server Actions
 
-Used primarily for:
+Digunakan terutama untuk:
 
-- Form submissions.
-- Master data mutations.
-- User administration.
-- Inventory operations.
+- Pengiriman formulir data.
+- Mutasi data master (tambah, edit, nonaktifkan).
+- Operasi administrasi pengguna.
+- Operasi inventaris stok masuk, keluar, dan penyesuaian.
 
 ### Route Handlers
 
-Used where explicit HTTP interfaces are useful:
+Digunakan untuk kebutuhan antarmuka HTTP eksplisit:
 
-- Checkout requests when exposing a dedicated HTTP endpoint.
-- POS product search.
-- Report downloads.
-- Health checks.
-- Future external integrations.
+- Permintaan transaksi checkout jika mengekspos endpoint HTTP khusus.
+- Pencarian produk kasir (POS product search).
+- Unduhan berkas ekspor laporan.
+- Endpoint health check sistem.
+- Kebutuhan integrasi eksternal di masa depan.
 
-There is no requirement to expose every internal feature
-through a REST endpoint.
+Tidak ada keharusan mengekspos setiap fitur internal ke dalam bentuk REST endpoint publik.
 
-Both interfaces must reuse the same business service layer.
+Baik Server Actions maupun Route Handlers wajib memanggil lapisan layanan bisnis (Service Layer) yang sama.
 
-### Proposed HTTP Endpoints
+### Endpoint HTTP yang Diusulkan
 
-| Method | Endpoint | Responsibility |
+| Metode | Endpoint | Tanggung Jawab |
 |---|---|---|
-| GET | /api/health | Application liveness |
-| GET | /api/v1/products/search | Search permitted POS products |
-| POST | /api/v1/transactions/checkout | Submit checkout |
-| GET | /api/v1/transactions/:id | Retrieve authorized transaction |
-| GET | /api/v1/reports/sales/export | Export sales report |
+| GET | /api/health | Memeriksa keaktifan sistem aplikasi |
+| GET | /api/v1/products/search | Mencari produk yang diizinkan untuk kasir |
+| POST | /api/v1/transactions/checkout | Mengirimkan permintaan checkout penjualan |
+| GET | /api/v1/transactions/:id | Mengambil data detail transaksi yang diizinkan |
+| GET | /api/v1/reports/sales/export | Mengunduh berkas laporan penjualan |
 
-The export endpoint is optional.
+Endpoint ekspor bersifat opsional. Kontrak payload endpoint akan difinalisasi pada saat implementasi.
 
-Exact endpoint contracts will be finalized during implementation.
-
-### Example Successful Response
+### Contoh Respons Berhasil (JSON)
 
 ```json
 {
@@ -624,91 +589,84 @@ Exact endpoint contracts will be finalized during implementation.
 }
 ```
 
-### Example Error Response
+### Contoh Respons Error (JSON)
 
 ```json
 {
   "success": false,
   "error": {
     "code": "INSUFFICIENT_STOCK",
-    "message": "The requested quantity exceeds available stock."
+    "message": "Jumlah kuantitas yang diminta melebihi stok yang tersedia."
   }
 }
 ```
 
-## 15. State Management Strategy
+## 15. Strategi Manajemen State
 
-| State Type | Approach |
+| Jenis State | Pendekatan |
 |---|---|
-| Server-rendered data | React Server Components |
-| Form state | React Hook Form |
-| Validation | Zod |
-| Shopping cart | Zustand |
-| Local UI state | React state |
-| Filters and pagination | URL search parameters |
-| Authentication state | Auth.js |
+| Data Server-rendered | React Server Components (RSC) |
+| State Formulir | React Hook Form |
+| Validasi Skema | Zod |
+| Keranjang Belanja POS | Zustand (Client-side state) |
+| State UI Lokal | React useState / useReducer |
+| Filter dan Paginasi | URL Search Parameters |
+| State Sesi Autentikasi | Auth.js |
 
-Client-side shopping cart state is temporary and is not
-the authoritative source of prices or inventory.
+State keranjang belanja di sisi klien bersifat sementara dan bukan merupakan sumber data otoritatif untuk harga maupun sisa stok barang.
 
-Dynamic authenticated data must not be cached across users
-in a way that exposes private information.
+Data pengguna terautentikasi tidak boleh di-cache secara publik yang dapat menimbulkan kebocoran data antar-pengguna.
 
-## 16. Deployment Architecture
+## 16. Arsitektur Deployment
 
 ```mermaid
 flowchart TD
-    DEV[Developer]
-    GITHUB[GitHub Repository]
-    CI[GitHub Actions]
+    DEV[Pengembang / Developer]
+    GITHUB[Repositori GitHub]
+    CI[GitHub Actions CI]
     PREVIEW[Vercel Preview]
     PROD[Vercel Production]
-    PREVIEW_DB[(Neon Preview Database)]
-    PROD_DB[(Neon Production Database)]
-    USERS[Application Users]
+    PREVIEW_DB[(Basis Data Preview Neon)]
+    PROD_DB[(Basis Data Produksi Neon)]
+    USERS[Pengguna Aplikasi / Publik]
 
     DEV --> GITHUB
     GITHUB --> CI
     GITHUB --> PREVIEW
-    CI -->|Validated Release| PROD
+    CI -->|Rilis Tervalidasi| PROD
     PREVIEW --> PREVIEW_DB
     PROD --> PROD_DB
     USERS -->|HTTPS| PROD
 ```
 
-The diagram represents the intended release-gated architecture.
+### Definisi Lingkungan
 
-Preview deployments may occur before CI completion.
-
-### Environment Definitions
-
-| Environment | Purpose | Database |
+| Lingkungan | Tujuan | Basis Data |
 |---|---|---|
-| Development | Local implementation | Local or isolated development DB |
-| Preview | Feature validation | Isolated preview DB |
-| Production | Public MVP demo | Production demo DB |
-| CI Test | Automated testing | Ephemeral test DB |
+| Development | Pengembangan lokal harian | Basis data lokal atau development terisolasi |
+| Preview | Validasi fungsional fitur PR | Basis data preview terisolasi |
+| Production | Demo MVP publik | Basis data produksi demo |
+| CI Test | Pengujian otomatis alur CI | Basis data pengujian ephemeral / terisolasi |
 
-Production credentials must not be used for preview or
-automated testing.
+Kredensial basis data produksi dilarang keras digunakan untuk keperluan lingkungan preview atau pengujian otomatis.
 
-## 17. Continuous Integration
+## 17. Continuous Integration (CI)
 
-GitHub Actions validates changes before release.
+GitHub Actions memvalidasi integritas setiap perubahan kode sebelum dapat digabungkan ke branch utama.
 
 ```mermaid
 flowchart TD
-    PUSH[Push or Pull Request]
-    INSTALL[Install Dependencies]
+    PUSH[Push Kode atau Pull Request]
+    INSTALL[Instal Dependensi]
     GENERATE[Generate Prisma Client]
-    LINT[ESLint]
-    TYPES[TypeScript Check]
+    LINT[Pemeriksaan ESLint]
+    TYPES[Pemeriksaan Tipe TypeScript]
     TEST[Unit Tests]
     INTEGRATION[Integration Tests]
-    BUILD[Application Build]
-    RESULT{All Required Checks Passed?}
-    SUCCESS[Release Eligible]
-    FAILURE[Fix Required]
+    BUILD[Build Aplikasi Next.js]
+    RESULT{Seluruh Pemeriksaan Lulus?}
+    SUCCESS[Memenuhi Syarat Rilis]
+    FAILURE[Perbaikan Diperlukan]
 
     PUSH --> INSTALL
     INSTALL --> GENERATE
@@ -721,99 +679,83 @@ flowchart TD
     TEST --> BUILD
     INTEGRATION --> BUILD
     BUILD --> RESULT
-    RESULT -->|Yes| SUCCESS
-    RESULT -->|No| FAILURE
+    RESULT -->|Ya| SUCCESS
+    RESULT -->|Tidak| FAILURE
 ```
 
-Required CI operations:
+Operasi wajib pada alur CI:
 
-1. Check out repository.
-2. Configure the Node.js runtime.
-3. Install locked dependencies.
-4. Generate the Prisma client.
-5. Run ESLint.
-6. Run TypeScript checks.
-7. Run unit tests.
-8. Run integration tests using an isolated PostgreSQL database.
-9. Build the application.
-10. Report workflow results.
+1. Checkout kode sumber repositori.
+2. Konfigurasi runtime Node.js.
+3. Instalasi dependensi terkunci (`package-lock.json`).
+4. Generate Prisma Client.
+5. Menjalankan pemeriksaan ESLint.
+6. Menjalankan pemeriksaan kompilasi TypeScript.
+7. Menjalankan pengujian unit (unit tests).
+8. Menjalankan pengujian integrasi (integration tests) dengan basis data PostgreSQL terisolasi.
+9. Memverifikasi proses build aplikasi.
+10. Melaporkan status hasil alur kerja ke GitHub.
 
-Critical Playwright E2E scenarios must pass before release,
-either in CI or through an explicitly verified release job.
+Skenario E2E Playwright yang bersifat kritis wajib lulus sebelum versi rilis diluncurkan ke produksi.
 
-The initial workflow will be introduced on Day 04 and extended
-as testable application modules become available.
+## 18. Continuous Deployment (CD)
 
-## 18. Continuous Deployment
+### Strategi Deployment Awal
 
-### Initial Deployment Strategy
+Integrasi Git Vercel otomatis digunakan untuk:
 
-Vercel Git Integration is used for:
+- Deployment pratinjau (Preview) pada branch fitur.
+- Integrasi pratinjau pada branch pengembangan.
+- Deployment otomatis ke lingkungan produksi dari branch `main`.
 
-- Feature branch preview deployments.
-- Development integration previews.
-- Production deployment from the main branch.
+Pengembang wajib memastikan seluruh pemeriksaan pada alur CI berhasil lulus sebelum melakukan merge ke branch `main`.
 
-Required GitHub status checks should protect the main branch
-where supported by the repository configuration.
+### Strategi Deployment Lanjutan
 
-The initial strategy is only release-gated if merges and direct
-pushes are appropriately restricted.
-
-Without those restrictions, the developer must explicitly
-verify CI results before merging or deploying production code.
-
-### Advanced Deployment Strategy
-
-The advanced workflow will use GitHub Actions and the Vercel CLI
-to make production deployment depend on successful test jobs.
+Alur lanjutan menggunakan kombinasi GitHub Actions dan Vercel CLI agar proses deployment ke produksi benar-benar terkunci dan hanya berjalan setelah rangkaian pengujian lulus.
 
 ```mermaid
 flowchart TD
-    MERGE[Approved Release]
-    CI[Required CI Checks]
-    RESULT{Checks Passed?}
-    MIGRATE[Controlled Database Migration]
-    DEPLOY[Vercel Production Deployment]
-    SMOKE[Production Smoke Tests]
-    DONE[Release Verified]
-    BLOCK[Stop Release]
+    MERGE[Pull Request Disetujui]
+    CI[Pemeriksaan CI Wajib]
+    RESULT{Semua Tes Lulus?}
+    MIGRATE[Migrasi Basis Data Terkelola]
+    DEPLOY[Deploy Produksi ke Vercel]
+    SMOKE[Smoke Test Lingkungan Produksi]
+    DONE[Rilis Terverifikasi]
+    BLOCK[Hentikan Rilis & Laporkan]
 
     MERGE --> CI
     CI --> RESULT
-    RESULT -->|Yes| MIGRATE
-    RESULT -->|No| BLOCK
-    MIGRATE -->|Success| DEPLOY
-    MIGRATE -->|Failure| BLOCK
+    RESULT -->|Ya| MIGRATE
+    RESULT -->|Tidak| BLOCK
+    MIGRATE -->|Berhasil| DEPLOY
+    MIGRATE -->|Gagal| BLOCK
     DEPLOY --> SMOKE
-    SMOKE -->|Success| DONE
-    SMOKE -->|Failure| BLOCK
+    SMOKE -->|Berhasil| DONE
+    SMOKE -->|Gagal| BLOCK
 ```
 
-The advanced workflow will replace or appropriately disable
-the automatic production deployment path to avoid conflicting
-duplicate deployments.
+## 19. Strategi Git Branching dan Conventional Commits
 
-## 19. Git Branching Strategy
-
-| Branch | Purpose |
+| Branch | Tujuan |
 |---|---|
-| main | Production-ready releases |
-| develop | Feature integration |
-| feature/* | New features |
-| fix/* | Bug fixes |
-| hotfix/* | Urgent production fixes |
+| main | Versi stabil siap produksi (production-ready) |
+| develop | Integrasi fitur sebelum persiapan rilis |
+| feature/* | Pengembangan fitur baru |
+| fix/* | Perbaikan bug non-kritis |
+| hotfix/* | Perbaikan darurat langsung untuk lingkungan produksi |
 
-### Development Lifecycle
+### Alur Siklus Pengembangan
 
 ```mermaid
 flowchart LR
-    FEATURE[Feature Branch]
-    PR1[Feature Pull Request]
-    DEVELOP[Develop Branch]
-    PR2[Release Pull Request]
-    MAIN[Main Branch]
-    PROD[Production]
+    FEATURE[Branch Fitur / feature/*]
+    PR1[Pull Request ke Develop]
+    DEVELOP[Branch Develop]
+    PR2[Pull Request ke Main]
+    MAIN[Branch Main]
+    PROD[Lingkungan Produksi]
 
     FEATURE --> PR1
     PR1 --> DEVELOP
@@ -822,276 +764,243 @@ flowchart LR
     MAIN --> PROD
 ```
 
-### Conventional Commits
+### Konvensi Commit (Conventional Commits)
 
-| Type | Usage |
+| Tipe | Penggunaan |
 |---|---|
-| feat | New functionality |
-| fix | Bug fixes |
-| docs | Documentation |
-| refactor | Internal code restructuring |
-| test | Automated tests |
-| ci | CI/CD configuration |
-| chore | Maintenance tasks |
-| perf | Performance improvements |
-| build | Build configuration |
+| feat | Menambah fitur atau fungsionalitas baru |
+| fix | Memperbaiki bug atau kesalahan sistem |
+| docs | Menambah atau mengubah dokumentasi |
+| refactor | Restrukturisasi kode tanpa mengubah fungsionalitas |
+| test | Menambah atau memperbarui pengujian otomatis |
+| ci | Konfigurasi sistem CI/CD dan alur kerja otomatis |
+| chore | Pemeliharaan dependensi atau tugas rutin |
+| perf | Peningkatan performa kode atau query |
+| build | Perubahan pada sistem build atau konfigurasi paket |
 
-Example commits:
+Contoh pesan commit:
 
-    docs: add business requirements document
-    feat: implement product management
-    feat: implement atomic checkout
-    test: add concurrent checkout tests
-    ci: configure github actions workflow
-    fix: prevent unauthorized transaction access
+    docs: tambahkan dokumen kebutuhan bisnis BRD
+    feat: implementasikan manajemen data master produk
+    feat: implementasikan transaksi checkout atomik
+    test: tambahkan pengujian konkurensi checkout
+    ci: konfigurasikan alur kerja github actions
+    fix: cegah akses tidak sah ke riwayat transaksi kasir lain
 
-## 20. Environment Configuration
+## 20. Konfigurasi Lingkungan (Environment Variables)
 
-### Proposed Variables
+### Variabel yang Diusulkan
 
-| Variable | Purpose |
+| Variabel | Tujuan |
 |---|---|
-| DATABASE_URL | Runtime PostgreSQL connection |
-| AUTH_SECRET | Auth.js session secret |
-| APP_URL | Application base URL where required |
-| STORE_TIMEZONE | Default store timezone |
-| SEED_OWNER_EMAIL | Initial Owner provisioning |
-| SEED_OWNER_PASSWORD | Initial Owner provisioning |
+| DATABASE_URL | String koneksi basis data PostgreSQL untuk runtime aplikasi |
+| AUTH_SECRET | Kunci enkripsi rahasia sesi Auth.js |
+| APP_URL | URL dasar aplikasi web jika dibutuhkan |
+| STORE_TIMEZONE | Zona waktu default toko (misal: `Asia/Jakarta`) |
+| SEED_OWNER_EMAIL | Email untuk inisialisasi akun Owner pertama kali |
+| SEED_OWNER_PASSWORD | Kata sandi untuk inisialisasi akun Owner pertama kali |
 
-A separate direct database connection may be configured for
-migrations depending on Prisma and Neon integration.
+Kredensial asli wajib disimpan pada file lokal yang di-ignore (`.env.local`), GitHub Secrets, atau Vercel Environment Variables. Repositori Git hanya boleh menyimpan file contoh tanpa nilai rahasia (`.env.example`).
 
-The exact environment variable names and database configuration
-will be finalized during Day 03 and Day 04.
+## 21. Strategi Migrasi Basis Data
 
-All real secrets must be stored in local ignored environment
-files, GitHub Secrets, or Vercel environment configuration.
+- Seluruh perubahan skema basis data wajib dicatat di dalam Git.
+- Pembuatan file migrasi dilakukan di lingkungan pengembangan lokal (`prisma migrate dev`).
+- File SQL hasil migrasi wajib ditinjau sebelum di-commit.
+- Uji eksekusi migrasi pada basis data terisolasi sebelum diterapkan ke produksi.
+- Penerapan migrasi ke produksi dilakukan melalui perintah deployment terkontrol (`prisma migrate deploy`).
+- Hindari perubahan skema yang bersifat destruktif; utamakan perubahan yang *backward-compatible*.
+- Pastikan ketersediaan opsi pemulihan data (backup/recovery) sebelum menjalankan migrasi berisiko tinggi.
 
-Only non-sensitive examples may be committed.
+Migrasi basis data tidak boleh dijalankan secara otomatis pada setiap request serverless aplikasi.
 
-## 21. Database Migration Strategy
+Perlu dicatat bahwa rollback kode aplikasi tidak secara otomatis membatalkan perubahan skema pada basis data.
 
-- Store schema changes in Git.
-- Create migrations in the development environment.
-- Review generated SQL.
-- Test migrations against isolated databases.
-- Apply production migrations through controlled release jobs.
-- Avoid destructive schema changes where possible.
-- Prefer backward-compatible schema changes.
-- Verify database recovery options before high-risk migrations.
+## 22. Arsitektur Pengujian (Testing)
 
-Typical migration commands:
+### Pengujian Unit (Unit Testing)
 
-```bash
-npx prisma migrate dev
-npx prisma migrate deploy
-```
+Menguji logika bisnis murni yang terisolasi:
 
-The production application must not run development migrations.
+- Kalkulasi total transaksi belanja.
+- Validasi aturan potongan diskon.
+- Validasi kecukupan pembayaran uang tunai.
+- Validasi aturan jumlah stok.
+- Formula kalkulasi laba kotor.
+- Pemeriksaan izin hak akses peran.
 
-Migrations must not execute automatically on every serverless
-application request.
+### Pengujian Integrasi (Integration Testing)
 
-Application rollback does not automatically reverse database
-schema changes.
+Menguji interaksi antarmodul dan akses basis data PostgreSQL terisolasi:
 
-## 22. Testing Architecture
+- Penyimpanan dan pembacaan produk.
+- Mutasi stok barang masuk, keluar, dan penyesuaian.
+- Eksekusi transaksi atomik checkout.
+- Rollback transaksi saat terjadi kegagalan.
+- Penegakan unique constraints dan foreign keys.
+- Efektivitas penanganan idempotensi.
+- Pembaruan stok secara konkuren.
 
-### Unit Testing
+### Pengujian End-to-End (E2E Testing)
 
-Test isolated business logic:
+Menguji alur lengkap perjalanan pengguna melalui antarmuka web:
 
-- Transaction calculations.
-- Discount validation.
-- Payment validation.
-- Stock validation.
-- Report calculations.
-- Role permission checks.
+- Alur login berhasil dan penolakan kredensial salah.
+- Penolakan akses ke rute terproteksi.
+- Pembuatan dan pembaruan data master produk.
+- Pencatatan operasi stok barang.
+- Alur lengkap transaksi penjualan kasir (POS).
+- Penolakan checkout saat uang pembayaran kurang.
+- Tampilan dan pencetakan struk transaksi.
 
-### Integration Testing
+## 23. Arsitektur Keamanan
 
-Test application services against an isolated PostgreSQL database:
+Lapisan pertahanan keamanan sistem meliputi:
 
-- Product persistence.
-- Inventory movements.
-- Atomic checkout.
-- Transaction rollback.
-- Unique constraints.
-- Idempotency.
-- Concurrent stock updates.
+- Penegakan koneksi aman HTTPS.
+- Hashing kata sandi yang kuat dan aman.
+- Manajemen cookie sesi dengan proteksi HttpOnly, Secure, dan SameSite.
+- Otorisasi RBAC ketat di sisi server.
+- Pemeriksaan kepemilikan data (ownership checks).
+- Validasi ketat seluruh payload input menggunakan Zod.
+- Penggunaan parameterized query untuk mencegah SQL Injection.
+- Perlindungan dari serangan CSRF.
+- Pembatasan laju request (rate limiting) pada aksi autentikasi dan mutasi sensitif.
+- Penanganan error yang aman tanpa mengekspos rincian database atau kredensial.
+- Peninjauan keamanan dependensi berkala (`npm audit`).
+- Isolasi total kredensial rahasia pada environment variables.
+- Pembatasan akses demo publik hanya dengan data fiktif.
 
-### End-to-End Testing
+## 24. Strategi Penanganan Error
 
-Test critical user journeys:
+Sistem mengklasifikasikan error secara terstruktur:
 
-- Successful login.
-- Unauthorized access rejection.
-- Product creation.
-- Inventory updates.
-- Successful POS checkout.
-- Insufficient payment rejection.
-- Transaction receipt viewing.
+- Error validasi input.
+- Error kegagalan autentikasi.
+- Error pelanggaran otorisasi / hak akses.
+- Error data sumber daya tidak ditemukan (not found).
+- Error pelanggaran aturan bisnis (business rule violations).
+- Error konflik transaksi atau idempotensi.
+- Error kegagalan infrastruktur basis data atau server.
 
-## 23. Security Architecture
+Error bisnis yang diperkirakan mengembalikan respons aman dan terstruktur dengan kode error yang jelas.
 
-Security controls include:
+Error yang tidak terduga dicatat secara internal pada log server tanpa mengekspos detail teknis atau kredensial kepada klien.
 
-- HTTPS.
-- Secure password hashing.
-- Secure authentication sessions.
-- Server-side RBAC.
-- Resource ownership checks.
-- Zod input validation.
-- Parameterized database operations.
-- Appropriate CSRF protections.
-- Login and sensitive-operation rate limiting.
-- Safe error responses.
-- Dependency security review.
-- Environment variable isolation.
-- Restricted public demo access.
+## 25. Logging dan Monitoring
 
-Rate limiting must not rely exclusively on per-instance memory
-in a serverless environment.
+Sistem MVP memanfaatkan:
 
-## 24. Error Handling Strategy
+- Log error server-side terstruktur.
+- Log deployment dan log runtime bawaan platform Vercel.
+- Log eksekusi alur kerja pada GitHub Actions.
+- Endpoint health check `/api/health` untuk memverifikasi keaktifan aplikasi.
 
-The system distinguishes:
+Endpoint health check melaporkan status liveness aplikasi tanpa membocorkan informasi infrastruktur internal.
 
-- Validation errors.
-- Authentication errors.
-- Authorization errors.
-- Resource-not-found errors.
-- Business rule violations.
-- Transaction conflicts.
-- Infrastructure errors.
+Platform observabilitas pihak ketiga yang kompleks berada di luar cakupan MVP rilis awal.
 
-Expected business errors return safe, structured responses.
+## 26. Strategi Docker
 
-Unexpected errors are logged on the server without exposing
-internal database details or credentials to clients.
+Docker digunakan untuk standarisasi lingkungan pengembangan lokal, reproduksi pengujian otomatis, dan portabilitas deployment di masa depan.
 
-## 25. Logging and Monitoring
+File Docker Compose menyediakan:
 
-The MVP uses:
+- Container aplikasi web Next.js.
+- Container basis data PostgreSQL lokal.
 
-- Structured server-side error logs.
-- Vercel deployment logs.
-- Vercel runtime logs.
-- GitHub Actions workflow logs.
-- Application health checks.
+Deployment ke platform Vercel tidak bergantung pada file Dockerfile aplikasi.
 
-The health endpoint reports application liveness without
-exposing private infrastructure details.
+Dukungan kontainer untuk lingkungan produksi dapat diadopsi di masa depan tanpa perlu mengubah arsitektur bisnis inti aplikasi.
 
-A separate readiness check may be added if required.
+## 27. Rekaman Keputusan Arsitektur (Architectural Decision Records - ADR)
 
-Advanced observability platforms are outside the initial scope.
-
-## 26. Docker Strategy
-
-Docker is intended for local development, reproducible testing,
-and future deployment portability.
-
-Docker Compose may include:
-
-- Next.js application.
-- PostgreSQL development database.
-
-Vercel deployment does not require the application Dockerfile.
-
-Container-based production deployment can be introduced later
-without changing the core business architecture.
-
-## 27. Architecture Decisions
-
-| ID | Decision | Rationale |
+| ID | Keputusan | Alasan dan Rasional |
 |---|---|---|
-| ADR-001 | Modular Monolith | Simple deployment and development |
-| ADR-002 | Next.js Fullstack | Unified frontend and backend |
-| ADR-003 | PostgreSQL | Relational integrity and transactions |
-| ADR-004 | Prisma ORM | Type-safe database access and migration workflow |
-| ADR-005 | Auth.js | Established authentication integration |
-| ADR-006 | Zustand | Lightweight shopping cart state |
-| ADR-007 | Neon | Managed PostgreSQL for initial deployment |
-| ADR-008 | Vercel | Preview and production web deployment |
-| ADR-009 | GitHub Actions | Automated quality checks |
-| ADR-010 | Integer IDR | Avoid floating-point monetary errors |
-| ADR-011 | Atomic Checkout | Prevent partial sales and inconsistent stock |
-| ADR-012 | Single Store | Maintain realistic MVP scope |
-| ADR-013 | Predefined Roles | Reduce authorization complexity |
-| ADR-014 | Cost Snapshots | Preserve historical gross profit estimates |
-| ADR-015 | No Microservices | Avoid premature distributed complexity |
+| ADR-001 | Modular Monolith | Memudahkan pengembangan dan deployment mandiri untuk skala MVP |
+| ADR-002 | Next.js Fullstack | Menggabungkan frontend dan backend dalam satu framework TypeScript terpadu |
+| ADR-003 | PostgreSQL | Menjamin integritas relasional, kepatuhan ACID, dan keandalan transaksi |
+| ADR-004 | Prisma ORM | Menyediakan akses basis data type-safe dan alur migrasi skema yang terkelola |
+| ADR-005 | Auth.js | Pustaka autentikasi yang matang, aman, dan terintegrasi baik dengan Next.js |
+| ADR-006 | Zustand | Manajemen state keranjang belanja kasir yang ringan dan mudah digunakan |
+| ADR-007 | Neon Database | PostgreSQL serverless terkelola dengan tier gratis untuk deployment awal |
+| ADR-008 | Vercel | Platform hosting web optimal untuk Next.js dengan fitur Preview deployments |
+| ADR-009 | GitHub Actions | Otomatisasi alur CI terintegrasi langsung dengan repositori kode sumber |
+| ADR-010 | Nominal Rupiah Bulat (Integer IDR) | Menghindari potensi bug pembulatan desimal (floating-point precision error) |
+| ADR-011 | Checkout Atomik | Mencegah transaksi tersimpan sebagian dan inkonsistensi stok barang |
+| ADR-012 | Satu Toko Tunggal (Single Store) | Menjaga agar ruang lingkup MVP tetap realistis diselesaikan dalam 14 hari |
+| ADR-013 | Peran Pengguna Bawaan | Menyederhanakan kontrol otorisasi tanpa skema hak akses dinamis yang rumit |
+| ADR-014 | Snapshot Harga Historis | Mempertahankan keakuratan estimasi laba kotor di masa lalu |
+| ADR-015 | Tanpa Microservices | Menghindari kerumitan sistem terdistribusi prematur yang tidak dibutuhkan |
 
-## 28. Architectural Trade-offs
+## 28. Trade-off Arsitektur
 
-### Modular Monolith
+### Pola Modular Monolith
 
-Advantages:
+Kelebihan:
 
-- Lower infrastructure complexity.
-- Simpler local development.
-- Easier transaction coordination.
-- Faster initial delivery.
+- Kompleksitas infrastruktur jauh lebih rendah.
+- Pengembangan dan pengujian di lingkungan lokal lebih mudah dan cepat.
+- Koordinasi transaksi basis data jauh lebih sederhana dan terjamin.
+- Waktu pengiriman produk (time-to-market) jauh lebih cepat.
 
-Limitations:
+Keterbatasan:
 
-- Modules share application deployment.
-- Independent module scaling is limited.
-- Architectural boundaries require developer discipline.
+- Seluruh modul berbagi lingkungan runtime deployment yang sama.
+- Penskalaan modul secara independen tidak dapat dilakukan.
+- Memerlukan disiplin pengembang agar batasan antarmodul tidak dilanggar.
 
-### Serverless Deployment
+### Deployment Serverless (Vercel & Neon)
 
-Advantages:
+Kelebihan:
 
-- Simple initial deployment.
-- Managed application infrastructure.
-- Preview environments.
-- Low initial operational cost.
+- Setup awal deployment sangat cepat dan mudah.
+- Infrastruktur terkelola tanpa perlu mengelola server virtual secara manual.
+- Mendukung fitur preview environment otomatis untuk setiap pull request.
+- Bebas biaya awal untuk batas penggunaan tertentu.
 
-Limitations:
+Keterbatasan:
 
-- Potential cold starts.
-- Execution and resource limits.
-- Database connection management requirements.
-- Limited suitability for persistent background processes.
+- Potensi terjadi waktu tunda awal (cold start).
+- Terdapat batas durasi eksekusi request dan batas memori komputasi.
+- Memerlukan pengelolaan koneksi basis data yang cermat (connection pooling).
+- Kurang cocok untuk proses background berdurasi panjang secara kontinu.
 
-### ORM-Based Data Access
+### Akses Data Berbasis ORM (Prisma)
 
-Advantages:
+Kelebihan:
 
-- Type-safe queries.
-- Consistent database access.
-- Integrated migration workflow.
+- Akses data type-safe penuh dengan TypeScript.
+- Menghindari penulisan query dasar yang berulang.
+- Alur kerja migrasi skema terintegrasi dengan baik.
 
-Limitations:
+Keterbatasan:
 
-- Complex SQL may require explicit queries.
-- Generated queries must be reviewed for performance.
-- Some database constraints require custom SQL migrations.
+- Query SQL yang sangat kompleks terkadang membutuhkan raw query manual.
+- Query yang digenerate otomatis perlu ditinjau agar tidak menimbulkan masalah performa.
+- Sebagian constraint basis data tingkat lanjut memerlukan migrasi SQL manual.
 
-## 29. Future Architecture Considerations
+## 29. Pertimbangan Arsitektur Masa Depan
 
-The application may later support:
+Aplikasi dapat dikembangkan lebih lanjut untuk mendukung:
 
-- Multi-store isolation.
-- Payment gateway webhooks.
-- Dedicated distributed rate limiting.
-- Redis caching.
-- Background job processing.
-- Object storage.
-- Real-time notifications.
-- Container-based hosting.
-- Advanced logging and monitoring.
+- Isolasi data multi-toko dan multi-cabang.
+- Webhook notifikasi pembayaran digital otomatis (QRIS / payment gateway).
+- Rate limiting terdistribusi menggunakan Upstash Redis.
+- Pemrosesan antrean tugas latar belakang (background job processing).
+- Penyimpanan objek cloud (cloud object storage) untuk gambar produk.
+- Notifikasi real-time menggunakan WebSockets atau Server-Sent Events.
+- Deployment kontainer penuh ke layanan seperti AWS ECS atau Google Cloud Run.
+- Platform monitoring performa aplikasi dan log terpusat (APM).
 
-These components should be introduced only when justified
-by actual product or operational requirements.
+Seluruh komponen ini hanya akan ditambahkan apabila telah benar-benar dibutuhkan oleh perkembangan skala bisnis.
 
-## 30. Related Documents
+## 30. Dokumen Terkait
 
-- [Business Requirements](BRD.md)
-- [Product Requirements](PRD.md)
-- [Functional Requirements](functional-requirements.md)
-- [Non-Functional Requirements](non-functional-requirements.md)
-- [Business Rules](business-rules.md)
-- [User Stories](user-stories.md)
-- [MVP Scope](mvp-scope.md)
+- [Dokumen Persyaratan Bisnis (BRD)](BRD.md)
+- [Dokumen Persyaratan Produk (PRD)](PRD.md)
+- [Persyaratan Fungsional (FRS)](functional-requirements.md)
+- [Persyaratan Non-Fungsional (NFRS)](non-functional-requirements.md)
+- [Spesifikasi Aturan Bisnis](business-rules.md)
+- [User Stories dan Kriteria Penerimaan](user-stories.md)
+- [Cakupan MVP](mvp-scope.md)

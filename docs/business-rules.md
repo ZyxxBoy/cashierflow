@@ -1,360 +1,346 @@
-# Business Rules Specification
+# Spesifikasi Aturan Bisnis (Business Rules Specification)
 
-## 1. Document Information
+## 1. Informasi Dokumen
 
-| Attribute | Description |
+| Atribut | Deskripsi |
 |---|---|
-| Project | CashierFlow |
-| Document Version | 1.0 |
-| Product Version | 1.0.0 MVP |
-| Author | ZyxxBoy |
+| Proyek | CashierFlow |
+| Versi Dokumen | 1.0 |
+| Versi Produk | 1.0.0 MVP |
+| Penulis | ZyxxBoy |
 | Status | Initial Baseline |
 
-## 2. Purpose
+## 2. Tujuan
 
-Business rules define the conditions, restrictions, calculations,
-and policies that govern CashierFlow operations.
+Aturan bisnis mendefinisikan kondisi, pembatasan, metode perhitungan, dan kebijakan operasional yang mengatur jalannya sistem CashierFlow.
 
-All critical business rules must be enforced on the server.
-Client-side validation is intended to improve user experience,
-not replace server-side validation.
+Seluruh aturan bisnis yang bersifat kritis wajib ditegakkan di sisi server (server-side). Validasi di sisi klien (client-side) bertujuan untuk meningkatkan kenyamanan antarmuka pengguna (UX), bukan sebagai pengganti validasi di sisi server.
 
-## 3. Authentication and Authorization Rules
+## 3. Aturan Autentikasi dan Otorisasi
 
-| ID | Rule |
+| ID | Aturan |
 |---|---|
-| BR-AUTH-001 | Every user must have a unique email address |
-| BR-AUTH-002 | Passwords must never be stored as plaintext |
-| BR-AUTH-003 | Only active users can access authenticated features |
-| BR-AUTH-004 | Every user must have one predefined role |
-| BR-AUTH-005 | Only authorized Owners can manage application users |
-| BR-AUTH-006 | Cashiers cannot access product purchase costs or gross profit |
-| BR-AUTH-007 | Permission checks must be performed on the server |
-| BR-AUTH-008 | The last active Owner cannot be deactivated or demoted |
-| BR-AUTH-009 | User status and effective permissions must be revalidated for protected operations |
+| BR-AUTH-001 | Setiap pengguna wajib memiliki alamat email yang unik |
+| BR-AUTH-002 | Kata sandi tidak boleh disimpan dalam bentuk teks biasa (plaintext) |
+| BR-AUTH-003 | Hanya pengguna dengan status aktif yang dapat mengakses fitur terautentikasi |
+| BR-AUTH-004 | Setiap pengguna wajib memiliki satu peran bawaan yang telah ditentukan |
+| BR-AUTH-005 | Hanya peran Owner yang berwenang untuk mengelola akun pengguna aplikasi |
+| BR-AUTH-006 | Kasir dilarang mengakses informasi harga beli/modal barang dan laporan laba kotor |
+| BR-AUTH-007 | Pemeriksaan hak akses izin wajib dijalankan di sisi server |
+| BR-AUTH-008 | Akun Owner aktif terakhir tidak boleh dinonaktifkan atau diturunkan perannya |
+| BR-AUTH-009 | Status keaktifan pengguna dan izin efektifnya wajib divalidasi ulang pada setiap operasi terproteksi |
 
-### Supported Roles
+### Peran yang Didukung
 
-- OWNER
-- ADMIN
-- CASHIER
+- OWNER (Pemilik Usaha)
+- ADMIN (Administrator)
+- CASHIER (Kasir)
 
-## 4. Product Rules
+## 4. Aturan Produk
 
-| ID | Rule |
+| ID | Aturan |
 |---|---|
-| BR-PRD-001 | Each product must have a unique SKU |
-| BR-PRD-002 | A barcode must be unique when provided |
-| BR-PRD-003 | Product names must not be empty |
-| BR-PRD-004 | Selling prices must be greater than zero |
-| BR-PRD-005 | Purchase costs must not be negative |
-| BR-PRD-006 | Every product must have a valid category and unit |
-| BR-PRD-007 | Inactive products cannot be sold |
-| BR-PRD-008 | Inventory quantities must be whole numbers |
-| BR-PRD-009 | Initial product stock must default to zero |
-| BR-PRD-010 | Product stock cannot be changed directly through product editing |
-| BR-PRD-011 | Products referenced by transactions or stock movements must not be permanently deleted |
-| BR-PRD-012 | Minimum stock thresholds must not be negative |
+| BR-PRD-001 | Setiap produk wajib memiliki SKU (Stock Keeping Unit) yang unik |
+| BR-PRD-002 | Barcode produk wajib unik jika dicantumkan |
+| BR-PRD-003 | Nama produk tidak boleh kosong |
+| BR-PRD-004 | Harga jual produk harus lebih besar dari nol (> 0) |
+| BR-PRD-005 | Harga beli/modal tidak boleh bernilai negatif (>= 0) |
+| BR-PRD-006 | Setiap produk wajib terhubung dengan kategori dan satuan yang valid |
+| BR-PRD-007 | Produk nonaktif tidak boleh diperjualbelikan di kasir |
+| BR-PRD-008 | Jumlah kuantitas stok barang wajib berupa bilangan bulat positif atau nol (integer) |
+| BR-PRD-009 | Nilai stok awal produk baru secara default adalah nol (0) |
+| BR-PRD-010 | Jumlah stok produk tidak dapat diubah secara langsung melalui form pengeditan data produk biasa |
+| BR-PRD-011 | Produk yang telah memiliki riwayat transaksi atau mutasi stok dilarang dihapus secara permanen dari basis data |
+| BR-PRD-012 | Batas ambang stok minimum tidak boleh bernilai negatif (>= 0) |
 
-Empty optional barcodes must be normalized to NULL.
+Nilai barcode opsional yang kosong wajib dinormalisasi menjadi nilai NULL pada basis data.
 
-Selling below purchase cost is permitted because promotions
-or clearance sales may result in negative gross profit.
+Menjual produk di bawah harga modal tetap diperbolehkan dalam sistem, karena adanya kemungkinan kegiatan promosi, diskon khusus, atau cuci gudang (clearance sale) yang menghasilkan margin negatif.
 
-## 5. Master Data Rules
+## 5. Aturan Data Master
 
-| ID | Rule |
+| ID | Aturan |
 |---|---|
-| BR-MD-001 | Category names must be unique |
-| BR-MD-002 | Unit identifiers must be unique |
-| BR-MD-003 | Referenced master data must not be permanently deleted |
-| BR-MD-004 | Inactive categories and units cannot be assigned to new products |
-| BR-MD-005 | Inactive suppliers cannot be assigned to new incoming stock records |
-| BR-MD-006 | A customer is optional for retail transactions |
-| BR-MD-007 | Historical references must remain available after deactivation |
+| BR-MD-001 | Nama kategori produk wajib unik |
+| BR-MD-002 | Nama atau kode satuan unit barang wajib unik |
+| BR-MD-003 | Data master yang sudah direferensikan oleh data lain dilarang dihapus secara permanen |
+| BR-MD-004 | Kategori dan satuan yang nonaktif tidak dapat dipilih untuk penambahan produk baru |
+| BR-MD-005 | Pemasok yang nonaktif tidak dapat dipilih untuk pencatatan barang masuk baru |
+| BR-MD-006 | Data pelanggan bersifat opsional pada transaksi ritel |
+| BR-MD-007 | Referensi data historis tetap harus dapat diakses meskipun entitas master telah dinonaktifkan |
 
-Unused master data may be deleted when it has no dependent
-records and the requesting user is authorized.
+Data master yang belum pernah digunakan atau direferensikan oleh rekaman lain dapat dihapus oleh pengguna yang berwenang.
 
-## 6. Inventory Rules
+## 6. Aturan Inventaris
 
-| ID | Rule |
+| ID | Aturan |
 |---|---|
-| BR-INV-001 | Product stock must never be negative |
-| BR-INV-002 | Incoming stock quantities must be positive integers |
-| BR-INV-003 | Outgoing stock quantities must be positive integers |
-| BR-INV-004 | Outgoing quantities must not exceed available stock |
-| BR-INV-005 | Every inventory change must create a stock movement record |
-| BR-INV-006 | Stock movements must record the previous and new stock |
-| BR-INV-007 | Manual stock movements must include a reason |
-| BR-INV-008 | Every stock movement must identify its responsible user |
-| BR-INV-009 | Stock updates and movement records must be committed atomically |
-| BR-INV-010 | Inventory history must not be modified or deleted through the application |
-| BR-INV-011 | Physical adjustment targets must be non-negative integers |
-| BR-INV-012 | A zero-change adjustment must not create a stock movement |
-| BR-INV-013 | Concurrent stock operations must preserve data consistency |
+| BR-INV-001 | Jumlah stok produk tidak boleh bernilai negatif (< 0) |
+| BR-INV-002 | Kuantitas barang masuk (Stock In) wajib berupa bilangan bulat positif (> 0) |
+| BR-INV-003 | Kuantitas barang keluar manual (Stock Out) wajib berupa bilangan bulat positif (> 0) |
+| BR-INV-004 | Kuantitas barang keluar tidak boleh melebihi stok yang tersedia saat itu |
+| BR-INV-005 | Setiap perubahan stok barang wajib menghasilkan satu rekaman mutasi stok (stock movement) |
+| BR-INV-006 | Rekaman mutasi stok wajib mencatat jumlah stok sebelum dan sesudah perubahan terjadi |
+| BR-INV-007 | Perubahan stok manual wajib menyertakan alasan keterangan perubahan |
+| BR-INV-008 | Setiap rekaman mutasi stok wajib mencatat identitas pengguna yang bertanggung jawab |
+| BR-INV-009 | Pembaruan jumlah stok dan pembuatan rekaman mutasi stok wajib di-commit secara atomik |
+| BR-INV-010 | Riwayat mutasi inventaris tidak dapat diubah atau dihapus melalui aplikasi |
+| BR-INV-011 | Target stok pada penyesuaian fisik (opname) wajib berupa bilangan bulat positif atau nol (>= 0) |
+| BR-INV-012 | Penyesuaian fisik dengan selisih nol (tidak ada perubahan) tidak boleh membuat rekaman mutasi stok |
+| BR-INV-013 | Operasi perubahan stok yang terjadi bersamaan (konkuren) wajib menjaga konsistensi data secara mutlak |
 
-### Stock Movement Types
+### Tipe Mutasi Stok
 
-| Type | Description |
+| Tipe | Deskripsi |
 |---|---|
-| STOCK_IN | Incoming inventory |
-| STOCK_OUT | Manual outgoing inventory |
-| ADJUSTMENT | Physical inventory correction |
-| SALE | Inventory deduction from a completed sale |
+| STOCK_IN | Penerimaan persediaan barang masuk |
+| STOCK_OUT | Pengurangan barang secara manual (misal: barang rusak atau kedaluwarsa) |
+| ADJUSTMENT | Penyesuaian/koreksi selisih stok fisik (stock opname) |
+| SALE | Pemotongan stok otomatis dari transaksi penjualan berhasil |
 
-### Stock In Formula
+### Rumus Stok Masuk (Stock In)
 
-    new_stock = current_stock + quantity
+    stok_baru = stok_saat_ini + kuantitas_masuk
 
-Example:
+Contoh:
 
-    Current stock = 20
-    Incoming quantity = 10
-    New stock = 30
+    Stok saat ini = 20
+    Kuantitas masuk = 10
+    Stok baru = 30
 
-### Stock Out Formula
+### Rumus Stok Keluar (Stock Out)
 
-    new_stock = current_stock - quantity
+    stok_baru = stok_saat_ini - kuantitas_keluar
 
-Example:
+Contoh:
 
-    Current stock = 20
-    Outgoing quantity = 5
-    New stock = 15
+    Stok saat ini = 20
+    Kuantitas keluar = 5
+    Stok baru = 15
 
-### Stock Adjustment Formula
+### Rumus Penyesuaian Stok (Stock Adjustment)
 
-    adjustment = physical_stock - current_stock
-    new_stock = physical_stock
+    selisih_penyesuaian = stok_fisik - stok_saat_ini
+    stok_baru = stok_fisik
 
-Example:
+Contoh:
 
-    System stock = 20
-    Physical stock = 18
-    Adjustment = -2
-    New stock = 18
+    Stok sistem = 20
+    Stok fisik hasil hitung = 18
+    Selisih mutasi = -2
+    Stok baru = 18
 
-## 7. Shopping Cart Rules
+## 7. Aturan Keranjang Belanja
 
-| ID | Rule |
+| ID | Aturan |
 |---|---|
-| BR-CART-001 | Only active products can be added to the cart |
-| BR-CART-002 | Product quantities must be positive integers |
-| BR-CART-003 | Repeated selection of the same product increases its quantity |
-| BR-CART-004 | Products can be removed before checkout |
-| BR-CART-005 | Empty shopping carts cannot be checked out |
-| BR-CART-006 | Client-side prices are estimates until validated by the server |
-| BR-CART-007 | Duplicate product entries must be consolidated before validation |
+| BR-CART-001 | Hanya produk yang berstatus aktif yang dapat dimasukkan ke keranjang belanja |
+| BR-CART-002 | Kuantitas barang dalam keranjang wajib berupa bilangan bulat positif (> 0) |
+| BR-CART-003 | Menambahkan produk yang sudah ada di keranjang akan meningkatkan jumlah kuantitas produk tersebut |
+| BR-CART-004 | Produk di keranjang belanja dapat dihapus sebelum checkout dilakukan |
+| BR-CART-005 | Keranjang belanja yang kosong tidak dapat diproses untuk checkout |
+| BR-CART-006 | Nilai harga pada sisi klien hanya berupa estimasi sementara hingga divalidasi oleh server |
+| BR-CART-007 | Item produk yang duplikat wajib dikonsolidasi menjadi satu baris sebelum validasi server |
 
-Adding a product to the cart does not reserve its inventory.
+Menambahkan produk ke dalam keranjang belanja tidak mengunci atau mengurangi kuantitas stok di gudang/toko.
 
-Actual stock availability is validated during checkout.
+Ketersediaan stok sebenarnya akan divalidasi secara ketat pada saat konfirmasi checkout dilakukan.
 
-## 8. Transaction Calculation Rules
+## 8. Aturan Perhitungan Transaksi
 
-| ID | Rule |
+| ID | Aturan |
 |---|---|
-| BR-CAL-001 | Monetary amounts must use integer IDR values |
-| BR-CAL-002 | Line total equals unit price multiplied by quantity |
-| BR-CAL-003 | Subtotal equals the sum of all transaction line totals |
-| BR-CAL-004 | Transaction discounts must not be negative |
-| BR-CAL-005 | Discounts must not exceed the subtotal |
-| BR-CAL-006 | Final payable total must be greater than zero |
-| BR-CAL-007 | Cash received must not be less than the payable total |
-| BR-CAL-008 | Change equals cash received minus the payable total |
-| BR-CAL-009 | The server must recalculate all transaction values |
-| BR-CAL-010 | Amounts and calculations must remain within safe numeric bounds |
+| BR-CAL-001 | Nilai nominal uang wajib menggunakan format bilangan bulat integer Rupiah (IDR) tanpa desimal |
+| BR-CAL-002 | Total harga baris (line total) sama dengan harga satuan dikalikan dengan kuantitas |
+| BR-CAL-003 | Subtotal sama dengan jumlah keseluruhan dari line total setiap item transaksi |
+| BR-CAL-004 | Nilai potongan diskon transaksi tidak boleh bernilai negatif (>= 0) |
+| BR-CAL-005 | Nilai diskon tidak boleh melebihi nilai subtotal transaksi |
+| BR-CAL-006 | Total akhir yang harus dibayar wajib lebih besar dari nol (> 0) |
+| BR-CAL-007 | Uang tunai yang diterima dari pembeli tidak boleh kurang dari total akhir transaksi |
+| BR-CAL-008 | Uang kembalian sama dengan uang tunai diterima dikurangi total akhir transaksi |
+| BR-CAL-009 | Server wajib menghitung ulang secara mandiri seluruh nilai transaksi |
+| BR-CAL-010 | Seluruh nilai nominal dan perhitungan wajib berada dalam batas numerik yang aman (safe integer bounds) |
 
-### Calculation Formulas
+### Rumus Perhitungan
 
-    line_total = selling_price * quantity
+    line_total = harga_jual * kuantitas
 
     subtotal = sum(line_total)
 
-    total = subtotal - discount
+    total_akhir = subtotal - diskon
 
-    change = cash_received - total
+    kembalian = uang_diterima - total_akhir
 
-    cost_of_goods = sum(unit_cost_snapshot * quantity)
+    total_harga_pokok = sum(snapshot_harga_modal * kuantitas)
 
-    gross_profit = total - cost_of_goods
+    laba_kotor = total_akhir - total_harga_pokok
 
-### Example Transaction
+### Contoh Perhitungan Transaksi
 
-| Product | Quantity | Unit Price | Unit Cost | Line Total |
+| Produk | Kuantitas | Harga Jual | Harga Modal | Total Baris |
 |---|---|---|---|---|
-| Product A | 2 | 15000 | 10000 | 30000 |
-| Product B | 1 | 20000 | 12000 | 20000 |
+| Produk A | 2 | 15.000 | 10.000 | 30.000 |
+| Produk B | 1 | 20.000 | 12.000 | 20.000 |
 
-    Subtotal       = IDR 50,000
-    Discount       = IDR  5,000
-    Total          = IDR 45,000
-    Cash received  = IDR 50,000
-    Change         = IDR  5,000
-    Product cost   = IDR 32,000
-    Gross profit   = IDR 13,000
+    Subtotal        = IDR 50.000
+    Diskon          = IDR  5.000
+    Total Akhir     = IDR 45.000
+    Uang Diterima   = IDR 50.000
+    Uang Kembalian  = IDR  5.000
+    Harga Pokok     = IDR 32.000
+    Laba Kotor      = IDR 13.000
 
-Gross profit is calculated using the purchase cost stored
-when each sale is completed.
+Laba kotor dihitung menggunakan snapshot harga modal barang yang tersimpan permanen saat transaksi penjualan berhasil diselesaikan.
 
-FIFO, weighted-average inventory valuation, taxes, and
-formal accounting reports are outside the MVP scope.
+Metode penilaian persediaan FIFO, rata-rata tertimbang, pajak, dan laporan akuntansi formal berada di luar cakupan MVP.
 
-## 9. Checkout Rules
+## 9. Aturan Checkout
 
-| ID | Rule |
+| ID | Aturan |
 |---|---|
-| BR-CHK-001 | Only Owners and Cashiers can create sales |
-| BR-CHK-002 | Checkout must contain at least one product |
-| BR-CHK-003 | Every product must be active and available |
-| BR-CHK-004 | Checkout quantities must not exceed current stock |
-| BR-CHK-005 | Every transaction must have a unique invoice number |
-| BR-CHK-006 | Every checkout attempt must include an idempotency key |
-| BR-CHK-007 | Transaction records, items, payment data, and stock movements must be atomic |
-| BR-CHK-008 | Failed checkout must not leave partial database changes |
-| BR-CHK-009 | Concurrent checkout must not cause overselling |
-| BR-CHK-010 | Successful checkout must preserve historical product prices and costs |
-| BR-CHK-011 | Cash is the only supported payment method in the MVP |
-| BR-CHK-012 | Changed selling prices must be confirmed by the Cashier before completing checkout |
-| BR-CHK-013 | Completed transactions must remain immutable |
-| BR-CHK-014 | Client-supplied totals must never be trusted as authoritative |
+| BR-CHK-001 | Hanya pengguna dengan peran Owner dan Kasir yang dapat membuat transaksi penjualan |
+| BR-CHK-002 | Permintaan checkout wajib memiliki minimal satu jenis produk |
+| BR-CHK-003 | Setiap produk yang dicheckout wajib aktif dan tersedia |
+| BR-CHK-004 | Kuantitas yang dibeli tidak boleh melebihi sisa stok yang tersedia saat itu |
+| BR-CHK-005 | Setiap transaksi wajib menghasilkan nomor faktur (invoice) yang unik |
+| BR-CHK-006 | Setiap percobaan checkout wajib menyertakan kunci idempotensi (idempotency key) |
+| BR-CHK-007 | Rekaman transaksi, item penjualan, data pembayaran, dan mutasi stok wajib di-commit secara atomik |
+| BR-CHK-008 | Kegagalan pada langkah checkout tidak boleh menyisakan perubahan sebagian pada basis data (harus rollback penuh) |
+| BR-CHK-009 | Permintaan checkout yang terjadi secara bersamaan tidak boleh menyebabkan overselling (stok minus) |
+| BR-CHK-010 | Checkout yang berhasil wajib menyimpan snapshot harga jual dan harga modal historis barang |
+| BR-CHK-011 | Pembayaran tunai adalah satu-satunya metode pembayaran yang didukung pada MVP |
+| BR-CHK-012 | Jika harga jual produk berubah saat transaksi berlangsung di kasir, kasir wajib mengonfirmasi harga baru sebelum checkout selesai |
+| BR-CHK-013 | Transaksi yang telah selesai bersifat abadi (immutable) dan tidak dapat dimodifikasi |
+| BR-CHK-014 | Total harga yang dikirim oleh klien tidak boleh dipercaya mentah-mentah sebagai nilai otoritatif |
 
-### Invoice Format
+### Format Nomor Faktur (Invoice)
 
-    CF-YYYYMMDD-<unique-suffix>
+    CF-YYYYMMDD-<akhiran-unik>
 
-Example:
+Contoh:
 
     CF-20261120-8F42A1
 
-The date uses the configured store timezone.
+Tanggal pada nomor faktur menggunakan zona waktu toko yang dikonfigurasi.
 
-The final implementation must enforce invoice uniqueness at
-the database level and handle identifier collisions safely.
-The suffix format may be refined during database design.
+Implementasi akhir wajib menegakkan keunikan nomor faktur pada tingkat basis data dan menangani potensi tabrakan identifikasi secara aman. Format akhiran unik dapat disesuaikan pada saat perancangan fisik basis data.
 
-### Checkout Processing
+### Tahapan Pemrosesan Checkout
 
-1. Authenticate the requesting user.
-2. Verify checkout permission.
-3. Validate and normalize the request payload.
-4. Check the idempotency key.
-5. Start the database transaction.
-6. Read and validate current product information.
-7. Recalculate transaction amounts.
-8. Validate cash payment.
-9. Create transaction and transaction item records.
-10. Update each product using a conditional stock deduction.
-11. Record the corresponding stock movements.
-12. Commit the database transaction.
-13. Return the completed transaction.
-14. Clear the client shopping cart.
+1. Autentikasi identitas pengguna pemohon.
+2. Verifikasi hak akses izin checkout (Owner atau Kasir).
+3. Validasi dan normalisasi payload permintaan checkout.
+4. Periksa kunci idempotensi (idempotency key).
+5. Mulai transaksi basis data (Prisma interactive transaction).
+6. Baca dan validasi data produk terbaru dari basis data.
+7. Hitung ulang seluruh nominal transaksi di sisi server.
+8. Validasi kecukupan pembayaran uang tunai.
+9. Buat rekaman transaksi induk dan rincian item transaksi.
+10. Potong stok setiap produk menggunakan conditional update yang memverifikasi ketersediaan stok.
+11. Buat rekaman mutasi stok (tipe SALE) untuk masing-masing item.
+12. Commit transaksi basis data secara penuh.
+13. Kembalikan data transaksi yang telah berhasil dibuat.
+14. Kosongkan keranjang belanja pada antarmuka kasir.
 
-On failure, the transaction is rolled back.
+Jika salah satu tahapan mengalami kegagalan, seluruh perubahan dibatalkan (rollback).
 
-## 10. Idempotency Rules
+## 10. Aturan Idempotensi (Idempotency Rules)
 
-| ID | Rule |
+| ID | Aturan |
 |---|---|
-| BR-IDP-001 | Generate a unique key for each intended checkout |
-| BR-IDP-002 | Scope idempotency keys to the requesting user |
-| BR-IDP-003 | Enforce key uniqueness using a database constraint |
-| BR-IDP-004 | Reusing a key with the same payload returns the original successful result |
-| BR-IDP-005 | Reusing a key with a different payload must be rejected |
-| BR-IDP-006 | Concurrent requests using the same key must not create multiple transactions |
-| BR-IDP-007 | A corrected checkout request must use a new key |
+| BR-IDP-001 | Kunci unik wajib digenerate di sisi klien untuk setiap niat transaksi checkout baru |
+| BR-IDP-002 | Kunci idempotensi diberi cakupan (scoped) berdasarkan ID pengguna pemohon |
+| BR-IDP-003 | Keunikan kombinasi pengguna dan kunci ditegakkan menggunakan unique constraint di basis data |
+| BR-IDP-004 | Mengirim ulang kunci yang sama dengan payload yang identik akan mengembalikan hasil transaksi asli yang sukses tanpa transaksi baru |
+| BR-IDP-005 | Mengirim ulang kunci yang sama dengan data payload yang berbeda wajib ditolak sebagai konflik |
+| BR-IDP-006 | Permintaan bersamaan (konkuren) dengan kunci yang sama dilarang membuat transaksi lebih dari satu |
+| BR-IDP-007 | Permintaan checkout yang telah diperbaiki setelah gagal wajib menggunakan kunci idempotensi baru |
 
-The system should store a normalized request fingerprint
-alongside the idempotency key.
+Sistem menyimpan hash sidik jari (fingerprint) permintaan yang telah dinormalisasi bersama dengan kunci idempotensi.
 
-If the network connection fails after a successful checkout,
-the client must retry with the same key to discover the
-original transaction result.
+Jika koneksi jaringan terputus setelah checkout sukses di server, klien kasir dapat mencoba mengirim ulang dengan kunci yang sama untuk mendapatkan kembali hasil transaksi aslinya.
 
-## 11. Transaction History Rules
+## 11. Aturan Riwayat Transaksi
 
-| ID | Rule |
+| ID | Aturan |
 |---|---|
-| BR-TRX-001 | Completed transactions cannot be edited or deleted |
-| BR-TRX-002 | Transaction items must preserve historical product names |
-| BR-TRX-003 | Transaction items must preserve historical SKUs |
-| BR-TRX-004 | Transaction items must preserve historical unit prices |
-| BR-TRX-005 | Transaction items must preserve historical purchase costs |
-| BR-TRX-006 | Changes to product data cannot alter historical transaction amounts |
-| BR-TRX-007 | Cashiers may only access their own transactions |
-| BR-TRX-008 | Receipt generation must use stored transaction data |
+| BR-TRX-001 | Transaksi yang telah berstatus selesai tidak dapat diedit atau dihapus |
+| BR-TRX-002 | Item transaksi wajib menyimpan salinan nama produk historis saat transaksi terjadi |
+| BR-TRX-003 | Item transaksi wajib menyimpan salinan SKU produk historis |
+| BR-TRX-004 | Item transaksi wajib menyimpan salinan harga jual satuan historis |
+| BR-TRX-005 | Item transaksi wajib menyimpan salinan harga modal satuan historis |
+| BR-TRX-006 | Pembaruan data produk di masa depan tidak boleh mengubah nilai transaksi masa lalu |
+| BR-TRX-007 | Kasir hanya diizinkan untuk melihat riwayat transaksi yang dibuat oleh dirinya sendiri |
+| BR-TRX-008 | Pembuatan dan cetak ulang struk belanja wajib menggunakan data snapshot transaksi yang tersimpan |
 
-## 12. Reporting Rules
+## 12. Aturan Pelaporan
 
-| ID | Rule |
+| ID | Aturan |
 |---|---|
-| BR-RPT-001 | Sales reports must use completed transactions |
-| BR-RPT-002 | Gross profit must use historical purchase cost snapshots |
-| BR-RPT-003 | Net sales equal sales subtotal minus discounts |
-| BR-RPT-004 | Cash received must not be counted as sales revenue |
-| BR-RPT-005 | Change given to customers must not be counted as an expense |
-| BR-RPT-006 | Report date boundaries must use the configured store timezone |
-| BR-RPT-007 | Gross profit reports are restricted to Owners |
-| BR-RPT-008 | Stock reports must reflect current inventory |
-| BR-RPT-009 | Product sales rankings use completed transaction item quantities |
+| BR-RPT-001 | Laporan penjualan wajib disusun berdasarkan transaksi yang telah berstatus selesai |
+| BR-RPT-002 | Perhitungan laba kotor wajib menggunakan snapshot harga modal historis barang |
+| BR-RPT-003 | Penjualan bersih sama dengan subtotal penjualan dikurangi potongan diskon |
+| BR-RPT-004 | Total uang tunai yang diterima tidak boleh dihitung sebagai nilai pendapatan penjualan |
+| BR-RPT-005 | Uang kembalian yang diserahkan ke pelanggan tidak boleh dicatat sebagai pos pengeluaran/beban |
+| BR-RPT-006 | Batas rentang tanggal laporan wajib mengacu pada zona waktu toko yang dikonfigurasi |
+| BR-RPT-007 | Laporan laba kotor dibatasi secara ketat hanya untuk peran Owner |
+| BR-RPT-008 | Laporan stok barang wajib mencerminkan jumlah persediaan fisik terkini |
+| BR-RPT-009 | Peringkat produk terlaris dihitung berdasarkan jumlah kuantitas item terjual dari transaksi yang sukses |
 
-## 13. Audit Rules
+## 13. Aturan Audit
 
-| ID | Rule |
+| ID | Aturan |
 |---|---|
-| BR-AUD-001 | Important records must identify the responsible user where applicable |
-| BR-AUD-002 | Records must contain creation timestamps |
-| BR-AUD-003 | Mutable records must contain update timestamps |
-| BR-AUD-004 | Transactions and stock movements must remain traceable |
-| BR-AUD-005 | Audit logs must not expose credentials or secrets |
+| BR-AUD-001 | Rekaman data penting wajib mencatat identitas pengguna pembuat/penanggung jawab |
+| BR-AUD-002 | Rekaman data wajib memiliki timestamp waktu pembuatan (created_at) |
+| BR-AUD-003 | Rekaman data yang dapat diubah wajib memiliki timestamp waktu pembaruan (updated_at) |
+| BR-AUD-004 | Seluruh transaksi penjualan dan mutasi stok wajib memiliki keterlacakan kronologis yang jelas |
+| BR-AUD-005 | Log audit dilarang keras mencatat kata sandi, token, atau informasi kredensial rahasia |
 
-General activity logging is a secondary MVP priority.
-Transaction and inventory traceability are mandatory.
+Modul log aktivitas umum (general activity log) merupakan prioritas sekunder MVP. Keterlacakan transaksi dan mutasi stok merupakan kewajiban mutlak.
 
-## 14. Data Validation Rules
+## 14. Aturan Validasi Data
 
-| Field | Validation |
+| Kolom | Aturan Validasi |
 |---|---|
-| Email | Valid email format and unique normalized value |
-| Password | At least 8 characters; secure password handling |
-| Product Name | Required, maximum 150 characters |
-| SKU | Required, maximum 50 characters, unique |
-| Barcode | Optional, maximum 64 characters, unique when present |
-| Selling Price | Positive integer IDR |
-| Purchase Cost | Non-negative integer IDR |
-| Quantity | Positive integer, bounded by stock and configured limits |
-| Stock | Non-negative integer |
-| Minimum Stock | Non-negative integer |
-| Discount | Non-negative integer, subject to payable total |
-| Cash Received | Integer, greater than or equal to total |
+| Email | Format email valid, dinormalisasi ke huruf kecil (lowercase), dan unik |
+| Kata Sandi | Minimal 8 karakter, penanganan hashing yang aman |
+| Nama Produk | Wajib diisi, maksimal 150 karakter |
+| SKU | Wajib diisi, maksimal 50 karakter, unik |
+| Barcode | Opsional, maksimal 64 karakter, unik jika diisi |
+| Harga Jual | Bilangan bulat positif IDR (> 0) |
+| Harga Modal | Bilangan bulat non-negatif IDR (>= 0) |
+| Kuantitas | Bilangan bulat positif (> 0), dibatasi oleh sisa stok |
+| Stok Barang | Bilangan bulat non-negatif (>= 0) |
+| Stok Minimum | Bilangan bulat non-negatif (>= 0) |
+| Diskon | Bilangan bulat non-negatif (>= 0), tidak melebihi subtotal |
+| Uang Diterima | Bilangan bulat, bernilai lebih besar atau sama dengan total akhir |
 
-Exact database sizes and numeric limits will be finalized
-during the Day 02 physical database design.
+Batasan presisi basis data dan batas numerik yang pasti akan difinalisasi pada perancangan fisik basis data Hari ke-02.
 
-## 15. Error Conditions
+## 15. Kondisi Error
 
-| Error Code | Description |
+| Kode Error | Deskripsi |
 |---|---|
-| INVALID_CREDENTIALS | Authentication failed |
-| INACTIVE_USER | User account is inactive |
-| FORBIDDEN | User has insufficient permission |
-| INVALID_INPUT | Request validation failed |
-| PRODUCT_NOT_FOUND | Product does not exist |
-| PRODUCT_INACTIVE | Product is not available for sale |
-| PRICE_CHANGED | Current selling price requires confirmation |
-| INSUFFICIENT_STOCK | Requested quantity exceeds stock |
-| INVALID_DISCOUNT | Discount does not satisfy business rules |
-| INSUFFICIENT_PAYMENT | Cash received is insufficient |
-| DUPLICATE_SKU | SKU is already registered |
-| DUPLICATE_BARCODE | Barcode is already registered |
-| IDEMPOTENCY_CONFLICT | Checkout key is reused with different data |
-| TRANSACTION_CONFLICT | Concurrent operation requires retry |
-| INTERNAL_ERROR | Unexpected application failure |
+| INVALID_CREDENTIALS | Autentikasi gagal karena email atau kata sandi tidak cocok |
+| INACTIVE_USER | Akun pengguna dalam status nonaktif |
+| FORBIDDEN | Pengguna tidak memiliki izin hak akses untuk operasi ini |
+| INVALID_INPUT | Validasi format data permintaan tidak berhasil |
+| PRODUCT_NOT_FOUND | Produk yang dimaksud tidak ditemukan dalam sistem |
+| PRODUCT_INACTIVE | Produk berstatus nonaktif dan tidak dapat dijual |
+| PRICE_CHANGED | Harga jual produk telah berubah dan memerlukan konfirmasi kasir |
+| INSUFFICIENT_STOCK | Jumlah stok barang tidak mencukupi untuk memenuhi pesanan |
+| INVALID_DISCOUNT | Nominal potongan diskon tidak memenuhi ketentuan aturan bisnis |
+| INSUFFICIENT_PAYMENT | Nominal uang tunai yang diserahkan kurang dari total tagihan |
+| DUPLICATE_SKU | Nilai SKU produk sudah terdaftar dalam sistem |
+| DUPLICATE_BARCODE | Nilai barcode produk sudah terdaftar dalam sistem |
+| IDEMPOTENCY_CONFLICT | Kunci checkout digunakan kembali dengan isi data yang berbeda |
+| TRANSACTION_CONFLICT | Terjadi konflik operasi konkuren, pengguna diminta mencoba kembali |
+| INTERNAL_ERROR | Terjadi kegagalan internal sistem aplikasi yang tidak terduga |
 
-## 16. Related Documents
+## 16. Dokumen Terkait
 
-- [Functional Requirements](functional-requirements.md)
-- [Non-Functional Requirements](non-functional-requirements.md)
-- [User Stories](user-stories.md)
-- [System Architecture](architecture.md)
+- [Persyaratan Fungsional (FRS)](functional-requirements.md)
+- [Persyaratan Non-Fungsional (NFRS)](non-functional-requirements.md)
+- [User Stories dan Kriteria Penerimaan](user-stories.md)
+- [Arsitektur Sistem](architecture.md)

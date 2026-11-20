@@ -1,274 +1,272 @@
-# Functional Requirements Specification (FRS)
+# Spesifikasi Persyaratan Fungsional (Functional Requirements Specification - FRS)
 
-## 1. Document Information
+## 1. Informasi Dokumen
 
-| Attribute | Description |
+| Atribut | Deskripsi |
 |---|---|
-| Project | CashierFlow |
-| Document Version | 1.0 |
-| Product Version | 1.0.0 MVP |
-| Author | ZyxxBoy |
+| Proyek | CashierFlow |
+| Versi Dokumen | 1.0 |
+| Versi Produk | 1.0.0 MVP |
+| Penulis | ZyxxBoy |
 | Status | Initial Baseline |
 
-## 2. Priority Definitions
+## 2. Definisi Prioritas
 
-| Priority | Description |
+| Prioritas | Deskripsi |
 |---|---|
-| Must | Mandatory for MVP release |
-| Should | Important but can be deferred |
-| Could | Optional enhancement |
-| Won't | Excluded from the current release |
+| Must | Wajib ada dan mutlak diselesaikan untuk rilis MVP |
+| Should | Penting namun dapat ditunda jika alokasi waktu terbatas |
+| Could | Fitur peningkatan yang bersifat opsional |
+| Won't | Dikeluarkan dari cakupan rilis versi ini |
 
-## 3. Authentication Requirements
+## 3. Persyaratan Autentikasi
 
-| ID | Requirement | Priority |
+| ID | Persyaratan | Prioritas |
 |---|---|---|
-| FR-AUTH-001 | The system shall allow users to log in using email and password | Must |
-| FR-AUTH-002 | The system shall allow authenticated users to log out | Must |
-| FR-AUTH-003 | The system shall validate user credentials | Must |
-| FR-AUTH-004 | The system shall maintain secure authentication sessions | Must |
-| FR-AUTH-005 | The system shall validate user roles and permissions | Must |
-| FR-AUTH-006 | The system shall allow users to change their passwords | Should |
-| FR-AUTH-007 | The system shall reject inactive user accounts | Must |
+| FR-AUTH-001 | Sistem harus memungkinkan pengguna untuk login menggunakan email dan kata sandi | Must |
+| FR-AUTH-002 | Sistem harus memungkinkan pengguna yang terautentikasi untuk logout | Must |
+| FR-AUTH-003 | Sistem harus memvalidasi keabsahan kredensial pengguna | Must |
+| FR-AUTH-004 | Sistem harus memelihara sesi autentikasi pengguna secara aman | Must |
+| FR-AUTH-005 | Sistem harus memvalidasi peran dan izin akses pengguna | Must |
+| FR-AUTH-006 | Sistem harus memungkinkan pengguna untuk mengubah kata sandi mereka | Should |
+| FR-AUTH-007 | Sistem harus menolak upaya akses dari akun pengguna yang nonaktif | Must |
 
-## 4. Dashboard Requirements
+## 4. Persyaratan Dasbor (Dashboard)
 
-| ID | Requirement | Priority |
+| ID | Persyaratan | Prioritas |
 |---|---|---|
-| FR-DSH-001 | Display total net sales for the selected period | Must |
-| FR-DSH-002 | Display total completed transactions | Must |
-| FR-DSH-003 | Display the total number of active products | Must |
-| FR-DSH-004 | Display low-stock product summary | Should |
-| FR-DSH-005 | Display gross profit to authorized Owners | Must |
-| FR-DSH-006 | Display sales trend charts | Should |
-| FR-DSH-007 | Display recent transactions | Should |
-| FR-DSH-008 | Display best-selling products | Should |
-| FR-DSH-009 | Filter dashboard data by date range | Must |
+| FR-DSH-001 | Menampilkan total penjualan bersih untuk periode yang dipilih | Must |
+| FR-DSH-002 | Menampilkan total jumlah transaksi yang berhasil | Must |
+| FR-DSH-003 | Menampilkan jumlah total produk yang berstatus aktif | Must |
+| FR-DSH-004 | Menampilkan ringkasan produk dengan stok yang menipis di bawah ambang batas | Should |
+| FR-DSH-005 | Menampilkan estimasi laba kotor hanya kepada peran Owner yang berwenang | Must |
+| FR-DSH-006 | Menampilkan grafik tren penjualan berkala | Should |
+| FR-DSH-007 | Menampilkan daftar transaksi terbaru | Should |
+| FR-DSH-008 | Menampilkan daftar produk dengan volume penjualan tertinggi (terlaris) | Should |
+| FR-DSH-009 | Memfilter metrik dasbor berdasarkan rentang tanggal | Must |
 
-## 5. Product Management Requirements
+## 5. Persyaratan Manajemen Produk
 
-| ID | Requirement | Priority |
+| ID | Persyaratan | Prioritas |
 |---|---|---|
-| FR-PRD-001 | Create new products | Must |
-| FR-PRD-002 | Display product records | Must |
-| FR-PRD-003 | Update product information | Must |
-| FR-PRD-004 | Deactivate existing products | Must |
-| FR-PRD-005 | Search products by name, SKU, or barcode | Must |
-| FR-PRD-006 | Filter products by category and status | Should |
-| FR-PRD-007 | Paginate product records | Must |
-| FR-PRD-008 | Validate unique product SKUs | Must |
-| FR-PRD-009 | Validate non-empty barcode uniqueness | Must |
-| FR-PRD-010 | Validate selling price and purchase cost | Must |
-| FR-PRD-011 | Assign a category and unit to products | Must |
-| FR-PRD-012 | Configure minimum stock thresholds | Must |
-| FR-PRD-013 | Upload product images | Could |
-| FR-PRD-014 | Display current product stock | Must |
+| FR-PRD-001 | Membuat data produk baru | Must |
+| FR-PRD-002 | Menampilkan daftar data produk | Must |
+| FR-PRD-003 | Memperbarui data informasi produk | Must |
+| FR-PRD-004 | Menonaktifkan status produk yang ada | Must |
+| FR-PRD-005 | Mencari produk berdasarkan nama, SKU, atau barcode | Must |
+| FR-PRD-006 | Memfilter data produk berdasarkan kategori dan status keaktifan | Should |
+| FR-PRD-007 | Menampilkan data produk dengan penomoran halaman (paginasi) | Must |
+| FR-PRD-008 | Memvalidasi keunikan SKU produk | Must |
+| FR-PRD-009 | Memvalidasi keunikan barcode produk yang tidak kosong | Must |
+| FR-PRD-010 | Memvalidasi keabsahan harga jual dan harga modal | Must |
+| FR-PRD-011 | Menetapkan kategori dan satuan unit pada setiap produk | Must |
+| FR-PRD-012 | Mengonfigurasi ambang batas stok minimum produk | Must |
+| FR-PRD-013 | Mengunggah gambar/foto produk | Could |
+| FR-PRD-014 | Menampilkan jumlah stok fisik produk saat ini | Must |
 
-## 6. Category Management Requirements
+## 6. Persyaratan Manajemen Kategori
 
-| ID | Requirement | Priority |
+| ID | Persyaratan | Prioritas |
 |---|---|---|
-| FR-CAT-001 | Create product categories | Must |
-| FR-CAT-002 | Display category records | Must |
-| FR-CAT-003 | Update category information | Must |
-| FR-CAT-004 | Delete unused categories or deactivate referenced categories | Must |
-| FR-CAT-005 | Validate unique category names | Must |
-| FR-CAT-006 | Search and paginate categories | Should |
+| FR-CAT-001 | Membuat data kategori produk baru | Must |
+| FR-CAT-002 | Menampilkan daftar kategori produk | Must |
+| FR-CAT-003 | Memperbarui informasi kategori produk | Must |
+| FR-CAT-004 | Menghapus kategori yang belum terpakai atau menonaktifkan kategori yang telah terpakai | Must |
+| FR-CAT-005 | Memvalidasi keunikan nama kategori produk | Must |
+| FR-CAT-006 | Menyediakan fitur pencarian dan paginasi kategori | Should |
 
-## 7. Unit Management Requirements
+## 7. Persyaratan Manajemen Satuan (Units)
 
-| ID | Requirement | Priority |
+| ID | Persyaratan | Prioritas |
 |---|---|---|
-| FR-UNT-001 | Create product units | Must |
-| FR-UNT-002 | Display available units | Must |
-| FR-UNT-003 | Update unit information | Must |
-| FR-UNT-004 | Delete unused units or deactivate referenced units | Must |
-| FR-UNT-005 | Validate unique unit names or codes | Must |
+| FR-UNT-001 | Membuat data satuan produk baru | Must |
+| FR-UNT-002 | Menampilkan daftar satuan produk yang tersedia | Must |
+| FR-UNT-003 | Memperbarui informasi satuan produk | Must |
+| FR-UNT-004 | Menghapus satuan yang belum terpakai atau menonaktifkan satuan yang telah terpakai | Must |
+| FR-UNT-005 | Memvalidasi keunikan nama atau kode satuan produk | Must |
 
-## 8. Supplier Management Requirements
+## 8. Persyaratan Manajemen Pemasok (Suppliers)
 
-| ID | Requirement | Priority |
+| ID | Persyaratan | Prioritas |
 |---|---|---|
-| FR-SUP-001 | Create supplier records | Must |
-| FR-SUP-002 | Display supplier records | Must |
-| FR-SUP-003 | Update supplier information | Must |
-| FR-SUP-004 | Delete unused suppliers or deactivate referenced suppliers | Must |
-| FR-SUP-005 | Store supplier contact information | Must |
-| FR-SUP-006 | Associate suppliers with incoming stock records | Must |
-| FR-SUP-007 | Search and paginate suppliers | Should |
+| FR-SUP-001 | Membuat data pemasok baru | Must |
+| FR-SUP-002 | Menampilkan daftar pemasok | Must |
+| FR-SUP-003 | Memperbarui data informasi pemasok | Must |
+| FR-SUP-004 | Menghapus pemasok yang belum memiliki riwayat atau menonaktifkan pemasok yang terdaftar | Must |
+| FR-SUP-005 | Menyimpan nomor kontak dan alamat pemasok | Must |
+| FR-SUP-006 | Menghubungkan pemasok dengan pencatatan barang masuk (Stock In) | Must |
+| FR-SUP-007 | Menyediakan fitur pencarian dan paginasi data pemasok | Should |
 
-## 9. Customer Management Requirements
+## 9. Persyaratan Manajemen Pelanggan (Customers)
 
-| ID | Requirement | Priority |
+| ID | Persyaratan | Prioritas |
 |---|---|---|
-| FR-CUS-001 | Create customer records | Should |
-| FR-CUS-002 | Display customer records | Should |
-| FR-CUS-003 | Update customer information | Should |
-| FR-CUS-004 | Deactivate customer records | Should |
-| FR-CUS-005 | Associate customers with transactions when provided | Should |
-| FR-CUS-006 | Support anonymous retail transactions | Must |
+| FR-CUS-001 | Membuat data pelanggan baru | Should |
+| FR-CUS-002 | Menampilkan daftar data pelanggan | Should |
+| FR-CUS-003 | Memperbarui data informasi pelanggan | Should |
+| FR-CUS-004 | Menonaktifkan status pelanggan | Should |
+| FR-CUS-005 | Menghubungkan pelanggan dengan transaksi penjualan saat dicantumkan | Should |
+| FR-CUS-006 | Mendukung transaksi ritel tanpa identitas pelanggan (anonim / pelanggan umum) | Must |
 
-## 10. Inventory Requirements
+## 10. Persyaratan Inventaris
 
-| ID | Requirement | Priority |
+| ID | Persyaratan | Prioritas |
 |---|---|---|
-| FR-INV-001 | Display current product stock quantities | Must |
-| FR-INV-002 | Record incoming stock | Must |
-| FR-INV-003 | Record outgoing stock | Must |
-| FR-INV-004 | Perform physical stock adjustments | Must |
-| FR-INV-005 | Record stock movement history | Must |
-| FR-INV-006 | Record stock quantities before and after each movement | Must |
-| FR-INV-007 | Prevent stock quantities from becoming negative | Must |
-| FR-INV-008 | Automatically deduct stock after successful checkout | Must |
-| FR-INV-009 | Record descriptions or reasons for manual movements | Must |
-| FR-INV-010 | Record the user responsible for each movement | Must |
-| FR-INV-011 | Display low-stock indicators | Should |
-| FR-INV-012 | Filter stock movements by product, type, and date | Should |
-| FR-INV-013 | Preserve stock history for inactive products | Must |
+| FR-INV-001 | Menampilkan jumlah stok barang yang tersedia saat ini | Must |
+| FR-INV-002 | Mencatat transaksi penerimaan stok barang masuk (Stock In) | Must |
+| FR-INV-003 | Mencatat pengurangan stok barang keluar manual (Stock Out) | Must |
+| FR-INV-004 | Melakukan penyesuaian koreksi stok fisik (Stock Adjustment / Opname) | Must |
+| FR-INV-005 | Mencatat riwayat mutasi/pergerakan stok secara kronologis | Must |
+| FR-INV-006 | Mencatat jumlah kuantitas stok sebelum dan sesudah mutasi | Must |
+| FR-INV-007 | Mencegah jumlah stok barang menjadi bernilai negatif | Must |
+| FR-INV-008 | Memotong stok barang secara otomatis saat checkout penjualan berhasil | Must |
+| FR-INV-009 | Mencatat keterangan alasan untuk setiap perubahan stok manual | Must |
+| FR-INV-010 | Mencatat identitas pengguna yang bertanggung jawab atas setiap mutasi stok | Must |
+| FR-INV-011 | Menampilkan indikator visual saat stok berada di bawah ambang batas minimum | Should |
+| FR-INV-012 | Memfilter riwayat mutasi stok berdasarkan produk, jenis mutasi, dan tanggal | Should |
+| FR-INV-013 | Mempertahankan riwayat stok meskipun produk telah dinonaktifkan | Must |
 
-## 11. Point of Sale Requirements
+## 11. Persyaratan Point of Sale (POS)
 
-| ID | Requirement | Priority |
+| ID | Persyaratan | Prioritas |
 |---|---|---|
-| FR-POS-001 | Display active, sellable products | Must |
-| FR-POS-002 | Search products by name or SKU | Must |
-| FR-POS-003 | Search products using barcode input | Must |
-| FR-POS-004 | Add products to the shopping cart | Must |
-| FR-POS-005 | Update product quantities in the cart | Must |
-| FR-POS-006 | Remove products from the cart | Must |
-| FR-POS-007 | Calculate line totals and subtotal | Must |
-| FR-POS-008 | Apply an optional fixed transaction discount | Should |
-| FR-POS-009 | Calculate the final transaction total | Must |
-| FR-POS-010 | Accept cash payment | Must |
-| FR-POS-011 | Calculate payment change | Must |
-| FR-POS-012 | Validate product availability during checkout | Must |
-| FR-POS-013 | Generate a unique invoice number | Must |
-| FR-POS-014 | Record transaction and transaction items | Must |
-| FR-POS-015 | Update inventory atomically during checkout | Must |
-| FR-POS-016 | Prevent duplicate checkout transactions | Must |
-| FR-POS-017 | Roll back failed checkout operations | Must |
-| FR-POS-018 | Generate a transaction receipt | Must |
-| FR-POS-019 | Reset the cart after successful checkout | Must |
-| FR-POS-020 | Preserve the cart when checkout requires correction | Must |
+| FR-POS-001 | Menampilkan produk yang aktif dan siap dijual | Must |
+| FR-POS-002 | Mencari produk berdasarkan nama atau SKU | Must |
+| FR-POS-003 | Mencari produk menggunakan input pemindai barcode | Must |
+| FR-POS-004 | Menambahkan produk ke dalam keranjang belanja | Must |
+| FR-POS-005 | Memperbarui kuantitas produk dalam keranjang belanja | Must |
+| FR-POS-006 | Menghapus item produk dari keranjang belanja | Must |
+| FR-POS-007 | Menghitung total harga baris dan subtotal belanja secara otomatis | Must |
+| FR-POS-008 | Menerapkan diskon transaksi flat dalam nominal tetap (opsional) | Should |
+| FR-POS-009 | Menghitung total akhir transaksi yang harus dibayar | Must |
+| FR-POS-010 | Menerima pembayaran dalam bentuk uang tunai | Must |
+| FR-POS-011 | Menghitung jumlah uang kembalian secara otomatis | Must |
+| FR-POS-012 | Memvalidasi ketersediaan stok produk saat proses checkout berlangsung | Must |
+| FR-POS-013 | Menghasilkan nomor faktur (invoice) unik untuk setiap transaksi | Must |
+| FR-POS-014 | Menyimpan rekaman transaksi induk dan item-item rincian belanja | Must |
+| FR-POS-015 | Memotong stok inventaris secara atomik pada saat checkout berhasil | Must |
+| FR-POS-016 | Mencegah terjadinya transaksi checkout ganda untuk transaksi yang sama | Must |
+| FR-POS-017 | Membatalkan seluruh perubahan basis data jika checkout gagal (rollback) | Must |
+| FR-POS-018 | Menghasilkan dan menampilkan struk bukti pembayaran transaksi | Must |
+| FR-POS-019 | Mengosongkan keranjang belanja secara otomatis setelah checkout berhasil | Must |
+| FR-POS-020 | Mempertahankan isi keranjang belanja jika transaksi checkout membutuhkan koreksi | Must |
 
-## 12. Transaction Management Requirements
+## 12. Persyaratan Manajemen Transaksi
 
-| ID | Requirement | Priority |
+| ID | Persyaratan | Prioritas |
 |---|---|---|
-| FR-TRX-001 | Display transaction history | Must |
-| FR-TRX-002 | Display transaction details | Must |
-| FR-TRX-003 | Filter transactions by date range | Must |
-| FR-TRX-004 | Filter transactions by cashier | Should |
-| FR-TRX-005 | Search transactions by invoice number | Must |
-| FR-TRX-006 | View and reprint transaction receipts | Should |
-| FR-TRX-007 | Store historical product names and prices | Must |
-| FR-TRX-008 | Store historical product purchase costs | Must |
-| FR-TRX-009 | Restrict Cashiers to their own transactions | Must |
-| FR-TRX-010 | Prevent modification of completed transactions | Must |
+| FR-TRX-001 | Menampilkan daftar riwayat transaksi penjualan | Must |
+| FR-TRX-002 | Menampilkan rincian detail faktur transaksi | Must |
+| FR-TRX-003 | Memfilter riwayat transaksi berdasarkan rentang tanggal | Must |
+| FR-TRX-004 | Memfilter riwayat transaksi berdasarkan kasir yang bertugas | Should |
+| FR-TRX-005 | Mencari transaksi berdasarkan nomor faktur/invoice | Must |
+| FR-TRX-006 | Melihat dan mencetak ulang struk bukti transaksi | Should |
+| FR-TRX-007 | Menyimpan snapshot nama dan harga jual produk saat transaksi terjadi | Must |
+| FR-TRX-008 | Menyimpan snapshot harga modal (HPP) produk saat transaksi terjadi | Must |
+| FR-TRX-009 | Membatasi kasir agar hanya dapat melihat riwayat transaksinya sendiri | Must |
+| FR-TRX-010 | Mencegah perubahan atau penghapusan pada transaksi yang telah berstatus selesai | Must |
 
-## 13. Reporting Requirements
+## 13. Persyaratan Pelaporan
 
-| ID | Requirement | Priority |
+| ID | Persyaratan | Prioritas |
 |---|---|---|
-| FR-RPT-001 | Generate sales reports | Must |
-| FR-RPT-002 | Generate estimated gross profit reports | Must |
-| FR-RPT-003 | Generate current stock reports | Must |
-| FR-RPT-004 | Display daily transaction summaries | Must |
-| FR-RPT-005 | Display monthly transaction summaries | Must |
-| FR-RPT-006 | Filter reports by date range where applicable | Must |
-| FR-RPT-007 | Export permitted reports to Excel | Should |
-| FR-RPT-008 | Display best-selling products | Should |
-| FR-RPT-009 | Restrict financial reports according to permissions | Must |
+| FR-RPT-001 | Menghasilkan laporan nilai dan volume penjualan | Must |
+| FR-RPT-002 | Menghasilkan laporan estimasi laba kotor | Must |
+| FR-RPT-003 | Menghasilkan laporan ketersediaan stok barang | Must |
+| FR-RPT-004 | Menampilkan ringkasan rekapitulasi transaksi harian | Must |
+| FR-RPT-005 | Menampilkan ringkasan rekapitulasi transaksi bulanan | Must |
+| FR-RPT-006 | Memfilter laporan berdasarkan rentang tanggal yang dipilih | Must |
+| FR-RPT-007 | Mengekspor laporan yang diizinkan ke dalam format file Excel | Should |
+| FR-RPT-008 | Menampilkan peringkat produk dengan penjualan terlaris | Should |
+| FR-RPT-009 | Membatasi akses laporan finansial dan laba kotor sesuai hak izin peran | Must |
 
-## 14. User Administration Requirements
+## 14. Persyaratan Administrasi Pengguna
 
-| ID | Requirement | Priority |
+| ID | Persyaratan | Prioritas |
 |---|---|---|
-| FR-USR-001 | Allow Owners to create user accounts | Must |
-| FR-USR-002 | Display user records | Must |
-| FR-USR-003 | Update user information | Must |
-| FR-USR-004 | Activate or deactivate user accounts | Must |
-| FR-USR-005 | Assign predefined user roles | Must |
-| FR-USR-006 | Validate unique email addresses | Must |
-| FR-USR-007 | Prevent removal of the last active Owner | Must |
-| FR-USR-008 | Display predefined role permissions | Should |
+| FR-USR-001 | Memungkinkan peran Owner membuat akun pengguna baru | Must |
+| FR-USR-002 | Menampilkan daftar data seluruh akun pengguna | Must |
+| FR-USR-003 | Memperbarui data profil akun pengguna | Must |
+| FR-USR-004 | Mengaktifkan atau menonaktifkan status akun pengguna | Must |
+| FR-USR-005 | Menetapkan peran bawaan sistem pada akun pengguna | Must |
+| FR-USR-006 | Memvalidasi keunikan alamat email pengguna | Must |
+| FR-USR-007 | Mencegah penghapusan atau penonaktifan akun Owner aktif terakhir | Must |
+| FR-USR-008 | Menampilkan matriks hak izin akses untuk setiap peran bawaan | Should |
 
-## 15. Activity Log Requirements
+## 15. Persyaratan Log Aktivitas (Activity Log)
 
-| ID | Requirement | Priority |
+| ID | Persyaratan | Prioritas |
 |---|---|---|
-| FR-LOG-001 | Record important authentication events | Should |
-| FR-LOG-002 | Record master data changes | Should |
-| FR-LOG-003 | Record user administration activities | Should |
-| FR-LOG-004 | Record transaction-related activities | Should |
-| FR-LOG-005 | Display activity logs to Owners | Should |
-| FR-LOG-006 | Filter logs by user, action, and date | Could |
+| FR-LOG-001 | Mencatat peristiwa autentikasi penting (misal: login gagal berulang) | Should |
+| FR-LOG-002 | Mencatat perubahan pada data master | Should |
+| FR-LOG-003 | Mencatat aktivitas pada modul administrasi pengguna | Should |
+| FR-LOG-004 | Mencatat aktivitas yang berkaitan dengan transaksi penjualan | Should |
+| FR-LOG-005 | Menampilkan riwayat log aktivitas khusus kepada peran Owner | Should |
+| FR-LOG-006 | Memfilter log berdasarkan nama pengguna, jenis tindakan, dan tanggal | Could |
 
-Inventory movement and transaction history remain mandatory
-even if the general Activity Log module is deferred.
+Keterlacakan mutasi stok dan riwayat transaksi penjualan tetap wajib diimplementasikan meskipun modul log aktivitas umum ditunda.
 
-## 16. Settings Requirements
+## 16. Persyaratan Pengaturan (Settings)
 
-| ID | Requirement | Priority |
+| ID | Persyaratan | Prioritas |
 |---|---|---|
-| FR-SET-001 | Configure store information | Should |
-| FR-SET-002 | Configure receipt header and footer | Should |
-| FR-SET-003 | Configure the store timezone | Should |
-| FR-SET-004 | Support default store configuration | Must |
-| FR-SET-005 | Restrict settings changes to Owners | Must |
+| FR-SET-001 | Mengonfigurasi nama, alamat, dan nomor kontak toko | Should |
+| FR-SET-002 | Mengonfigurasi teks header dan footer pada struk belanja | Should |
+| FR-SET-003 | Mengonfigurasi zona waktu operasional toko | Should |
+| FR-SET-004 | Mendukung konfigurasi bawaan (default fallback) jika menu pengaturan belum tersedia | Must |
+| FR-SET-005 | Membatasi perubahan pengaturan sistem hanya untuk peran Owner | Must |
 
-## 17. Error Handling Requirements
+## 17. Persyaratan Penanganan Error
 
-| ID | Requirement | Priority |
+| ID | Persyaratan | Prioritas |
 |---|---|---|
-| FR-ERR-001 | Display clear validation messages | Must |
-| FR-ERR-002 | Display authentication failure messages | Must |
-| FR-ERR-003 | Reject unauthorized operations | Must |
-| FR-ERR-004 | Handle unavailable database connections safely | Must |
-| FR-ERR-005 | Handle checkout conflicts safely | Must |
-| FR-ERR-006 | Prevent exposure of internal error details | Must |
-| FR-ERR-007 | Provide loading and empty states | Must |
+| FR-ERR-001 | Menampilkan pesan error validasi input yang jelas dan mudah dipahami | Must |
+| FR-ERR-002 | Menampilkan pesan kegagalan autentikasi yang aman tanpa membocorkan detail sensitif | Must |
+| FR-ERR-003 | Menolak dan menghentikan operasi yang tidak memiliki izin hak akses | Must |
+| FR-ERR-004 | Menangani kegagalan koneksi basis data dengan aman | Must |
+| FR-ERR-005 | Menangani konflik operasi checkout bersamaan secara aman dan teratur | Must |
+| FR-ERR-006 | Mencegah terpaparnya detail internal kode/database pada pesan error ke klien | Must |
+| FR-ERR-007 | Menyediakan indikator loading state dan tampilan kosong (empty state) yang rapi | Must |
 
-## 18. HTTP Error Conventions
+## 18. Konvensi Status HTTP
 
-For REST-style Route Handlers:
+Untuk Route Handlers bergaya REST:
 
-| HTTP Status | Usage |
+| Kode HTTP | Penggunaan |
 |---|---|
-| 200 | Successful read or update |
-| 201 | Successful resource creation |
-| 400 | Malformed or invalid request |
-| 401 | Authentication required |
-| 403 | Insufficient permission |
-| 404 | Resource not found |
-| 409 | Duplicate data or business state conflict |
-| 422 | Semantically invalid business input |
-| 429 | Request rate limit exceeded |
-| 500 | Unexpected internal error |
-| 503 | Temporary service unavailability |
+| 200 | Pembacaan atau pembaruan data berhasil |
+| 201 | Pembuatan data sumber daya (resource) baru berhasil |
+| 400 | Format permintaan tidak valid atau cacat (malformed request) |
+| 401 | Diperlukan proses autentikasi (belum login) |
+| 403 | Pengguna tidak memiliki izin hak akses (forbidden) |
+| 404 | Data sumber daya tidak ditemukan |
+| 409 | Terjadi konflik duplikasi data atau konflik status bisnis |
+| 422 | Data permintaan secara semantik tidak valid melanggar aturan bisnis |
+| 429 | Batas kuota request terlampaui (rate limit exceeded) |
+| 500 | Terjadi kegagalan sistem internal yang tidak terduga |
+| 503 | Layanan sementara tidak tersedia |
 
-Server Actions may use structured success or error results
-rather than direct HTTP status responses.
+Server Actions dapat menggunakan objek status terstruktur `{ success, data, error }` sebagai pengganti kode status HTTP langsung.
 
-## 19. Requirements Traceability
+## 19. Ketertelusuran Persyaratan (Requirements Traceability)
 
-| Business Objective | Related Modules |
+| Sasaran Bisnis | Modul yang Terkait |
 |---|---|
-| BO-001 | POS, Transactions |
-| BO-002 | Inventory, POS |
-| BO-003 | Master Data |
-| BO-004 | Reporting |
-| BO-005 | POS, Business Rules |
-| BO-006 | Authentication, User Administration |
-| BO-007 | Inventory Movements, Transactions |
-| BO-008 | Dashboard, Reporting |
-| BO-009 | All Modules |
+| BO-001 | Layar Kasir (POS), Transaksi |
+| BO-002 | Inventaris, Layar Kasir (POS) |
+| BO-003 | Data Master |
+| BO-004 | Pelaporan |
+| BO-005 | Layar Kasir (POS), Aturan Bisnis |
+| BO-006 | Autentikasi, Administrasi Pengguna |
+| BO-007 | Mutasi Stok, Transaksi |
+| BO-008 | Dasbor, Pelaporan |
+| BO-009 | Seluruh Modul Sistem |
 
-## 20. Related Documents
+## 20. Dokumen Terkait
 
-- [Business Requirements](BRD.md)
-- [Product Requirements](PRD.md)
-- [Business Rules](business-rules.md)
-- [User Stories](user-stories.md)
-- [Non-Functional Requirements](non-functional-requirements.md)
-- [MVP Scope](mvp-scope.md)
+- [Dokumen Persyaratan Bisnis (BRD)](BRD.md)
+- [Dokumen Persyaratan Produk (PRD)](PRD.md)
+- [Spesifikasi Aturan Bisnis](business-rules.md)
+- [User Stories dan Kriteria Penerimaan](user-stories.md)
+- [Persyaratan Non-Fungsional (NFRS)](non-functional-requirements.md)
+- [Cakupan MVP](mvp-scope.md)

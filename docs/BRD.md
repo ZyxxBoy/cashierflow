@@ -1,261 +1,235 @@
-# Business Requirements Document (BRD)
+# Dokumen Persyaratan Bisnis (Business Requirements Document - BRD)
 
-## 1. Document Information
+## 1. Informasi Dokumen
 
-| Attribute | Description |
+| Atribut | Deskripsi |
 |---|---|
-| Project Name | CashierFlow |
-| Document Type | Business Requirements Document |
-| Document Version | 1.0 |
-| Product Version | 1.0.0 MVP |
-| Author | ZyxxBoy |
-| Created Date | November 20, 2026 |
+| Nama Proyek | CashierFlow |
+| Tipe Dokumen | Business Requirements Document (BRD) |
+| Versi Dokumen | 1.0 |
+| Versi Produk | 1.0.0 MVP |
+| Penulis | ZyxxBoy |
+| Tanggal Dibuat | 20 November 2026 |
 | Status | Initial Baseline |
 
-## 2. Executive Summary
+## 2. Ringkasan Eksekutif
 
-CashierFlow is a web-based Point of Sale (POS) and Inventory
-Management System designed for small and medium-sized businesses,
-retail stores, and minimarkets.
+CashierFlow adalah Sistem Point of Sale (POS) dan Manajemen Inventaris berbasis web yang dirancang untuk usaha kecil dan menengah (UKM), toko ritel, dan minimarket.
 
-The system aims to digitalize sales transactions, inventory
-management, product administration, and business reporting
-through a centralized and secure application.
+Sistem ini bertujuan untuk mendigitalkan transaksi penjualan, manajemen inventaris/stok, administrasi produk, dan pelaporan bisnis melalui aplikasi yang terpusat dan aman.
 
-CashierFlow will be developed as a full-stack software engineering
-portfolio project, demonstrating practical business requirements
-analysis, database design, application development, automated
-testing, and Continuous Integration and Continuous Deployment
-(CI/CD).
+CashierFlow dikembangkan sebagai proyek portofolio rekayasa perangkat lunak full-stack yang mendemonstrasikan analisis kebutuhan bisnis praktis, perancangan basis data, pengembangan aplikasi, pengujian otomatis, serta Integrasi Berkelanjutan dan Penerapan Berkelanjutan (CI/CD).
 
-## 3. Business Background
+## 3. Latar Belakang Bisnis
 
-Small retail businesses may rely on manual transaction records,
-spreadsheets, or disconnected applications to manage daily
-business operations.
+Bisnis ritel skala kecil sering kali masih mengandalkan pencatatan transaksi manual, spreadsheet, atau aplikasi terpisah yang tidak terhubung untuk mengelola operasional harian.
 
-These processes can introduce inaccurate inventory records,
-transaction errors, limited visibility into sales performance,
-and difficulties in preparing business reports.
+Proses-proses manual ini dapat memicu pencatatan inventaris yang tidak akurat, kesalahan transaksi, minimnya visibilitas terhadap performa penjualan, serta kesulitan dalam menyusun laporan bisnis.
 
-CashierFlow provides an integrated solution that connects
-sales transactions, inventory movements, product management,
-and reporting within a single web application.
+CashierFlow menyediakan solusi terintegrasi yang menghubungkan transaksi penjualan, mutasi stok, manajemen produk, dan pelaporan dalam satu aplikasi web tunggal.
 
-These business problems are assumed for the portfolio project
-and have not been validated through field research.
+Masalah bisnis ini merupakan asumsi yang digunakan untuk proyek portofolio dan belum divalidasi melalui riset lapangan langsung.
 
-## 4. Business Problems
+## 4. Masalah Bisnis
 
-| ID | Business Problem | Business Impact |
+| ID | Masalah Bisnis | Dampak Bisnis |
 |---|---|---|
-| BP-001 | Manual transaction recording | Increased risk of human error |
-| BP-002 | Manual inventory updates | Inaccurate stock information |
-| BP-003 | Disconnected business records | Inconsistent operational data |
-| BP-004 | Manual sales reporting | Delayed business decisions |
-| BP-005 | Limited access control | Unauthorized access risks |
-| BP-006 | Missing transaction history | Difficult transaction auditing |
-| BP-007 | Missing stock movement history | Difficulty tracking inventory changes |
-| BP-008 | Limited profit visibility | Difficulty evaluating performance |
+| BP-001 | Pencatatan transaksi secara manual | Peningkatan risiko kesalahan manusia (human error) |
+| BP-002 | Pembaruan inventaris secara manual | Informasi stok menjadi tidak akurat |
+| BP-003 | Catatan bisnis yang terpisah-pisah | Data operasional tidak konsisten |
+| BP-004 | Pelaporan penjualan secara manual | Keterlambatan dalam pengambilan keputusan bisnis |
+| BP-005 | Kontrol akses pengguna yang terbatas | Risiko akses data tanpa izin |
+| BP-006 | Tidak adanya riwayat transaksi yang terstruktur | Sulit melakukan audit transaksi |
+| BP-007 | Tidak adanya riwayat mutasi/pergerakan stok | Kesulitan dalam melacak perubahan inventaris |
+| BP-008 | Visibilitas laba yang sangat terbatas | Kesulitan dalam mengevaluasi performa bisnis |
 
-## 5. Business Objectives
+## 5. Tujuan Bisnis
 
-| ID | Objective |
+| ID | Tujuan |
 |---|---|
-| BO-001 | Digitalize retail sales transactions |
-| BO-002 | Automate inventory updates |
-| BO-003 | Centralize product and business records |
-| BO-004 | Provide accessible sales reports |
-| BO-005 | Improve transaction accuracy |
-| BO-006 | Implement role-based access control |
-| BO-007 | Improve inventory traceability |
-| BO-008 | Provide gross profit visibility |
-| BO-009 | Establish a maintainable digital platform |
+| BO-001 | Mendigitalkan transaksi penjualan ritel |
+| BO-002 | Mengotomatiskan pembaruan inventaris |
+| BO-003 | Memusatkan data produk dan catatan operasional bisnis |
+| BO-004 | Menyediakan laporan penjualan yang mudah diakses |
+| BO-005 | Meningkatkan akurasi transaksi |
+| BO-006 | Menerapkan kontrol akses berbasis peran (RBAC) |
+| BO-007 | Meningkatkan kemampuan pelacakan (traceability) inventaris |
+| BO-008 | Memberikan visibilitas estimasi laba kotor |
+| BO-009 | Membangun platform digital yang mudah dirawat dan dikembangkan (maintainable) |
 
-## 6. Stakeholders
+## 6. Pemangku Kepentingan (Stakeholders)
 
-| Stakeholder | Responsibility |
+| Pemangku Kepentingan | Tanggung Jawab |
 |---|---|
-| Business Owner | Business monitoring, financial reports, user management |
-| Administrator | Product, supplier, customer, and inventory management |
-| Cashier | Sales transactions and receipt generation |
-| Customer | Purchasing products and receiving receipts |
-| Developer | System development, testing, and maintenance |
-| System Administrator | Deployment and system configuration |
+| Business Owner (Pemilik Usaha) | Memantau bisnis, laporan keuangan, dan manajemen pengguna |
+| Administrator | Manajemen produk, pemasok, pelanggan, dan inventaris |
+| Kasir (Cashier) | Menangani transaksi penjualan dan mencetak struk/bukti transaksi |
+| Pelanggan (Customer) | Membeli produk dan menerima bukti pembayaran/struk |
+| Pengembang (Developer) | Mengembangkan sistem, melakukan pengujian, dan pemeliharaan |
+| Administrator Sistem | Penyiapan server/deployment dan konfigurasi sistem |
 
-The System Administrator is a technical responsibility rather
-than an additional application role in the MVP.
+Administrator Sistem adalah peran tanggung jawab teknis, bukan peran akun tambahan di dalam aplikasi MVP.
 
-## 7. Target Users
+## 7. Target Pengguna
 
-### 7.1 Business Owner
+### 7.1 Business Owner (Pemilik Usaha)
 
-Responsible for monitoring sales, estimated gross profit,
-inventory performance, user access, and overall business
-operations.
+Bertanggung jawab memantau penjualan, estimasi laba kotor, performa inventaris, akses pengguna, dan operasional bisnis secara keseluruhan.
 
 ### 7.2 Administrator
 
-Responsible for maintaining master data, managing inventory,
-and monitoring operational transactions.
+Bertanggung jawab mengelola data master, mengatur inventaris/stok, dan memantau transaksi operasional harian.
 
-### 7.3 Cashier
+### 7.3 Kasir (Cashier)
 
-Responsible for processing customer purchases, receiving cash
-payments, and generating transaction receipts.
+Bertanggung jawab memproses transaksi pembelian pelanggan, menerima pembayaran tunai, dan mencetak struk transaksi.
 
-## 8. Current Business Process (AS-IS)
+## 8. Proses Bisnis Saat Ini (AS-IS)
 
-1. A customer selects products.
-2. The cashier calculates product prices manually.
-3. The customer completes payment.
-4. The cashier records the transaction.
-5. Inventory records are updated manually.
-6. Sales reports are prepared separately.
+1. Pelanggan memilih produk.
+2. Kasir menghitung total harga produk secara manual.
+3. Pelanggan melakukan pembayaran.
+4. Kasir mencatat transaksi secara manual di buku nota/buku catatan.
+5. Catatan stok inventaris diperbarui secara manual.
+6. Laporan penjualan disusun secara terpisah di akhir hari atau periode.
 
-### Current Process Limitations
+### Keterbatasan Proses Saat Ini
 
-- Duplicate data entry.
-- Potential calculation errors.
-- Delayed stock updates.
-- Limited transaction traceability.
-- Time-consuming reporting.
+- Terjadinya duplikasi input data.
+- Potensi kesalahan hitung yang tinggi.
+- Pembaruan stok sering tertunda (tidak real-time).
+- Keterlacakan transaksi sangat rendah.
+- Penyusunan laporan memakan banyak waktu dan tenaga.
 
-## 9. Proposed Business Process (TO-BE)
+## 9. Proses Bisnis yang Diusulkan (TO-BE)
 
-1. The cashier authenticates into CashierFlow.
-2. The cashier searches for or scans a product.
-3. Selected products are added to the shopping cart.
-4. The system calculates the transaction total.
-5. The cashier receives cash payment.
-6. The system validates prices, stock, and payment.
-7. The system records the transaction atomically.
-8. Inventory quantities are updated automatically.
-9. Stock movements are recorded.
-10. A transaction receipt is generated.
-11. Sales data becomes available in business reports.
+1. Kasir melakukan login/autentikasi ke dalam CashierFlow.
+2. Kasir mencari produk atau memindai barcode produk.
+3. Produk yang dipilih dimasukkan ke dalam keranjang belanja.
+4. Sistem menghitung total transaksi secara otomatis.
+5. Kasir menerima pembayaran tunai dari pelanggan.
+6. Sistem memvalidasi harga, ketersediaan stok, dan jumlah pembayaran.
+7. Sistem mencatat transaksi secara atomik ke dalam basis data.
+8. Jumlah inventaris/stok dipotong secara otomatis.
+9. Mutasi stok (stock movement) dicatat secara otomatis.
+10. Struk bukti transaksi dicetak atau ditampilkan.
+11. Data penjualan langsung tersedia dan terangkum dalam laporan bisnis real-time.
 
-## 10. Business Scope
+## 10. Cakupan Bisnis (Business Scope)
 
-### 10.1 In Scope
+### 10.1 Dalam Cakupan (In Scope)
 
-- Authentication and authorization.
-- Product and category management.
-- Unit and supplier management.
-- Inventory management.
-- Stock movement history.
-- Point of Sale transactions.
-- Cash payment processing.
-- Transaction history.
-- Basic receipt generation.
-- Sales and gross profit reporting.
-- User administration.
-- Automated testing.
-- CI/CD and cloud deployment.
+- Autentikasi dan otorisasi pengguna.
+- Manajemen produk dan kategori.
+- Manajemen satuan (unit) dan pemasok (supplier).
+- Manajemen inventaris (stok masuk, keluar, penyesuaian).
+- Riwayat pergerakan/mutasi stok.
+- Transaksi Point of Sale (POS).
+- Pemrosesan pembayaran tunai.
+- Riwayat transaksi penjualan.
+- Pembuatan dan pencetakan struk dasar.
+- Laporan penjualan dan estimasi laba kotor.
+- Administrasi pengguna dan hak akses peran.
+- Pengujian otomatis (unit, integrasi, E2E).
+- CI/CD dan deployment ke platform cloud.
 
-Customer management, advanced reporting, and configurable
-store settings are secondary MVP priorities.
+Manajemen pelanggan, pelaporan tingkat lanjut, dan pengaturan toko yang fleksibel merupakan prioritas sekunder dalam MVP.
 
-### 10.2 Out of Scope
+### 10.2 Di Luar Cakupan (Out of Scope)
 
-- Multi-store and multi-branch management.
-- Multi-tenant architecture.
-- Online payment gateway integration.
-- QRIS payment processing.
-- Customer loyalty programs.
-- Refund and return management.
-- Cashier shift management.
-- Offline transaction synchronization.
-- Accounting system integration.
-- Employee payroll.
-- E-commerce integration.
+- Manajemen multi-toko dan multi-cabang.
+- Arsitektur multi-tenant.
+- Integrasi payment gateway online.
+- Pemrosesan pembayaran QRIS digital.
+- Program loyalitas pelanggan (poin, membership).
+- Manajemen pengembalian dana (refund) dan retur barang.
+- Manajemen shift kerja kasir.
+- Sinkronisasi transaksi saat luring (offline POS).
+- Integrasi dengan sistem akuntansi eksternal.
+- Sistem penggajian karyawan (payroll).
+- Integrasi toko daring (e-commerce).
 
-## 11. Expected Business Benefits
+## 11. Manfaat Bisnis yang Diharapkan
 
-- Faster transaction processing.
-- Improved inventory accuracy.
-- Reduced manual calculations.
-- Improved access to sales information.
-- Better transaction traceability.
-- Simplified inventory administration.
-- Improved business data security.
+- Pemrosesan transaksi menjadi lebih cepat dan efisien.
+- Akurasi data stok barang meningkat.
+- Pengurangan kesalahan perhitungan manual.
+- Akses informasi performa penjualan menjadi lebih mudah dan cepat.
+- Keterlacakan riwayat transaksi dan stok yang jauh lebih baik.
+- Administrasi inventaris menjadi lebih sederhana.
+- Keamanan data operasional dan finansial bisnis meningkat.
 
-These benefits are expected outcomes, not measured results.
+Manfaat-manfaat ini merupakan ekspektasi hasil desain, bukan hasil pengukuran langsung dari lapangan.
 
-## 12. Success Criteria
+## 12. Kriteria Keberhasilan
 
-| ID | Success Criteria |
+| ID | Kriteria Keberhasilan |
 |---|---|
-| SC-001 | Authorized users can securely access the application |
-| SC-002 | Administrators can manage products and inventory |
-| SC-003 | Cashiers can complete valid cash transactions |
-| SC-004 | Successful transactions update stock automatically |
-| SC-005 | Failed transactions do not modify inventory |
-| SC-006 | Transactions cannot create negative stock |
-| SC-007 | Owners can access sales and gross profit reports |
-| SC-008 | Duplicate checkout requests do not create duplicate sales |
-| SC-009 | Required automated tests pass |
-| SC-010 | The MVP is accessible through a public demo URL |
+| SC-001 | Pengguna yang berwenang dapat mengakses aplikasi secara aman |
+| SC-002 | Administrator dapat mengelola produk dan stok inventaris dengan lancar |
+| SC-003 | Kasir dapat menyelesaikan transaksi tunai yang valid dengan lancar |
+| SC-004 | Transaksi yang berhasil secara otomatis memotong stok barang |
+| SC-005 | Transaksi yang gagal tidak mengubah jumlah stok inventaris |
+| SC-006 | Transaksi tidak boleh menyebabkan stok bernilai negatif |
+| SC-007 | Pemilik usaha dapat melihat laporan penjualan dan estimasi laba kotor |
+| SC-008 | Permintaan checkout yang terduplikasi tidak membuat transaksi penjualan ganda (idempoten) |
+| SC-009 | Seluruh pengujian otomatis yang diwajibkan berhasil lulus (pass) |
+| SC-010 | MVP dapat diakses melalui URL demo publik yang stabil |
 
-## 13. Assumptions
+## 13. Asumsi
 
-- The system supports one retail store.
-- Users have a stable internet connection.
-- All monetary amounts use Indonesian Rupiah (IDR).
-- Products are sold in whole-number quantities.
-- Cash payments are sufficient for the MVP.
-- The application is initially intended for non-commercial
-  demonstration and portfolio purposes.
-- All public demonstration data is fictional.
+- Sistem hanya melayani satu toko ritel fisik tunggal (single store).
+- Pengguna memiliki koneksi internet yang stabil saat menggunakan aplikasi.
+- Seluruh nilai nominal transaksi menggunakan mata uang Rupiah (IDR).
+- Produk dijual dalam satuan bilangan bulat (integer), tidak mendukung pecahan/desimal.
+- Metode pembayaran tunai sudah memadai untuk kebutuhan MVP.
+- Aplikasi awalnya ditujukan untuk keperluan demonstrasi non-komersial dan portofolio teknis.
+- Seluruh data yang ditampilkan pada demonstrasi publik adalah data fiktif.
 
-## 14. Constraints
+## 14. Batasan (Constraints)
 
-- The MVP development period is limited to 14 days.
-- The application is developed by a single developer.
-- Initial deployment uses free-tier infrastructure where possible.
-- The system must operate within hosting resource limitations.
-- Advanced features will be deferred when necessary.
-- Security and transaction consistency take priority over
-  optional functionality.
+- Waktu pengembangan MVP dibatasi selama 14 hari kerja.
+- Aplikasi dikembangkan secara mandiri oleh satu pengembang (single developer).
+- Deployment awal memaksimalkan penggunaan layanan infrastruktur gratis (free-tier).
+- Sistem harus beroperasi secara efisien di dalam batasan sumber daya hosting gratis.
+- Fitur-fitur tambahan/opsional akan ditunda jika waktu tidak mencukupi demi mengutamakan fitur inti.
+- Keamanan dan konsistensi transaksi menjadi prioritas utama di atas fungsionalitas opsional.
 
-## 15. Business Risks
+## 15. Risiko Bisnis
 
-| ID | Risk | Mitigation |
+| ID | Risiko | Mitigasi |
 |---|---|---|
-| R-001 | Development scope becomes too large | Prioritize mandatory MVP features |
-| R-002 | Incorrect inventory calculations | Database transactions and constraints |
-| R-003 | Duplicate transactions | Checkout idempotency |
-| R-004 | Unauthorized access | Server-side RBAC |
-| R-005 | Hosting limitations | Optimize queries and resource usage |
-| R-006 | Database connection exhaustion | Connection pooling |
-| R-007 | Accidental data exposure | Environment variables and access control |
-| R-008 | Concurrent checkout conflicts | Conditional stock updates and atomic transactions |
+| R-001 | Cakupan pengembangan meluas di luar batas waktu | Prioritaskan secara ketat fitur wajib (Must Have) MVP |
+| R-002 | Perhitungan inventaris tidak akurat | Gunakan transaksi basis data atomik dan constraint ketat |
+| R-003 | Terjadinya transaksi ganda akibat jaringan/klik berulang | Terapkan idempotensi pada proses checkout |
+| R-004 | Akses data oleh pihak yang tidak berhak | Terapkan RBAC ketat di sisi server (server-side) |
+| R-005 | Keterbatasan kuota dan komputasi hosting gratis | Optimalkan query basis data dan efisiensi memori aplikasi |
+| R-006 | Kehabisan koneksi basis data (connection exhaustion) | Terapkan connection pooling dengan batas terukur |
+| R-007 | Kebocoran data sensitif atau kredensial | Kelola via environment variables dan batasi hak akses |
+| R-008 | Konflik checkout bersamaan pada stok barang yang sama | Gunakan conditional stock update dan transaksi atomik |
 
-## 16. Project Dependencies
+## 16. Dependensi Proyek
 
-- Next.js.
-- TypeScript.
-- PostgreSQL.
-- Prisma ORM.
-- Auth.js.
-- GitHub.
-- GitHub Actions.
-- Vercel.
-- Neon.
+- Next.js
+- TypeScript
+- PostgreSQL
+- Prisma ORM
+- Auth.js
+- GitHub
+- GitHub Actions
+- Vercel
+- Neon
 
-## 17. Project Acceptance
+## 17. Kriteria Penerimaan Proyek (Project Acceptance)
 
-The CashierFlow MVP is considered ready for release when all
-mandatory business requirements are implemented, critical
-business rules are validated, required automated tests pass,
-and the application is successfully deployed.
+CashierFlow MVP dinyatakan siap rilis apabila seluruh kebutuhan bisnis wajib telah diimplementasikan, seluruh aturan bisnis kritis tervalidasi dengan benar, seluruh pengujian otomatis lulus, dan aplikasi berhasil dideploy ke lingkungan cloud dengan baik.
 
-## 18. Related Documents
+## 18. Dokumen Terkait
 
-- [Product Requirements Document](PRD.md)
-- [Functional Requirements](functional-requirements.md)
-- [Non-Functional Requirements](non-functional-requirements.md)
-- [Business Rules](business-rules.md)
-- [User Stories](user-stories.md)
-- [MVP Scope](mvp-scope.md)
-- [System Architecture](architecture.md)
+- [Dokumen Persyaratan Produk (PRD)](PRD.md)
+- [Persyaratan Fungsional (FRS)](functional-requirements.md)
+- [Persyaratan Non-Fungsional (NFRS)](non-functional-requirements.md)
+- [Spesifikasi Aturan Bisnis](business-rules.md)
+- [User Stories dan Kriteria Penerimaan](user-stories.md)
+- [Cakupan MVP](mvp-scope.md)
+- [Arsitektur Sistem](architecture.md)

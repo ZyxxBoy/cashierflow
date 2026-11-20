@@ -1,533 +1,534 @@
-# User Stories and Acceptance Criteria
+# User Stories dan Kriteria Penerimaan (User Stories and Acceptance Criteria)
 
-## 1. Document Information
+## 1. Informasi Dokumen
 
-| Attribute | Description |
+| Atribut | Deskripsi |
 |---|---|
-| Project | CashierFlow |
-| Document Version | 1.0 |
-| Product Version | 1.0.0 MVP |
-| Author | ZyxxBoy |
+| Proyek | CashierFlow |
+| Versi Dokumen | 1.0 |
+| Versi Produk | 1.0.0 MVP |
+| Penulis | ZyxxBoy |
 | Status | Initial Baseline |
 
-## 2. User Story Format
+## 2. Format User Story
 
-As a [user role],
-I want to [perform an action],
-So that [business benefit].
+Sebagai [peran pengguna],  
+Saya ingin [melakukan suatu aksi],  
+Agar [tujuan/manfaat bisnis tercapai].
 
-Acceptance criteria follow the Given-When-Then format.
+Kriteria penerimaan ditulis menggunakan format standar Given-When-Then:
+- **Given** (Diberikan/kondisi awal)
+- **When** (Ketika/aksi yang dilakukan)
+- **Then** (Maka/hasil yang diharapkan)
 
-## 3. User Story Backlog
+## 3. Backlog User Story
 
-| ID | Role | User Story | Priority |
+| ID | Peran | User Story | Prioritas |
 |---|---|---|---|
-| US-001 | User | Log in securely to access the application | Must |
-| US-002 | User | Log out to end the current session | Must |
-| US-003 | Owner | View business performance | Must |
-| US-004 | Admin | Create and manage products | Must |
-| US-005 | Admin | Manage product categories | Must |
-| US-006 | Admin | Manage product units | Must |
-| US-007 | Admin | Manage suppliers | Must |
-| US-008 | Admin | Manage customer information | Should |
-| US-009 | Admin | Record incoming stock | Must |
-| US-010 | Admin | Record outgoing stock | Must |
-| US-011 | Admin | Correct physical stock discrepancies | Must |
-| US-012 | Admin | Review inventory movement history | Must |
-| US-013 | Cashier | Search or scan products | Must |
-| US-014 | Cashier | Manage a shopping cart | Must |
-| US-015 | Cashier | Apply transaction discounts | Should |
-| US-016 | Cashier | Complete cash checkout | Must |
-| US-017 | Cashier | Generate transaction receipts | Must |
-| US-018 | Cashier | View personal transaction history | Must |
-| US-019 | Owner | Review all sales transactions | Must |
-| US-020 | Owner | View estimated gross profit reports | Must |
-| US-021 | Admin | View inventory reports | Must |
-| US-022 | Owner | Export permitted reports | Should |
-| US-023 | Owner | Manage application users | Must |
-| US-024 | Owner | Assign user roles | Must |
-| US-025 | Owner | Review activity logs | Should |
-| US-026 | Owner | Configure store information | Should |
-| US-027 | Developer | Execute automated CI checks | Must |
-| US-028 | Developer | Deploy the application safely | Must |
+| US-001 | Pengguna | Login dengan aman untuk mengakses aplikasi | Must |
+| US-002 | Pengguna | Logout untuk mengakhiri sesi aktif saat ini | Must |
+| US-003 | Owner | Melihat ringkasan performa bisnis pada dasbor | Must |
+| US-004 | Admin | Menambah dan mengelola master data produk | Must |
+| US-005 | Admin | Mengelola data kategori produk | Must |
+| US-006 | Admin | Mengelola data satuan produk | Must |
+| US-007 | Admin | Mengelola data pemasok barang | Must |
+| US-008 | Admin | Mengelola data informasi pelanggan | Should |
+| US-009 | Admin | Mencatat persediaan barang masuk (Stock In) | Must |
+| US-010 | Admin | Mencatat pengeluaran barang manual (Stock Out) | Must |
+| US-011 | Admin | Menyesuaikan selisih stok fisik (Stock Opname) | Must |
+| US-012 | Admin | Meninjau riwayat mutasi/pergerakan stok barang | Must |
+| US-013 | Kasir | Mencari atau memindai barcode produk dengan cepat | Must |
+| US-014 | Kasir | Mengelola keranjang belanja pesanan pelanggan | Must |
+| US-015 | Kasir | Menerapkan diskon transaksi | Should |
+| US-016 | Kasir | Menyelesaikan transaksi dengan pembayaran tunai | Must |
+| US-017 | Kasir | Mencetak dan menampilkan struk transaksi | Must |
+| US-018 | Kasir | Melihat riwayat transaksi yang dibuat oleh dirinya sendiri | Must |
+| US-019 | Owner | Meninjau seluruh transaksi penjualan toko | Must |
+| US-020 | Owner | Melihat laporan estimasi laba kotor bisnis | Must |
+| US-021 | Admin | Melihat laporan ketersediaan stok inventaris | Must |
+| US-022 | Owner | Mengekspor laporan yang diizinkan ke format file Excel | Should |
+| US-023 | Owner | Mengelola akun pengguna aplikasi | Must |
+| US-024 | Owner | Menetapkan peran dan hak akses pengguna | Must |
+| US-025 | Owner | Meninjau rekaman log aktivitas penting | Should |
+| US-026 | Owner | Mengonfigurasi informasi profil dan struk toko | Should |
+| US-027 | Developer | Menjalankan pemeriksaan otomatis pada alur CI | Must |
+| US-028 | Developer | Men-deploy aplikasi ke cloud dengan aman | Must |
 
-## 4. Authentication
+## 4. Autentikasi
 
-### US-001: Secure Login
+### US-001: Login Aman
 
-As a registered user,
-I want to log in securely,
-So that I can access authorized application features.
+Sebagai pengguna terdaftar,  
+Saya ingin melakukan login secara aman,  
+Agar saya dapat mengakses fitur aplikasi sesuai dengan hak izin peran saya.
 
-Related requirements: FR-AUTH-001 to FR-AUTH-007.
+Kebutuhan terkait: FR-AUTH-001 hingga FR-AUTH-007.
 
-### Acceptance Criteria
+### Kriteria Penerimaan
 
-#### Scenario: Successful Login
+#### Skenario: Login Berhasil
 
-    Given an active user account exists
-    And the user provides valid credentials
-    When the user submits the login form
-    Then the system creates an authenticated session
-    And redirects the user to an authorized page
+    Given akun pengguna berstatus aktif telah terdaftar
+    And pengguna memasukkan kredensial (email dan kata sandi) yang valid
+    When pengguna menekan tombol kirim pada formulir login
+    Then sistem membuat sesi terautentikasi yang aman
+    And mengarahkan pengguna ke halaman yang sesuai dengan perannya
 
-#### Scenario: Invalid Credentials
+#### Skenario: Kredensial Tidak Valid
 
-    Given a user provides an incorrect password
-    When the user submits the login form
-    Then authentication is rejected
-    And no authenticated session is created
-    And a generic authentication error is displayed
+    Given pengguna memasukkan kata sandi yang salah
+    When pengguna menekan tombol kirim pada formulir login
+    Then proses autentikasi ditolak
+    And tidak ada sesi login yang dibuat
+    And sistem menampilkan pesan error autentikasi yang bersifat umum
 
-#### Scenario: Inactive Account
+#### Skenario: Akun Nonaktif
 
-    Given an inactive user account exists
-    When the user submits valid credentials
-    Then authentication is rejected
+    Given akun pengguna berada dalam status nonaktif
+    When pengguna memasukkan kredensial yang valid
+    Then proses autentikasi ditolak oleh server
+    And sistem menampilkan pesan bahwa akun tidak aktif
 
-#### Scenario: Unauthorized Access
+#### Skenario: Akses Tanpa Izin
 
-    Given a Cashier is authenticated
-    When the Cashier requests the user administration module
-    Then access is denied by the server
-    And no restricted information is returned
+    Given pengguna dengan peran Kasir telah terautentikasi
+    When Kasir mencoba membuka halaman administrasi pengguna
+    Then server menolak akses tersebut (403 Forbidden)
+    And tidak ada data pengguna rahasia yang dikembalikan
 
 ### US-002: Logout
 
-    Given a user has an authenticated session
-    When the user logs out
-    Then the current session is ended
-    And protected pages require authentication again
+    Given pengguna sedang berada dalam sesi terautentikasi aktif
+    When pengguna memilih menu logout
+    Then sesi pengguna saat ini diakhiri
+    And halaman-halaman yang dilindungi mewajibkan login kembali
 
-## 5. Dashboard
+## 5. Dasbor (Dashboard)
 
-### US-003: Business Dashboard
+### US-003: Dasbor Bisnis
 
-As an Owner,
-I want to view sales and inventory summaries,
-So that I can monitor business performance.
+Sebagai Owner,  
+Saya ingin melihat ringkasan performa penjualan dan inventaris,  
+Agar saya dapat memantau kesehatan bisnis dengan cepat.
 
-### Acceptance Criteria
+### Kriteria Penerimaan
 
-    Given completed transactions exist
-    When the Owner opens the dashboard
-    Then the system displays sales totals
-    And displays transaction counts
-    And displays estimated gross profit
+    Given data transaksi yang telah selesai tersedia
+    When Owner membuka halaman dasbor
+    Then sistem menampilkan total nominal penjualan bersih
+    And menampilkan total volume transaksi berhasil
+    And menampilkan estimasi laba kotor bisnis
 
-    Given no transactions exist in the selected period
-    When the Owner opens the dashboard
-    Then zero-value metrics are displayed
-    And the page does not return an application error
+    Given tidak ada transaksi pada rentang periode yang dipilih
+    When Owner membuka halaman dasbor
+    Then metrik ditampilkan bernilai nol (0)
+    And halaman tidak memunculkan pesan error sistem
 
-    Given an Admin accesses the dashboard
-    Then gross profit and confidential costs are not returned
+    Given Admin membuka halaman dasbor
+    Then metrik laba kotor dan harga modal tidak ditampilkan maupun dikirimkan
 
-## 6. Master Data
+## 6. Data Master
 
-### US-004: Product Management
+### US-004: Manajemen Produk
 
-As an Admin,
-I want to create and update product information,
-So that products can be sold accurately.
+Sebagai Admin,  
+Saya ingin menambah dan memperbarui informasi produk,  
+Agar produk dapat diperjualbelikan dengan data harga dan identitas yang tepat.
 
-Related requirements: FR-PRD-001 to FR-PRD-014.
+Kebutuhan terkait: FR-PRD-001 hingga FR-PRD-014.
 
-#### Scenario: Create Product
+#### Skenario: Menambah Produk Baru
 
-    Given an authorized Admin is authenticated
-    And a valid category and unit exist
-    When the Admin submits valid product information
-    Then the product is successfully created
-    And the initial stock is zero
+    Given Admin yang berwenang telah terautentikasi
+    And kategori dan satuan yang valid telah tersedia
+    When Admin mengisi dan mengirim formulir data produk yang valid
+    Then data produk baru berhasil disimpan
+    And jumlah stok awal produk diset secara default ke angka nol (0)
 
-#### Scenario: Duplicate SKU
+#### Skenario: Duplikasi SKU
 
-    Given a product with SKU PRD-001 exists
-    When another product uses the same normalized SKU
-    Then product creation is rejected
+    Given produk dengan kode SKU PRD-001 sudah ada di sistem
+    When Admin mencoba membuat produk baru dengan SKU yang sama
+    Then pembuatan produk ditolak oleh sistem
+    And sistem menampilkan pesan validasi bahwa SKU telah digunakan
 
-#### Scenario: Invalid Selling Price
+#### Skenario: Harga Jual Tidak Valid
 
-    Given an Admin submits a selling price of zero
-    When the product form is submitted
-    Then validation fails
-    And no product is created
+    Given Admin memasukkan harga jual bernilai 0 atau negatif
+    When formulir produk dikirimkan
+    Then validasi gagal
+    And data produk tidak disimpan ke basis data
 
-#### Scenario: Deactivate Product
+#### Skenario: Menonaktifkan Produk
 
-    Given a product has existing transaction records
-    When the Admin deactivates the product
-    Then the product is excluded from new sales
-    And historical transactions remain accessible
+    Given suatu produk telah memiliki riwayat transaksi penjualan
+    When Admin menonaktifkan status produk tersebut
+    Then produk tidak lagi muncul pada pilihan penjualan kasir (POS)
+    And rekaman riwayat transaksi historis produk tersebut tetap utuh dan dapat dilihat
 
-### US-005 and US-006: Categories and Units
+### US-005 dan US-006: Kategori dan Satuan
 
-    Given an authorized Admin is authenticated
-    When valid category or unit data is submitted
-    Then the record is created
+    Given Admin yang berwenang telah terautentikasi
+    When Admin mengirimkan nama kategori atau satuan yang valid dan unik
+    Then rekaman data berhasil dibuat
 
-    Given a category or unit is referenced by products
-    When permanent deletion is requested
-    Then deletion is rejected
-    And deactivation is available where appropriate
+    Given suatu kategori atau satuan telah digunakan oleh data produk
+    When permintaan penghapusan permanen diajukan
+    Then penghapusan ditolak demi menjaga integritas data relasional
+    And opsi penonaktifan tersedia jika didukung
 
-### US-007: Supplier Management
+### US-007: Manajemen Pemasok
 
-    Given an authorized Admin is authenticated
-    When valid supplier information is submitted
-    Then the supplier is available for inventory operations
+    Given Admin yang berwenang telah terautentikasi
+    When Admin mengirimkan data informasi pemasok yang valid
+    Then data pemasok tersimpan dan dapat dipilih pada transaksi barang masuk
 
-### US-008: Customer Management
+### US-008: Manajemen Pelanggan
 
-    Given customer management is implemented
-    When an authorized user creates a valid customer
-    Then the customer may be associated with a transaction
+    Given modul pelanggan telah aktif
+    When pengguna yang berwenang membuat data pelanggan baru
+    Then pelanggan tersebut dapat dihubungkan ke transaksi penjualan
 
-    Given a walk-in customer has no registered record
-    When checkout is submitted
-    Then customer registration is not required
+    Given pembeli umum tidak ingin didata identitasnya
+    When transaksi kasir dilakukan
+    Then pendaftaran data pelanggan tidak diwajibkan (dapat diproses sebagai anonim)
 
-## 7. Inventory Management
+## 7. Manajemen Inventaris
 
-### US-009: Stock In
+### US-009: Stok Masuk (Stock In)
 
-As an Admin,
-I want to record incoming products,
-So that current inventory reflects received goods.
+Sebagai Admin,  
+Saya ingin mencatat penerimaan stok barang masuk,  
+Agar jumlah stok pada sistem mencerminkan barang fisik yang diterima dari pemasok.
 
-#### Scenario: Successful Stock In
+#### Skenario: Stok Masuk Berhasil
 
-    Given a product has 20 units in stock
-    When an Admin records 10 additional units
-    And provides a valid movement reason
-    Then the product stock becomes 30
-    And a STOCK_IN movement is created
-    And the responsible user is recorded
+    Given produk saat ini memiliki stok sebanyak 20 unit
+    When Admin mencatat penerimaan barang masuk sebanyak 10 unit
+    And menyertakan keterangan alasan yang valid
+    Then stok produk pada sistem bertambah menjadi 30 unit
+    And rekaman mutasi stok bertipe STOCK_IN otomatis dibuat
+    And identitas pengguna yang mencatat tersimpan pada rekaman
 
-#### Scenario: Invalid Incoming Quantity
+#### Skenario: Kuantitas Masuk Tidak Valid
 
-    Given a product has 20 units in stock
-    When an Admin submits a negative incoming quantity
-    Then the operation is rejected
-    And the stock remains 20
+    Given produk saat ini memiliki stok sebanyak 20 unit
+    When Admin memasukkan kuantitas barang masuk bernilai nol atau negatif
+    Then permintaan ditolak oleh validasi sistem
+    And stok produk tetap bertahan di angka 20 unit
 
-### US-010: Stock Out
+### US-010: Stok Keluar (Stock Out)
 
-    Given a product has 20 units in stock
-    When an Admin records an outgoing quantity of 5
-    And provides a valid reason
-    Then the product stock becomes 15
-    And a STOCK_OUT movement is created
+    Given produk saat ini memiliki stok sebanyak 20 unit
+    When Admin mencatat pengeluaran stok manual sebanyak 5 unit disertai alasan
+    Then stok produk pada sistem berkurang menjadi 15 unit
+    And rekaman mutasi stok bertipe STOCK_OUT otomatis dibuat
 
-    Given a product has 5 units in stock
-    When an Admin attempts to remove 10 units
-    Then the operation is rejected
-    And the stock remains 5
+    Given produk saat ini memiliki stok sebanyak 5 unit
+    When Admin mencoba mengeluarkan stok sebanyak 10 unit
+    Then permintaan ditolak karena kuantitas melebihi sisa stok
+    And stok produk tetap bertahan di angka 5 unit
 
-### US-011: Stock Adjustment
+### US-011: Penyesuaian Stok (Stock Adjustment / Opname)
 
-    Given the recorded stock is 20 units
-    And the actual physical stock is 18 units
-    When an Admin submits an adjustment with a reason
-    Then the recorded stock becomes 18
-    And an ADJUSTMENT movement of -2 is created
+    Given stok produk yang tercatat di sistem adalah 20 unit
+    And hasil hitung fisik barang di toko menunjukkan 18 unit
+    When Admin mencatat penyesuaian stok dengan alasan selisih opname
+    Then stok produk yang tercatat di sistem berubah menjadi 18 unit
+    And rekaman mutasi stok bertipe ADJUSTMENT sebesar -2 otomatis dibuat
 
-### US-012: Stock Movement History
+### US-012: Riwayat Mutasi Stok
 
-    Given inventory movements exist
-    When an Admin opens the movement history
-    Then movement types, quantities, dates, and users are displayed
+    Given mutasi inventaris telah terjadi
+    When Admin membuka halaman riwayat mutasi stok
+    Then jenis mutasi, jumlah selisih, tanggal kejadian, dan nama pengguna ditampilkan
+    
+    Given rekaman mutasi stok historis telah tersimpan
+    When pengguna mencoba memodifikasi atau menghapus rekaman tersebut
+    Then operasi ditolak karena riwayat inventaris bersifat abadi (immutable)
 
-    Given a recorded stock movement exists
-    When a user attempts to modify its historical quantity
-    Then the operation is rejected
+## 8. Point of Sale (POS)
 
-## 8. Point of Sale
+### US-013: Pencarian Produk
 
-### US-013: Product Search
+Sebagai Kasir,  
+Saya ingin menemukan produk dengan cepat melalui nama, SKU, atau pemindai barcode,  
+Agar saya dapat mempercepat durasi pelayanan kepada pembeli.
 
-As a Cashier,
-I want to find products quickly,
-So that I can reduce transaction processing time.
+    Given produk berstatus aktif terdaftar di sistem
+    When Kasir mengetik nama, SKU, atau memindai barcode produk
+    Then produk yang cocok langsung ditampilkan pada hasil pencarian
 
-    Given an active product exists
-    When its name, SKU, or barcode is entered
-    Then the matching product is displayed
+    Given suatu produk berada dalam status nonaktif
+    When barcode produk tersebut dipindai di layar POS
+    Then sistem menolak menambahkan produk dan menginformasikan produk tidak aktif
 
-    Given an inactive product exists
-    When its barcode is entered
-    Then it is not offered for sale
+### US-014: Keranjang Belanja
 
-### US-014: Shopping Cart
+    Given suatu produk aktif memiliki harga Rp15.000
+    When Kasir menambahkan 2 unit produk tersebut ke keranjang
+    Then subtotal baris item menampilkan Rp30.000
 
-    Given an active product costs IDR 15,000
-    When the Cashier adds two units to the cart
-    Then the displayed line total is IDR 30,000
+    Given keranjang telah berisi 2 unit produk
+    When produk yang sama dipilih atau dipindai kembali
+    Then jumlah kuantitas produk otomatis bertambah menjadi 3 unit
 
-    Given the cart contains two units of a product
-    When the same product is added again
-    Then the quantity becomes three
+    Given seluruh produk di keranjang dihapus
+    Then keranjang menjadi kosong
+    And tombol checkout dinonaktifkan secara otomatis
 
-    Given the last product is removed
-    Then the cart becomes empty
-    And checkout is unavailable
+### US-015: Diskon Transaksi
 
-### US-015: Transaction Discount
+    Given fitur diskon diaktifkan
+    And subtotal belanja adalah Rp50.000
+    When Kasir menerapkan diskon flat sebesar Rp5.000
+    Then total akhir yang harus dibayar menjadi Rp45.000
 
-    Given discounts are enabled
-    And the transaction subtotal is IDR 50,000
-    When a discount of IDR 5,000 is applied
-    Then the final total is IDR 45,000
-
-    Given the transaction subtotal is IDR 50,000
-    When a discount of IDR 60,000 is submitted
-    Then the server rejects the discount
+    Given subtotal belanja adalah Rp50.000
+    When Kasir memasukkan nilai diskon sebesar Rp60.000
+    Then server menolak nilai diskon karena melebihi subtotal belanja
 
 ## 9. Checkout
 
-### US-016: Cash Payment and Checkout
+### US-016: Pembayaran Tunai dan Checkout
 
-As a Cashier,
-I want to complete a customer purchase,
-So that the sale and inventory changes are recorded accurately.
+Sebagai Kasir,  
+Saya ingin memproses pembayaran tunai dan menyelesaikan transaksi,  
+Agar penjualan dan pemotongan stok barang tercatat dengan tepat dan konsisten.
 
-Related requirements: FR-POS-009 to FR-POS-020.
+Kebutuhan terkait: FR-POS-009 hingga FR-POS-020.
 
-#### Scenario: Successful Checkout
+#### Skenario: Checkout Berhasil
 
-    Given a product costs IDR 15,000
-    And the product purchase cost is IDR 10,000
-    And the available stock is 20 units
-    When the Cashier purchases 3 units
-    And submits cash received of IDR 50,000
-    Then the transaction total is IDR 45,000
-    And the change is IDR 5,000
-    And the remaining stock is 17 units
-    And one completed transaction is created
-    And transaction item records are created
-    And stock movements are created
-    And a unique invoice number is assigned
+    Given produk memiliki harga jual Rp15.000 dan harga modal Rp10.000
+    And persediaan stok produk di toko adalah 20 unit
+    When Kasir memproses pembelian sebanyak 3 unit
+    And memasukkan uang tunai yang diterima sebesar Rp50.000
+    Then total tagihan transaksi adalah Rp45.000
+    And uang kembalian dihitung sebesar Rp5.000
+    And sisa stok barang di sistem berkurang menjadi 17 unit
+    And satu rekaman transaksi penjualan berstatus selesai berhasil dibuat
+    And rincian item transaksi tersimpan dengan snapshot harga modal dan jual
+    And rekaman mutasi stok otomatis bertipe SALE dibuat
+    And nomor faktur (invoice) unik diterbitkan
 
-#### Scenario: Insufficient Stock
+#### Skenario: Stok Tidak Mencukupi
 
-    Given the available stock is 2 units
-    When the Cashier purchases 3 units
-    Then checkout is rejected
-    And the remaining stock is 2 units
-    And no completed transaction is created
+    Given stok produk yang tersedia di sistem hanya tersisa 2 unit
+    When Kasir mencoba melakukan checkout sebanyak 3 unit
+    Then transaksi checkout ditolak oleh server
+    And sisa stok barang tetap bertahan di angka 2 unit
+    And tidak ada transaksi penjualan yang dibuat
 
-#### Scenario: Insufficient Payment
+#### Skenario: Pembayaran Uang Tunai Kurang
 
-    Given the payable total is IDR 45,000
-    When the Cashier submits IDR 30,000
-    Then checkout is rejected
-    And no inventory is deducted
+    Given total tagihan belanja adalah Rp45.000
+    When Kasir memasukkan uang tunai sebesar Rp30.000
+    Then proses checkout ditolak oleh sistem
+    And stok barang tidak terpotong
 
-#### Scenario: Price Changed During Checkout
+#### Skenario: Harga Berubah Saat Checkout Berlangsung
 
-    Given the cart displays a price of IDR 15,000
-    And the current database price is IDR 17,000
-    When checkout is submitted
-    Then the system rejects the outdated price
-    And requests confirmation of the updated price
-    And no transaction is created
+    Given keranjang belanja kasir menampilkan harga lama Rp15.000
+    And harga produk pada basis data telah diperbarui menjadi Rp17.000
+    When tombol checkout ditekan
+    Then server menolak harga lama yang usang
+    And meminta kasir mengonfirmasi pembaruan harga terbaru
+    And tidak ada transaksi yang terbuat sebelum disetujui
 
-#### Scenario: Duplicate Checkout
+#### Skenario: Checkout Terduplikasi (Idempotensi)
 
-    Given a checkout request has already succeeded
-    When the same user retries the same idempotency key
-    And submits an identical normalized payload
-    Then the original transaction is returned
-    And no additional inventory is deducted
+    Given suatu permintaan checkout telah berhasil diproses
+    When pengguna yang sama mengirim ulang permintaan dengan kunci idempotensi yang sama
+    And isi payload data belanja identik persis
+    Then sistem mengembalikan hasil transaksi asli yang telah sukses
+    And tidak terjadi pemotongan stok kedua kali
 
-#### Scenario: Idempotency Conflict
+#### Skenario: Konflik Kunci Idempotensi
 
-    Given a successful checkout key already exists
-    When the same key is submitted with different quantities
-    Then the request is rejected as a conflict
-    And the original transaction remains unchanged
+    Given kunci idempotensi yang sukses telah terdaftar di sistem
+    When kunci yang sama dikirimkan kembali namun dengan kuantitas barang yang berbeda
+    Then server menolak permintaan tersebut sebagai konflik (IDEMPOTENCY_CONFLICT)
+    And data transaksi asli tidak berubah
 
-#### Scenario: Concurrent Checkout
+#### Skenario: Checkout Bersamaan (Konkurensi)
 
-    Given a product has one unit available
-    When two Cashiers purchase the last unit concurrently
-    Then exactly one checkout succeeds
-    And only one successful sale is recorded
-    And the final stock is zero
+    Given suatu produk hanya tersisa 1 unit terakhir di stok
+    When dua kasir berbeda menekan checkout untuk 1 unit tersebut pada detik yang sama
+    Then tepat satu transaksi yang berhasil diselesaikan
+    And transaksi kedua ditolak karena stok telah habis
+    And sisa stok akhir adalah nol (0), tidak pernah minus
 
-#### Scenario: Database Failure
+#### Skenario: Kegagalan Transaksi Basis Data
 
-    Given a checkout database transaction has started
-    When an error occurs while creating its stock movement
-    Then all checkout database changes are rolled back
-    And no partial transaction remains
+    Given transaksi basis data untuk checkout telah dimulai
+    When terjadi gangguan koneksi atau kegagalan saat membuat rekaman mutasi stok
+    Then seluruh operasi dalam transaksi dibatalkan sepenuhnya (rollback)
+    And tidak ada rekaman penjualan parsial atau pemotongan stok yang tertinggal
 
-#### Scenario: Client-Side Price Manipulation
+#### Skenario: Percobaan Manipulasi Harga Sisi Klien
 
-    Given a product costs IDR 15,000 in the database
-    When a user submits a manipulated total of IDR 1
-    Then the manipulated amount is not accepted
-    And the server uses authoritative pricing rules
+    Given produk di basis data memiliki harga resmi Rp15.000
+    When permintaan dikirim dengan nilai total yang dimanipulasi menjadi Rp1
+    Then server menolak nilai buatan tersebut
+    And menghitung ulang secara mandiri menggunakan harga resmi yang berlaku
 
-## 10. Transaction History and Receipts
+## 10. Riwayat Transaksi dan Struk
 
-### US-017: Transaction Receipt
+### US-017: Struk Transaksi
 
-    Given a checkout succeeds
-    When the Cashier opens its receipt
-    Then the receipt displays the invoice number
-    And transaction date
-    And purchased items
-    And quantities and selling prices
-    And total, cash received, and change
+    Given transaksi penjualan telah berhasil diselesaikan
+    When Kasir membuka struk transaksi tersebut
+    Then struk menampilkan nomor faktur unik
+    And tanggal dan waktu transaksi
+    And rincian item barang yang dibeli beserta kuantitas dan harga satuan
+    And total belanja, nominal uang tunai diterima, dan nominal uang kembalian
 
-    Given a product price changes after the sale
-    When the original receipt is displayed again
-    Then the original selling price is preserved
+    Given harga jual produk diubah di masa depan
+    When struk lama ditampilkan atau dicetak ulang
+    Then harga yang tertulis pada struk tetap mencerminkan harga saat transaksi terjadi
 
-### US-018: Personal Transaction History
+### US-018: Riwayat Transaksi Pribadi Kasir
 
-    Given a Cashier is authenticated
-    When the Cashier opens transaction history
-    Then only transactions created by that Cashier are displayed
+    Given seorang Kasir telah login ke aplikasi
+    When Kasir membuka menu riwayat transaksi
+    Then hanya transaksi yang dibuat oleh akun Kasir tersebut yang ditampilkan
 
-    Given another Cashier owns a transaction
-    When the current Cashier requests it by identifier
-    Then access is denied
+    Given transaksi penjualan dibuat oleh Kasir A
+    When Kasir B mencoba mengakses detail transaksi tersebut melalui ID URL
+    Then sistem menolak akses dan mengembalikan pesan larangan (403 Forbidden)
 
-### US-019: All Transactions
+### US-019: Semua Transaksi untuk Owner dan Admin
 
-    Given an authorized Owner or Admin is authenticated
-    When transaction history is opened
-    Then all permitted sales records are displayed
-    And the records can be filtered by date
+    Given Owner atau Admin telah login ke aplikasi
+    When membuka menu riwayat transaksi
+    Then seluruh transaksi toko dapat dilihat
+    And data transaksi dapat difilter berdasarkan rentang tanggal
 
-    Given a transaction is completed
-    When modification or deletion is requested
-    Then the operation is rejected
+    Given suatu transaksi penjualan telah berstatus selesai
+    When ada permintaan untuk mengedit isi faktur atau menghapusnya
+    Then sistem secara tegas menolak aksi tersebut
 
-## 11. Reports
+## 11. Laporan
 
-### US-020: Gross Profit Report
+### US-020: Laporan Laba Kotor
 
-    Given completed net sales equal IDR 45,000
-    And historical product costs equal IDR 32,000
-    When the Owner opens the gross profit report
-    Then estimated gross profit equals IDR 13,000
+    Given total penjualan bersih yang selesai adalah Rp45.000
+    And total snapshot harga modal barang terkait adalah Rp32.000
+    When Owner membuka laporan laba kotor
+    Then estimasi laba kotor yang ditampilkan adalah Rp13.000
 
-    Given the current product purchase cost changes
-    When the original sales period is viewed again
-    Then historical gross profit remains unchanged
+    Given harga beli modal produk diubah pada master data di masa kini
+    When laporan periode penjualan lampau dibuka kembali
+    Then nilai laba kotor historis tidak mengalami perubahan
 
-### US-021: Inventory Report
+### US-021: Laporan Inventaris
 
-    Given valid products and inventory records exist
-    When an Admin opens the stock report
-    Then current inventory quantities are displayed
+    Given data produk dan stok telah tersedia
+    When Admin membuka laporan inventaris
+    Then jumlah stok saat ini dan daftar barang yang menipis ditampilkan secara akurat
 
-### US-022: Export Reports
+### US-022: Ekspor Laporan
 
-    Given report export is implemented
-    And an authorized user selects a valid date range
-    When the user exports the report
-    Then an Excel file containing permitted data is generated
+    Given fitur ekspor laporan telah aktif
+    And pengguna berwenang memilih rentang tanggal yang valid
+    When pengguna menekan tombol ekspor
+    Then sistem menghasilkan file format Excel (.xlsx) dengan data yang diizinkan
 
-    Given the requesting user is an Admin
-    Then restricted gross profit information is excluded
+    Given pengguna yang meminta ekspor adalah Admin
+    Then kolom laba kotor dan harga modal otomatis dihilangkan dari file unduhan
 
-## 12. User Administration
+## 12. Administrasi Pengguna
 
-### US-023 and US-024: Users and Roles
+### US-023 dan US-024: Manajemen Akun dan Peran
 
-    Given an Owner is authenticated
-    When valid user information and a predefined role are submitted
-    Then a user account is created
-    And the password is stored securely
+    Given Owner telah terautentikasi
+    When Owner mengisi data pengguna baru dan memilih peran bawaan (Owner, Admin, Kasir)
+    Then akun pengguna baru berhasil dibuat
+    And kata sandi disimpan menggunakan algoritma hashing yang aman
 
-    Given an active Cashier is deactivated
-    When that Cashier requests a protected operation
-    Then the system rejects access
+    Given akun Kasir dinonaktifkan oleh Owner
+    When Kasir tersebut mencoba mengakses rute atau fitur terproteksi
+    Then sistem langsung menolak akses
 
-    Given only one active Owner remains
-    When deactivation or role demotion is requested
-    Then the operation is rejected
+    Given hanya tersisa satu akun Owner aktif di dalam sistem
+    When ada upaya untuk menonaktifkan atau menurunkan peran akun tersebut
+    Then sistem menolak operasi untuk mencegah terkuncinya akses sistem secara permanen
 
-### US-025: Activity Logs
+### US-025: Log Aktivitas
 
-    Given general activity logging is implemented
-    When an important user administration action occurs
-    Then an activity record is created
-    And an authorized Owner can review it
+    Given pencatatan log aktivitas diaktifkan
+    When terjadi aksi perubahan penting (misal: penonaktifan akun pengguna)
+    Then rekaman aktivitas tercatat secara otomatis
+    And Owner yang berwenang dapat melihat rekaman aktivitas tersebut
 
-### US-026: Store Configuration
+### US-026: Konfigurasi Toko
 
-    Given store configuration is implemented
-    When an Owner updates valid store information
-    Then subsequent applicable receipt and display information
-    uses the updated configuration
+    Given fitur pengaturan toko telah tersedia
+    When Owner memperbarui informasi nama atau alamat toko
+    Then informasi pada struk belanja dan tampilan toko berikutnya menggunakan data terbaru
 
 ## 13. DevOps
 
-### US-027: Continuous Integration
+### US-027: Integrasi Berkelanjutan (CI)
 
-As a Developer,
-I want automated quality checks,
-So that code defects are discovered before release.
+Sebagai Developer,  
+Saya ingin seluruh pengujian dan pemeriksaan kode berjalan otomatis,  
+Agar potensi kecacatan kode terdeteksi sebelum dirilis ke lingkungan produksi.
 
-    Given a pull request is submitted
-    When GitHub Actions executes the CI workflow
-    Then dependencies are installed
-    And lint checks execute
-    And TypeScript checks execute
-    And automated tests execute
-    And the application build is verified
+    Given sebuah Pull Request dibuat pada repository GitHub
+    When GitHub Actions mengeksekusi alur CI
+    Then dependensi terinstal dengan aman
+    And pemeriksaan ESLint dieksekusi
+    And pemeriksaan kompilasi TypeScript dieksekusi
+    And rangkaian pengujian otomatis (unit dan integrasi) dieksekusi
+    And proses build aplikasi diverifikasi
+    
+    Given salah satu tahap pemeriksaan CI mengalami kegagalan
+    Then perubahan kode diblokir dan tidak boleh digabungkan ke branch utama
 
-    Given a required CI check fails
-    Then the change must not be released to production
+### US-028: Penerapan Berkelanjutan (CD)
 
-### US-028: Continuous Deployment
+    Given branch fitur di-push ke remote repository
+    When Vercel memproses branch tersebut
+    Then tautan pratinjau (Preview deployment) otomatis tersedia
 
-    Given a feature branch is pushed
-    When Vercel processes the branch
-    Then a preview deployment is available
+    Given seluruh pemeriksaan rilis telah lulus
+    And branch fitur di-merge ke branch main
+    When alur deployment produksi dieksekusi
+    Then aplikasi di-build dan dideploy ke URL produksi publik
+    And verifikasi smoke test dapat dilakukan secara langsung
 
-    Given required release checks have passed
-    And the release is merged into main
-    When the production deployment runs
-    Then the application is built and deployed
-    And the deployed application can be smoke-tested
+## 14. Definition of Ready (DoR)
 
-## 14. Definition of Ready
+Sebuah user story dinyatakan siap (ready) untuk dikembangkan apabila:
 
-A user story is ready for development when:
+- Tujuan dan nilai bisnisnya telah dipahami dengan jelas.
+- Kriteria penerimaan telah didefinisikan secara eksplisit.
+- Hak izin peran yang dibutuhkan telah diidentifikasi.
+- Ketergantungan teknis dan dependensi antarmodul telah dipahami.
+- Aturan bisnis yang relevan telah tercantum dalam spesifikasi.
+- Cakupan implementasi telah terukur dan dapat dikerjakan dalam alokasi waktu.
 
-- Its business purpose is understood.
-- Acceptance criteria are defined.
-- Required permissions are identified.
-- Dependencies are understood.
-- Relevant business rules are available.
-- The implementation scope is sufficiently clear.
+## 15. Definition of Done (DoD)
 
-## 15. Definition of Done
+Sebuah user story dinyatakan selesai (done) apabila:
 
-A user story is complete when:
+- Seluruh kriteria penerimaan berhasil dipenuhi.
+- Aturan bisnis terkait telah diimplementasikan dengan benar.
+- Pemeriksaan otorisasi di sisi server telah aktif.
+- Validasi data input telah terpasang di sisi server.
+- Pengujian otomatis (unit, integrasi, atau E2E) yang relevan telah dibuat dan lulus.
+- Pemeriksaan linting dan tipe TypeScript lulus tanpa error.
+- Tidak ada kredensial atau rahasia yang ter-commit ke repositori.
+- Dokumentasi teknis telah diperbarui jika ada perubahan.
+- Kode telah di-commit dengan pesan Conventional Commits yang baku.
+- Pull Request berhasil melewati seluruh pemeriksaan alur CI.
+- Fitur telah diverifikasi langsung pada lingkungan pratinjau (Preview).
 
-- Acceptance criteria are satisfied.
-- Relevant business rules are implemented.
-- Required authorization checks exist.
-- Inputs are validated on the server.
-- Relevant automated tests pass.
-- Lint and type checks pass.
-- No secrets are committed.
-- Documentation is updated where necessary.
-- The code is committed using a meaningful Git message.
-- The pull request passes required CI checks.
-- The feature is reviewed in the preview environment.
+## 16. Dokumen Terkait
 
-## 16. Related Documents
-
-- [Functional Requirements](functional-requirements.md)
-- [Business Rules](business-rules.md)
-- [Non-Functional Requirements](non-functional-requirements.md)
-- [MVP Scope](mvp-scope.md)
+- [Persyaratan Fungsional (FRS)](functional-requirements.md)
+- [Spesifikasi Aturan Bisnis](business-rules.md)
+- [Persyaratan Non-Fungsional (NFRS)](non-functional-requirements.md)
+- [Cakupan MVP](mvp-scope.md)

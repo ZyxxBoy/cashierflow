@@ -1,223 +1,217 @@
-# Non-Functional Requirements Specification
+# Spesifikasi Persyaratan Non-Fungsional (Non-Functional Requirements Specification - NFRS)
 
-## 1. Document Information
+## 1. Informasi Dokumen
 
-| Attribute | Description |
+| Atribut | Deskripsi |
 |---|---|
-| Project | CashierFlow |
-| Document Version | 1.0 |
-| Product Version | 1.0.0 MVP |
-| Author | ZyxxBoy |
+| Proyek | CashierFlow |
+| Versi Dokumen | 1.0 |
+| Versi Produk | 1.0.0 MVP |
+| Penulis | ZyxxBoy |
 | Status | Initial Baseline |
 
-## 2. Purpose
+## 2. Tujuan
 
-This document defines the quality attributes, technical
-constraints, security requirements, performance targets,
-and operational standards of CashierFlow.
+Dokumen ini mendefinisikan atribut kualitas, batasan teknis, persyaratan keamanan, target kinerja/performa, dan standar operasional dari CashierFlow.
 
-## 3. Performance
+## 3. Kinerja dan Performa (Performance)
 
-| ID | Requirement | Priority |
+| ID | Persyaratan | Prioritas |
 |---|---|---|
-| NFR-PERF-001 | Target p95 response time below 500 ms for standard read requests under warm conditions | Should |
-| NFR-PERF-002 | Target checkout response time below 2 seconds under normal warm conditions | Should |
-| NFR-PERF-003 | Use server-side pagination for large data tables | Must |
-| NFR-PERF-004 | Apply database indexes to frequently queried fields | Must |
-| NFR-PERF-005 | Avoid unnecessary database queries and N+1 query patterns | Must |
-| NFR-PERF-006 | Use bounded database connection pooling | Must |
-| NFR-PERF-007 | Limit maximum pagination and checkout payload sizes | Must |
+| NFR-PERF-001 | Target waktu respons p95 di bawah 500 ms untuk permintaan baca data standar dalam kondisi warm | Should |
+| NFR-PERF-002 | Target waktu respons checkout di bawah 2 detik dalam kondisi normal warm | Should |
+| NFR-PERF-003 | Menggunakan paginasi di sisi server (server-side pagination) untuk tabel data bervolume besar | Must |
+| NFR-PERF-004 | Menerapkan indeks basis data pada kolom yang sering dijadikan kriteria query pencarian dan relasi | Must |
+| NFR-PERF-005 | Menghindari query basis data berlebih dan pola query N+1 | Must |
+| NFR-PERF-006 | Menerapkan batas ukuran connection pooling pada basis data | Must |
+| NFR-PERF-007 | Membatasi ukuran maksimal payload paginasi dan payload transaksi checkout | Must |
 
-### Performance Test Baseline
+### Baseline Pengujian Performa
 
-Initial test conditions:
+Kondisi awal pengujian performa:
 
-- 1,000 product records.
-- 5,000 synthetic completed transactions.
-- 10 concurrent active users.
-- Warm application and database connections.
-- Representative deployment or local test environment.
+- 1.000 rekaman data produk.
+- 5.000 rekaman transaksi sintetis yang telah selesai.
+- 10 pengguna aktif yang bertransaksi secara bersamaan.
+- Koneksi aplikasi dan basis data dalam status aktif/hangat (warm).
+- Lingkungan pengujian lokal representatif atau server staging.
 
-These numbers define initial engineering targets, not
-guaranteed hosting capacity or measured performance.
+Angka-angka ini menetapkan target rekayasa awal, bukan jaminan kapasitas hosting gratis atau jaminan pengukuran pasti.
 
-Cold starts and network latency must be reported separately.
+Kondisi cold start serverless dan latensi jaringan publik harus dianalisis secara terpisah.
 
-## 4. Security
+## 4. Keamanan (Security)
 
-| ID | Requirement | Priority |
+| ID | Persyaratan | Prioritas |
 |---|---|---|
-| NFR-SEC-001 | Store passwords using a suitable password hashing algorithm | Must |
-| NFR-SEC-002 | Validate all untrusted input on the server | Must |
-| NFR-SEC-003 | Require authentication for private operations | Must |
-| NFR-SEC-004 | Enforce role-based authorization on the server | Must |
-| NFR-SEC-005 | Store credentials and secrets in environment variables | Must |
-| NFR-SEC-006 | Use HTTPS in deployed environments | Must |
-| NFR-SEC-007 | Use parameterized database queries | Must |
-| NFR-SEC-008 | Protect session cookies with appropriate security attributes | Must |
-| NFR-SEC-009 | Implement rate limiting for authentication and sensitive operations | Must |
-| NFR-SEC-010 | Protect state-changing operations against CSRF | Must |
-| NFR-SEC-011 | Prevent unauthorized access to another user's transactions | Must |
-| NFR-SEC-012 | Never expose password hashes or secret values to clients | Must |
-| NFR-SEC-013 | Avoid logging passwords, tokens, and sensitive information | Must |
-| NFR-SEC-014 | Review dependency security vulnerabilities | Must |
-| NFR-SEC-015 | Use fictional data in the public portfolio environment | Must |
-| NFR-SEC-016 | Invalidate or reject sessions belonging to inactive users | Must |
+| NFR-SEC-001 | Menyimpan kata sandi menggunakan algoritma hashing standar industri yang aman | Must |
+| NFR-SEC-002 | Memvalidasi seluruh data input yang tidak tepercaya di sisi server | Must |
+| NFR-SEC-003 | Mewajibkan autentikasi aktif untuk seluruh rute dan operasi privat | Must |
+| NFR-SEC-004 | Menegakkan otorisasi berbasis peran (RBAC) di sisi server | Must |
+| NFR-SEC-005 | Menyimpan kredensial rahasia dan kunci API di dalam environment variables | Must |
+| NFR-SEC-006 | Menggunakan protokol HTTPS pada lingkungan yang telah dideploy | Must |
+| NFR-SEC-007 | Menggunakan parameterized query untuk mencegah serangan SQL Injection | Must |
+| NFR-SEC-008 | Melindungi cookie sesi dengan atribut keamanan yang tepat (HttpOnly, Secure, SameSite) | Must |
+| NFR-SEC-009 | Menerapkan pembatasan laju permintaan (rate limiting) pada proses login dan aksi sensitif | Must |
+| NFR-SEC-010 | Melindungi operasi perubahan data dari potensi serangan CSRF | Must |
+| NFR-SEC-011 | Mencegah akses tanpa hak ke riwayat transaksi milik pengguna/kasir lain | Must |
+| NFR-SEC-012 | Dilarang membocorkan hash kata sandi atau nilai rahasia apa pun ke antarmuka klien | Must |
+| NFR-SEC-013 | Menghindari pencatatan kata sandi, token, atau informasi sensitif ke dalam berkas log | Must |
+| NFR-SEC-014 | Melakukan peninjauan kerentanan keamanan pada pustaka dependensi pihak ketiga | Must |
+| NFR-SEC-015 | Wajib menggunakan data fiktif pada lingkungan demonstrasi portofolio publik | Must |
+| NFR-SEC-016 | Membatalkan atau menolak sesi login milik akun pengguna yang telah dinonaktifkan | Must |
 
-## 5. Reliability and Data Integrity
+## 5. Keandalan dan Integritas Data (Reliability & Integrity)
 
-| ID | Requirement | Priority |
+| ID | Persyaratan | Prioritas |
 |---|---|---|
-| NFR-REL-001 | Execute checkout as an atomic database transaction | Must |
-| NFR-REL-002 | Prevent negative inventory quantities | Must |
-| NFR-REL-003 | Support checkout idempotency | Must |
-| NFR-REL-004 | Preserve historical transaction data | Must |
-| NFR-REL-005 | Roll back incomplete checkout operations | Must |
-| NFR-REL-006 | Enforce primary key, foreign key, and uniqueness constraints | Must |
-| NFR-REL-007 | Handle concurrent inventory updates safely | Must |
-| NFR-REL-008 | Use database migrations for schema changes | Must |
-| NFR-REL-009 | Document database recovery procedures and limitations | Must |
-| NFR-REL-010 | Handle transient database failures without creating duplicate transactions | Must |
+| NFR-REL-001 | Menjalankan transaksi checkout sebagai satu kesatuan transaksi basis data yang atomik | Must |
+| NFR-REL-002 | Mencegah timbulnya nilai kuantitas inventaris yang bernilai negatif | Must |
+| NFR-REL-003 | Mendukung idempotensi pada pemrosesan transaksi checkout | Must |
+| NFR-REL-004 | Mempertahankan keutuhan rekaman data historis transaksi penjualan | Must |
+| NFR-REL-005 | Melakukan rollback penuh jika terjadi kegagalan di tengah proses transaksi checkout | Must |
+| NFR-REL-006 | Menegakkan primary key, foreign key, dan unique constraint di tingkat basis data | Must |
+| NFR-REL-007 | Menangani pembaruan inventaris konkuren dengan aman tanpa menimbulkan overselling | Must |
+| NFR-REL-008 | Menggunakan skrip migrasi basis data terkelola untuk setiap perubahan skema | Must |
+| NFR-REL-009 | Mendokumentasikan prosedur dan batasan pemulihan data (recovery) | Must |
+| NFR-REL-010 | Menangani kegagalan koneksi basis data transien tanpa menghasilkan transaksi ganda | Must |
 
-## 6. Availability
+## 6. Ketersediaan (Availability)
 
-| ID | Requirement | Priority |
+| ID | Persyaratan | Prioritas |
 |---|---|---|
-| NFR-AVL-001 | Provide an accessible deployed demonstration | Must |
-| NFR-AVL-002 | Provide a lightweight application health endpoint | Must |
-| NFR-AVL-003 | Display understandable service failure messages | Must |
-| NFR-AVL-004 | Document infrastructure limitations | Must |
+| NFR-AVL-001 | Menyediakan tautan demo aplikasi publik yang dapat diakses dengan stabil | Must |
+| NFR-AVL-002 | Menyediakan endpoint health check ringan untuk memverifikasi keaktifan aplikasi | Must |
+| NFR-AVL-003 | Menampilkan pesan penanganan error yang informatif saat layanan terganggu | Must |
+| NFR-AVL-004 | Mendokumentasikan batasan operasional dari infrastruktur gratis yang dipakai | Must |
 
-The MVP uses free-tier infrastructure where appropriate.
+Sistem MVP menggunakan infrastruktur gratis (free-tier) yang sesuai.
 
-A guaranteed uptime SLA, high-availability cluster, and
-disaster recovery infrastructure are outside the MVP scope.
+Jaminan SLA ketersediaan 99,99%, kluster server dengan redundansi multi-zona, dan sistem Disaster Recovery skala besar berada di luar cakupan rilis MVP.
 
-## 7. Usability and Accessibility
+## 7. Kegunaan dan Aksesibilitas (Usability & Accessibility)
 
-| ID | Requirement | Priority |
+| ID | Persyaratan | Prioritas |
 |---|---|---|
-| NFR-USA-001 | Support desktop and tablet layouts | Must |
-| NFR-USA-002 | Provide consistent navigation and controls | Must |
-| NFR-USA-003 | Display validation errors near relevant inputs | Must |
-| NFR-USA-004 | Provide clear loading and empty states | Must |
-| NFR-USA-005 | Provide destructive action confirmations | Must |
-| NFR-USA-006 | Support keyboard navigation for primary workflows | Must |
-| NFR-USA-007 | Use accessible labels and visible focus indicators | Must |
-| NFR-USA-008 | Use sufficient text and control color contrast | Must |
-| NFR-USA-009 | Support mobile layouts for non-POS pages | Should |
+| NFR-USA-001 | Mendukung tata letak layar Desktop dan Tablet dengan baik | Must |
+| NFR-USA-002 | Menyediakan alur navigasi dan tombol kontrol yang konsisten di setiap modul | Must |
+| NFR-USA-003 | Menampilkan pesan error validasi di dekat elemen input formulir yang bersangkutan | Must |
+| NFR-USA-004 | Menyediakan tampilan loading state dan empty state yang jelas | Must |
+| NFR-USA-005 | Menyediakan dialog konfirmasi sebelum mengeksekusi tindakan yang bersifat destruktif | Must |
+| NFR-USA-006 | Mendukung navigasi keyboard untuk alur kerja utama kasir | Must |
+| NFR-USA-007 | Menggunakan label formulir yang mudah diakses dan indikator fokus yang terlihat jelas | Must |
+| NFR-USA-008 | Memastikan kontras warna teks dan elemen antarmuka memenuhi standar keterbacaan | Must |
+| NFR-USA-009 | Mendukung tata letak responsif pada perangkat seluler untuk halaman non-POS | Should |
 
-The POS page is primarily optimized for desktop and tablet.
+Layar Point of Sale (POS) dioptimalkan terutama untuk penggunaan di perangkat Desktop dan Tablet.
 
-## 8. Maintainability
+## 8. Kemudahan Pemeliharaan (Maintainability)
 
-| ID | Requirement | Priority |
+| ID | Persyaratan | Prioritas |
 |---|---|---|
-| NFR-MNT-001 | Use TypeScript strict mode | Must |
-| NFR-MNT-002 | Use a modular folder structure | Must |
-| NFR-MNT-003 | Separate UI, business logic, and database access | Must |
-| NFR-MNT-004 | Use shared validation schemas | Must |
-| NFR-MNT-005 | Use ESLint for static code analysis | Must |
-| NFR-MNT-006 | Use consistent formatting with Prettier | Must |
-| NFR-MNT-007 | Maintain meaningful Git commit messages | Must |
-| NFR-MNT-008 | Document important architectural decisions | Must |
-| NFR-MNT-009 | Maintain environment variable examples without secrets | Must |
-| NFR-MNT-010 | Avoid unnecessary architectural complexity | Must |
+| NFR-MNT-001 | Mengaktifkan TypeScript Strict Mode secara penuh | Must |
+| NFR-MNT-002 | Menggunakan struktur direktori proyek yang modular dan rapi | Must |
+| NFR-MNT-003 | Memisahkan antarmuka UI, logika bisnis, dan akses basis data secara jelas | Must |
+| NFR-MNT-004 | Menggunakan skema validasi Zod bersama yang konsisten | Must |
+| NFR-MNT-005 | Menerapkan ESLint untuk analisis kualitas kode statis | Must |
+| NFR-MNT-006 | Menerapkan Prettier untuk format kode yang konsisten | Must |
+| NFR-MNT-007 | Menggunakan pesan commit Git yang informatif dan bermakna (Conventional Commits) | Must |
+| NFR-MNT-008 | Mendokumentasikan keputusan arsitektur penting (ADR) | Must |
+| NFR-MNT-009 | Menyediakan file contoh environment variable (`.env.example`) tanpa menyertakan kredensial asli | Must |
+| NFR-MNT-010 | Menghindari kerumitan arsitektur yang tidak diperlukan (hindari premature optimization) | Must |
 
-## 9. Scalability
+## 9. Skalabilitas (Scalability)
 
-| ID | Requirement | Priority |
+| ID | Persyaratan | Prioritas |
 |---|---|---|
-| NFR-SCL-001 | Use paginated database queries | Must |
-| NFR-SCL-002 | Keep server-side business logic stateless where practical | Must |
-| NFR-SCL-003 | Support increased product and transaction records through proper indexing | Must |
-| NFR-SCL-004 | Keep modules sufficiently isolated for future extensions | Should |
+| NFR-SCL-001 | Menggunakan paginasi pada setiap query pembacaan data berjumlah banyak | Must |
+| NFR-SCL-002 | Mempertahankan status logika bisnis sisi server tetap stateless sebisa mungkin | Must |
+| NFR-SCL-003 | Mendukung peningkatan volume data produk dan transaksi melalui pengindeksan yang tepat | Must |
+| NFR-SCL-004 | Menjaga modul sistem cukup terisolasi agar mudah dipisahkan di masa depan jika diperlukan | Should |
 
-Microservices, distributed caching, and Kubernetes are not
-required for the initial application.
+Arsitektur microservices, cache terdistribusi, dan orkestrasi Kubernetes belum dibutuhkan untuk tahap awal sistem ini.
 
-## 10. Testability
+## 10. Kemampuan Pengujian (Testability)
 
-| ID | Requirement | Priority |
+| ID | Persyaratan | Prioritas |
 |---|---|---|
-| NFR-TST-001 | Use Vitest for unit testing | Must |
-| NFR-TST-002 | Test transaction total calculations | Must |
-| NFR-TST-003 | Test input and business rule validation | Must |
-| NFR-TST-004 | Test checkout database operations | Must |
-| NFR-TST-005 | Test concurrent checkout behavior | Must |
-| NFR-TST-006 | Test duplicate checkout requests | Must |
-| NFR-TST-007 | Use Playwright for critical E2E workflows | Must |
-| NFR-TST-008 | Test unauthorized access and role restrictions | Must |
-| NFR-TST-009 | Run required automated checks in GitHub Actions | Must |
-| NFR-TST-010 | Target at least 80% line coverage for core business services | Should |
+| NFR-TST-001 | Menggunakan Vitest sebagai kerangka kerja pengujian unit (unit testing) | Must |
+| NFR-TST-002 | Menguji perhitungan matematis total transaksi, subtotal, diskon, dan kembalian | Must |
+| NFR-TST-003 | Menguji validasi input dan penegakan aturan bisnis | Must |
+| NFR-TST-004 | Menguji operasi transaksi basis data pada proses checkout | Must |
+| NFR-TST-005 | Menguji ketahanan checkout terhadap kondisi perlombaan bersamaan (concurrency race condition) | Must |
+| NFR-TST-006 | Menguji penanganan pengiriman checkout terduplikasi (idempotensi) | Must |
+| NFR-TST-007 | Menggunakan Playwright untuk pengujian alur kritis end-to-end (E2E) | Must |
+| NFR-TST-008 | Menguji penolakan akses tidak berhak dan pembatasan peran pengguna | Must |
+| NFR-TST-009 | Menjalankan seluruh pengujian otomatis pada alur CI GitHub Actions | Must |
+| NFR-TST-010 | Menargetkan minimal 80% line coverage untuk modul layanan bisnis inti | Should |
 
-Critical business rules must have explicit test cases
-regardless of the aggregate coverage percentage.
+Aturan bisnis yang berstatus kritis wajib memiliki skenario pengujian otomatis eksplisit terlepas dari persentase cakupan keseluruhan.
 
-## 11. Deployment and CI/CD
+## 11. Deployment dan CI/CD
 
-| ID | Requirement | Priority |
+| ID | Persyaratan | Prioritas |
 |---|---|---|
-| NFR-DEP-001 | Use GitHub for version control | Must |
-| NFR-DEP-002 | Use GitHub Actions for Continuous Integration | Must |
-| NFR-DEP-003 | Execute lint, type-check, test, and build checks | Must |
-| NFR-DEP-004 | Support Vercel Preview deployments | Must |
-| NFR-DEP-005 | Support Vercel Production deployment | Must |
-| NFR-DEP-006 | Separate preview and production database credentials | Must |
-| NFR-DEP-007 | Gate production releases on successful required checks | Must |
-| NFR-DEP-008 | Document application rollback procedures | Must |
-| NFR-DEP-009 | Manage database migrations as controlled release operations | Must |
-| NFR-DEP-010 | Provide Docker-based local development support | Should |
+| NFR-DEP-001 | Menggunakan GitHub sebagai platform manajemen versi kode sumber | Must |
+| NFR-DEP-002 | Menggunakan GitHub Actions untuk Continuous Integration (CI) | Must |
+| NFR-DEP-003 | Menjalankan pemeriksaan lint, tipe TypeScript, unit test, dan build aplikasi otomatis | Must |
+| NFR-DEP-004 | Mendukung deployment lingkungan pratinjau (Preview) di Vercel pada setiap pull request | Must |
+| NFR-DEP-005 | Mendukung deployment otomatis ke lingkungan produksi Vercel | Must |
+| NFR-DEP-006 | Memisahkan kredensial basis data antara lingkungan preview dan lingkungan produksi | Must |
+| NFR-DEP-007 | Mengunci rilis produksi hanya jika seluruh pengujian pada alur CI berhasil lulus | Must |
+| NFR-DEP-008 | Mendokumentasikan prosedur pembatalan/pemulihan rilis (rollback) | Must |
+| NFR-DEP-009 | Menjalankan migrasi basis data sebagai proses terkelola yang terverifikasi | Must |
+| NFR-DEP-010 | Menyediakan dukungan lingkungan pengembangan lokal berbasis Docker Compose | Should |
 
-## 12. Observability
+## 12. Observabilitas (Observability)
 
-| ID | Requirement | Priority |
+| ID | Persyaratan | Prioritas |
 |---|---|---|
-| NFR-OBS-001 | Record unexpected application errors | Must |
-| NFR-OBS-002 | Provide meaningful server-side error messages | Must |
-| NFR-OBS-003 | Avoid sensitive data in logs | Must |
-| NFR-OBS-004 | Include request identifiers in important error logs | Should |
-| NFR-OBS-005 | Use available Vercel deployment and runtime logs | Must |
+| NFR-OBS-001 | Mencatat error sistem yang tidak terduga pada log server | Must |
+| NFR-OBS-002 | Menyediakan pesan error sisi server yang informatif dan terstruktur | Must |
+| NFR-OBS-003 | Mencegah tercatatnya data sensitif (seperti password dan token) di log | Must |
+| NFR-OBS-004 | Menyertakan identifier unik permintaan (Request ID) pada log error penting | Should |
+| NFR-OBS-005 | Memanfaatkan log runtime dan log deployment bawaan Vercel | Must |
 
-## 13. Browser Compatibility
+## 13. Kompatibilitas Peramban (Browser Compatibility)
 
-| Browser | Support Target |
+| Peramban | Target Dukungan |
 |---|---|
-| Google Chrome | Current stable version |
-| Microsoft Edge | Current stable version |
-| Mozilla Firefox | Current stable version |
-| Safari | Current stable version, best effort |
-| Internet Explorer | Not supported |
+| Google Chrome | Versi stabil terkini |
+| Microsoft Edge | Versi stabil terkini |
+| Mozilla Firefox | Versi stabil terkini |
+| Safari | Versi stabil terkini (upaya terbaik / best effort) |
+| Internet Explorer | Tidak didukung |
 
-## 14. Data and Localization
+## 14. Data dan Lokalisasi
 
-| ID | Requirement | Priority |
+| ID | Persyaratan | Prioritas |
 |---|---|---|
-| NFR-DAT-001 | Store monetary amounts in integer IDR values | Must |
-| NFR-DAT-002 | Store timestamps using timezone-aware database types | Must |
-| NFR-DAT-003 | Normalize stored timestamps to UTC | Must |
-| NFR-DAT-004 | Display dates using the configured store timezone | Must |
-| NFR-DAT-005 | Format money using Indonesian Rupiah conventions | Must |
-| NFR-DAT-006 | Minimize collection of customer personal information | Must |
-| NFR-DAT-007 | Use isolated or controlled public demo accounts | Must |
+| NFR-DAT-001 | Menyimpan nominal nilai uang dalam satuan bilangan bulat Rupiah (integer IDR) | Must |
+| NFR-DAT-002 | Menyimpan data waktu menggunakan tipe data basis data yang sadar zona waktu (timestamptz) | Must |
+| NFR-DAT-003 | Menormalisasi seluruh data timestamp yang tersimpan ke format UTC | Must |
+| NFR-DAT-004 | Menampilkan waktu kepada pengguna menggunakan zona waktu toko yang dikonfigurasi | Must |
+| NFR-DAT-005 | Memformat tampilan nominal uang sesuai dengan kaidah penulisan Rupiah Indonesia | Must |
+| NFR-DAT-006 | Meminimalkan pengumpulan data pribadi pelanggan | Must |
+| NFR-DAT-007 | Menggunakan akun demo yang terisolasi atau terkontrol pada lingkungan publik | Must |
 
-## 15. Verification Methods
+## 15. Metode Verifikasi
 
-| Requirement Category | Verification Method |
+| Kategori Persyaratan | Metode Verifikasi |
 |---|---|
-| Performance | Response time and load testing |
-| Security | Authorization and security test cases |
-| Reliability | Integration and concurrency testing |
-| Usability | Manual review and E2E testing |
-| Maintainability | Code review and static analysis |
-| Testability | Automated test reports |
-| Deployment | CI/CD execution and deployment verification |
-| Compatibility | Browser testing |
-| Data Integrity | Database constraint and transaction testing |
+| Kinerja (Performance) | Pengujian waktu respons dan uji beban |
+| Keamanan (Security) | Pengujian otorisasi peran dan skenario pengujian celah keamanan |
+| Keandalan (Reliability) | Pengujian integrasi dan pengujian beban konkurensi |
+| Kegunaan (Usability) | Tinjauan manual antarmuka dan pengujian alur E2E |
+| Pemeliharaan (Maintainability) | Tinjauan kode (code review) dan analisis statis |
+| Pengujian (Testability) | Laporan hasil eksekusi pengujian otomatis |
+| Deployment | Eksekusi alur CI/CD dan verifikasi status aplikasi yang dideploy |
+| Kompatibilitas | Pengujian antarmuka pada berbagai peramban utama |
+| Integritas Data | Pengujian konstrain basis data dan rollback transaksi |
 
-## 16. Related Documents
+## 16. Dokumen Terkait
 
-- [Product Requirements](PRD.md)
-- [Functional Requirements](functional-requirements.md)
-- [Business Rules](business-rules.md)
-- [System Architecture](architecture.md)
+- [Dokumen Persyaratan Produk (PRD)](PRD.md)
+- [Persyaratan Fungsional (FRS)](functional-requirements.md)
+- [Spesifikasi Aturan Bisnis](business-rules.md)
+- [Arsitektur Sistem](architecture.md)

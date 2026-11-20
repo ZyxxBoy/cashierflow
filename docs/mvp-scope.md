@@ -1,311 +1,301 @@
-# Minimum Viable Product (MVP) Scope
+# Cakupan Minimum Viable Product (MVP Scope)
 
-## 1. Document Information
+## 1. Informasi Dokumen
 
-| Attribute | Description |
+| Atribut | Deskripsi |
 |---|---|
-| Project | CashierFlow |
-| Document Version | 1.0 |
-| Target Release | v1.0.0 |
-| Author | ZyxxBoy |
-| Start Date | November 20, 2026 |
-| Target Release Date | December 3, 2026 |
-| Development Duration | 14 Days |
+| Proyek | CashierFlow |
+| Versi Dokumen | 1.0 |
+| Target Rilis | v1.0.0 |
+| Penulis | ZyxxBoy |
+| Tanggal Mulai | 20 November 2026 |
+| Target Tanggal Rilis | 3 Desember 2026 |
+| Durasi Pengembangan | 14 Hari |
 | Status | Initial Baseline |
 
-## 2. MVP Objective
+## 2. Tujuan MVP
 
-The objective of the CashierFlow MVP is to deliver a functional
-single-store Point of Sale and Inventory Management System
-that supports essential retail business operations.
+Tujuan dari CashierFlow MVP adalah menghadirkan Sistem Point of Sale (POS) dan Manajemen Inventaris untuk satu toko tunggal yang fungsional dan mampu mendukung operasional ritel penting sehari-hari.
 
-The MVP prioritizes transaction correctness, inventory
-consistency, security, maintainability, automated testing,
-and successful cloud deployment.
+MVP ini memprioritaskan ketepatan transaksi, konsistensi data stok barang, keamanan sistem, keterawatan kode (maintainability), pengujian otomatis, dan keberhasilan penerapan ke lingkungan cloud.
 
-## 3. MVP Technology Stack
+## 3. Tech Stack MVP
 
-| Category | Technology |
+| Kategori | Teknologi |
 |---|---|
-| Full-stack Framework | Next.js |
-| Language | TypeScript |
-| Styling | Tailwind CSS |
-| UI Library | shadcn/ui |
-| Database | PostgreSQL |
+| Framework Full-stack | Next.js |
+| Bahasa Pemrograman | TypeScript |
+| Styling / Desain | Tailwind CSS |
+| Pustaka UI | shadcn/ui |
+| Basis Data | PostgreSQL |
 | ORM | Prisma |
-| Authentication | Auth.js |
-| Validation | Zod |
-| Forms | React Hook Form |
-| Client State | Zustand |
-| Visualization | Recharts |
+| Autentikasi | Auth.js |
+| Validasi Skema | Zod |
+| Formulir | React Hook Form |
+| State Management Klien | Zustand |
+| Visualisasi Data | Recharts |
 | Unit Testing | Vitest |
 | E2E Testing | Playwright |
-| CI | GitHub Actions |
-| CD | Vercel |
-| Database Hosting | Neon |
-| Containerization | Docker |
+| Continuous Integration (CI) | GitHub Actions |
+| Continuous Deployment (CD) | Vercel |
+| Hosting Basis Data | Neon |
+| Kontainerisasi | Docker |
 
-Recharts and Docker development configuration are secondary
-priorities if core MVP work requires additional time.
+Penggunaan Recharts dan konfigurasi Docker untuk lingkungan lokal merupakan prioritas sekunder jika pengembangan fitur inti memerlukan waktu tambahan.
 
-## 4. Prioritization Method
+## 4. Metode Prioritas
 
-The project uses the MoSCoW prioritization method:
+Proyek ini menggunakan metode prioritas MoSCoW:
 
-- Must Have: Mandatory release functionality.
-- Should Have: Important but not release-blocking.
-- Could Have: Optional improvements.
-- Won't Have: Excluded from the current release.
+- Must Have: Fitur wajib yang mutlak diperlukan untuk rilis.
+- Should Have: Fitur penting namun tidak menghambat rilis jika ditunda.
+- Could Have: Fitur peningkatan opsional yang dikerjakan jika ada sisa waktu.
+- Won't Have: Fitur yang secara tegas ditiadakan pada rilis versi ini.
 
-## 5. Must Have Features
+## 5. Fitur Must Have (Wajib Ada)
 
-| ID | Feature | Acceptance Summary |
+| ID | Fitur | Ringkasan Penerimaan |
 |---|---|---|
-| MVP-001 | Authentication | Users can securely log in and log out |
-| MVP-002 | RBAC | Server enforces predefined roles |
-| MVP-003 | User Administration | Owners manage accounts and roles |
-| MVP-004 | Product Management | Products can be created, updated, and deactivated |
-| MVP-005 | Category Management | Product categories are manageable |
-| MVP-006 | Unit Management | Product units are manageable |
-| MVP-007 | Supplier Management | Suppliers can be maintained |
-| MVP-008 | Stock In | Incoming inventory is recorded |
-| MVP-009 | Stock Out | Outgoing inventory is recorded |
-| MVP-010 | Stock Adjustment | Physical stock can be corrected |
-| MVP-011 | Stock Movement History | All stock changes are traceable |
-| MVP-012 | POS Product Search | Products can be found by name, SKU, and barcode |
-| MVP-013 | Shopping Cart | Products and quantities can be managed |
-| MVP-014 | Cash Payment | Valid cash checkout is supported |
-| MVP-015 | Atomic Checkout | Transactions and stock changes are consistent |
-| MVP-016 | Idempotency | Duplicate checkout is prevented |
-| MVP-017 | Transaction History | Completed sales remain accessible |
-| MVP-018 | Receipt Generation | A printable receipt is available |
-| MVP-019 | Basic Dashboard | Essential business metrics are displayed |
-| MVP-020 | Sales Report | Sales can be reviewed by period |
-| MVP-021 | Gross Profit Report | Historical product margins are displayed |
-| MVP-022 | Stock Report | Current inventory is displayed |
-| MVP-023 | Automated Testing | Critical business operations are tested |
-| MVP-024 | CI/CD | Automated checks and deployment are configured |
-| MVP-025 | Documentation | Required project documentation is available |
+| MVP-001 | Autentikasi Pengguna | Pengguna dapat login dan logout dengan aman |
+| MVP-002 | RBAC | Server menerapkan pembatasan hak akses peran bawaan |
+| MVP-003 | Administrasi Pengguna | Pemilik usaha dapat mengelola akun dan hak akses |
+| MVP-004 | Manajemen Produk | Produk dapat dibuat, diperbarui, dan dinonaktifkan |
+| MVP-005 | Manajemen Kategori | Kategori produk dapat dikelola dengan baik |
+| MVP-006 | Manajemen Satuan | Satuan unit barang dapat dikelola dengan baik |
+| MVP-007 | Manajemen Pemasok | Data pemasok barang dapat dicatat dan dikelola |
+| MVP-008 | Stok Masuk (Stock In) | Penerimaan persediaan barang baru tercatat |
+| MVP-009 | Stok Keluar (Stock Out) | Pengurangan barang secara manual tercatat |
+| MVP-010 | Penyesuaian Stok (Adjustment) | Koreksi stok fisik barang (opname) dapat dilakukan |
+| MVP-011 | Riwayat Mutasi Stok | Setiap perubahan stok dapat dilacak secara kronologis |
+| MVP-012 | Pencarian Produk POS | Produk dapat dicari berdasarkan nama, SKU, dan barcode |
+| MVP-013 | Keranjang Belanja | Produk dan kuantitas belanja dapat dikelola |
+| MVP-014 | Pembayaran Tunai | Transaksi checkout tunai yang valid didukung penuh |
+| MVP-015 | Checkout Atomik | Transaksi dan pemotongan stok bersifat konsisten (all-or-nothing) |
+| MVP-016 | Idempotensi Checkout | Mencegah terjadinya transaksi ganda akibat request berulang |
+| MVP-017 | Riwayat Transaksi | Data transaksi yang telah selesai dapat dilihat kembali |
+| MVP-018 | Pembuatan Struk | Struk transaksi dapat ditampilkan dan dicetak |
+| MVP-019 | Dasbor Dasar | Metrik utama bisnis dan stok ditampilkan secara ringkas |
+| MVP-020 | Laporan Penjualan | Total penjualan dapat ditinjau berdasarkan periode waktu |
+| MVP-021 | Laporan Laba Kotor | Estimasi margin keuntungan historis ditampilkan |
+| MVP-022 | Laporan Stok | Ketersediaan jumlah stok barang saat ini dapat dipantau |
+| MVP-023 | Pengujian Otomatis | Operasi bisnis kritis diuji melalui tes otomatis |
+| MVP-024 | CI/CD | Alur pemeriksaan dan deployment otomatis terkonfigurasi |
+| MVP-025 | Dokumentasi | Dokumentasi proyek lengkap dan terstruktur rapi |
 
-## 6. Should Have Features
+## 6. Fitur Should Have (Sebaiknya Ada)
 
-| ID | Feature |
+| ID | Fitur |
 |---|---|
-| SH-001 | Customer management |
-| SH-002 | Fixed transaction discounts |
-| SH-003 | Low-stock indicators |
-| SH-004 | Sales charts |
-| SH-005 | Best-selling product analytics |
-| SH-006 | Excel report exports |
-| SH-007 | General activity logs |
-| SH-008 | Store configuration UI |
-| SH-009 | Receipt configuration UI |
-| SH-010 | Password change functionality |
-| SH-011 | Advanced table filtering |
-| SH-012 | Docker-based local development setup |
+| SH-001 | Manajemen data pelanggan |
+| SH-002 | Diskon transaksi dalam nominal tetap (flat discount) |
+| SH-003 | Indikator visual peringatan stok menipis |
+| SH-004 | Grafik visualisasi tren penjualan harian |
+| SH-005 | Analisis produk terlaris (best-selling products) |
+| SH-006 | Ekspor laporan data ke format file Excel |
+| SH-007 | Pencatatan riwayat aktivitas pengguna (general activity logs) |
+| SH-008 | Antarmuka formulir pengaturan profil toko |
+| SH-009 | Antarmuka konfigurasi header dan footer struk |
+| SH-010 | Fitur ganti kata sandi mandiri bagi pengguna |
+| SH-011 | Filter data tabel tingkat lanjut |
+| SH-012 | Lingkungan pengembangan lokal berbasis Docker Compose |
 
-## 7. Could Have Features
+## 7. Fitur Could Have (Bisa Ditambahkan)
 
-| ID | Feature |
+| ID | Fitur |
 |---|---|
-| CH-001 | Product image upload |
-| CH-002 | Dark mode |
-| CH-003 | Advanced keyboard shortcuts |
-| CH-004 | Custom receipt templates |
-| CH-005 | Advanced product analytics |
-| CH-006 | Additional dashboard visualization |
+| CH-001 | Unggah foto/gambar produk |
+| CH-002 | Dukungan mode gelap (dark mode) |
+| CH-003 | Pintasan keyboard tingkat lanjut untuk kasir |
+| CH-004 | Kustomisasi template cetak struk |
+| CH-005 | Analitik performa produk yang mendalam |
+| CH-006 | Widget visualisasi tambahan pada dasbor |
 
-## 8. Won't Have Features
+## 8. Fitur Won't Have (Tidak Termasuk dalam Rilis v1.0.0)
 
-The following features are excluded from v1.0.0:
+Fitur-fitur berikut ini secara tegas dikeluarkan dari cakupan rilis v1.0.0:
 
-- Multi-store management.
-- Multi-tenant architecture.
-- Online payment gateways.
-- QRIS payment processing.
-- Credit sales and accounts receivable.
-- Refund and return management.
-- Cashier shift management.
-- Customer loyalty programs.
-- Offline POS and synchronization.
-- Accounting integration.
-- FIFO and weighted-average inventory valuation.
-- Tax calculation engine.
-- Automated purchase orders.
-- Native mobile applications.
-- Microservices.
-- Redis caching.
-- Kubernetes.
+- Manajemen multi-toko dan multi-cabang.
+- Arsitektur sistem multi-tenant.
+- Integrasi payment gateway daring.
+- Pemrosesan pembayaran kode QRIS.
+- Penjualan kredit, piutang, dan pencatatan utang pelanggan.
+- Manajemen pengembalian dana (refund) dan retur produk.
+- Manajemen shift kasir dan rekonsiliasi kas fisik harian.
+- Program loyalitas, poin hadiah, atau keanggotaan pelanggan.
+- Mode kasir offline (luring) beserta sinkronisasinya.
+- Integrasi dengan sistem akuntansi eksternal.
+- Metode penilaian persediaan FIFO atau Weighted Average.
+- Mesin kalkulasi pajak otomatis yang rumit.
+- Pembuatan Purchase Order (PO) otomatis ke pemasok.
+- Aplikasi mobile native (Android / iOS).
+- Arsitektur berbasis Microservices.
+- Caching terdistribusi menggunakan Redis.
+- Orkestrasi kontainer dengan Kubernetes.
 
-## 9. MVP Development Roadmap
+## 9. Peta Jalan Pengembangan MVP (14 Hari)
 
-| Day | Date | Focus | Deliverable |
+| Hari | Tanggal | Fokus Utama | Target Deliverable |
 |---|---|---|---|
-| 01 | Nov 20 | Project Requirements | BRD, PRD, requirements, architecture |
-| 02 | Nov 21 | Database Design | ERD, data dictionary, CRUD and RBAC matrices |
-| 03 | Nov 22 | Project Initialization | Next.js, TypeScript, UI foundation |
-| 04 | Nov 23 | Infrastructure and CI/CD | Prisma, Neon, GitHub Actions, Vercel |
-| 05 | Nov 24 | Authentication | Login, sessions, RBAC |
-| 06 | Nov 25 | Application Layout | Sidebar, navbar, shared components |
-| 07 | Nov 26 | Product Master Data | Products, categories, units |
-| 08 | Nov 27 | Business Master Data | Suppliers and optional customers |
-| 09 | Nov 28 | Inventory | Stock operations and movement history |
-| 10 | Nov 29 | POS Interface | Product search and cart |
-| 11 | Nov 30 | Checkout Engine | Payment, atomic stock updates, idempotency |
-| 12 | Dec 01 | Transaction Module | History, detail, receipts |
-| 13 | Dec 02 | Reporting | Dashboard, reports, optional Excel export |
-| 14 | Dec 03 | Release Preparation | Regression testing, fixes, deployment |
+| 01 | 20 Nov | Kebutuhan Proyek | BRD, PRD, FRS, NFRS, aturan bisnis, arsitektur |
+| 02 | 21 Nov | Desain Basis Data | ERD, kamus data, matriks CRUD, matriks RBAC |
+| 03 | 22 Nov | Inisialisasi Proyek | Next.js, TypeScript, pondasi komponen UI |
+| 04 | 23 Nov | Infrastruktur & CI/CD | Prisma, Neon, GitHub Actions, Vercel |
+| 05 | 24 Nov | Sistem Autentikasi | Login, manajemen sesi, penerapan RBAC |
+| 06 | 25 Nov | Tata Letak Aplikasi | Sidebar, navbar, komponen bersama (shared UI) |
+| 07 | 26 Nov | Data Master Produk | Produk, kategori, satuan barang |
+| 08 | 27 Nov | Data Master Bisnis | Pemasok dan pelanggan (opsional) |
+| 09 | 28 Nov | Modul Inventaris | Operasi stok dan riwayat mutasi barang |
+| 10 | 29 Nov | Antarmuka Kasir (POS) | Pencarian produk dan keranjang belanja |
+| 11 | 30 Nov | Mesin Checkout | Pembayaran tunai, pemotongan stok atomik, idempotensi |
+| 12 | 01 Des | Modul Transaksi | Riwayat penjualan, detail faktur, pencetakan struk |
+| 13 | 02 Des | Modul Pelaporan | Dasbor, laporan bisnis, ekspor Excel (opsional) |
+| 14 | 03 Des | Persiapan Rilis | Pengujian regresi menyeluruh, perbaikan bug, rilis demo |
 
-Testing and documentation should be performed throughout
-development, not only on the final day.
+Pengujian otomatis dan penulisan dokumentasi wajib dilakukan secara berkelanjutan sepanjang proses pengembangan, bukan hanya ditumpuk pada hari terakhir.
 
-## 10. Daily Development Workflow
+## 10. Alur Kerja Pengembangan Harian
 
-1. Review relevant requirements.
-2. Define the implementation task.
-3. Create a feature branch.
-4. Implement the feature.
-5. Write or update relevant tests.
-6. Run local quality checks.
-7. Commit and push changes.
-8. Create a pull request.
-9. Review CI results.
-10. Validate the preview deployment.
-11. Merge approved changes.
+1. Tinjau dokumen kebutuhan dan kriteria penerimaan yang relevan.
+2. Definisikan tugas implementasi secara jelas.
+3. Buat branch git baru untuk fitur yang akan dikerjakan.
+4. Implementasikan fungsionalitas fitur.
+5. Tulis atau perbarui pengujian otomatis yang relevan.
+6. Jalankan pemeriksaan kualitas kode di lingkungan lokal (lint, build, test).
+7. Lakukan commit dan push perubahan kode ke repository remote.
+8. Buat Pull Request (PR).
+9. Periksa hasil pemeriksaan otomatis pada alur CI di GitHub Actions.
+10. Validasi tampilan dan fungsionalitas pada lingkungan Vercel Preview.
+11. Lakukan merge ke branch utama setelah disetujui.
 
-## 11. Release Milestones
+## 11. Milestone Rilis
 
-| Milestone | Target Day | Deliverable |
+| Milestone | Target Hari | Deliverable Utama |
 |---|---|---|
-| M1 | Day 02 | Requirements and database design |
-| M2 | Day 04 | Application foundation and deployment |
-| M3 | Day 06 | Authentication and application layout |
-| M4 | Day 09 | Master data and inventory |
-| M5 | Day 12 | Functional POS and transaction module |
-| M6 | Day 14 | Tested MVP release |
+| M1 | Hari 02 | Dokumen kebutuhan lengkap dan perancangan basis data |
+| M2 | Hari 04 | Fondasi aplikasi, repository terhubung, dan alur CI/CD aktif |
+| M3 | Hari 06 | Sistem autentikasi aman dan tata letak utama aplikasi |
+| M4 | Hari 09 | Manajemen master data dan modul inventaris stok selesai |
+| M5 | Hari 12 | Modul kasir (POS) dan transaksi penjualan selesai dan teruji |
+| M6 | Hari 14 | Rilis MVP yang telah teruji penuh dan terdeploy di cloud |
 
-## 12. MVP Exit Criteria
+## 12. Kriteria Keluar MVP (Exit Criteria)
 
-### Functional Readiness
+### Kesiapan Fungsional
 
-- [ ] Authentication works.
-- [ ] RBAC is enforced.
-- [ ] Master data modules are operational.
-- [ ] Inventory operations preserve data consistency.
-- [ ] POS supports valid cash transactions.
-- [ ] Duplicate checkout is prevented.
-- [ ] Transactions cannot create negative stock.
-- [ ] Transaction receipts are available.
-- [ ] Required reports are available.
+- [ ] Autentikasi berfungsi dengan aman dan stabil.
+- [ ] Hak akses RBAC diterapkan secara konsisten di sisi server.
+- [ ] Modul data master berfungsi penuh.
+- [ ] Operasi inventaris mampu menjaga konsistensi data stok.
+- [ ] Layar POS mendukung transaksi pembayaran tunai dengan benar.
+- [ ] Terjadinya transaksi ganda berhasil dicegah melalui sistem idempotensi.
+- [ ] Transaksi tidak dapat menghasilkan stok barang bernilai negatif.
+- [ ] Struk bukti pembayaran dapat ditampilkan dan dicetak.
+- [ ] Laporan bisnis utama dapat diakses dengan data yang akurat.
 
-### Quality Readiness
+### Kesiapan Kualitas
 
-- [ ] ESLint checks pass.
-- [ ] TypeScript checks pass.
-- [ ] Required unit tests pass.
-- [ ] Required integration tests pass.
-- [ ] Critical E2E tests pass.
-- [ ] Concurrent checkout tests pass.
-- [ ] No known critical security defects remain.
+- [ ] Seluruh pemeriksaan ESLint lulus tanpa peringatan kritis.
+- [ ] Pemeriksaan tipe data TypeScript lulus (zero errors).
+- [ ] Seluruh unit test yang diwajibkan lulus.
+- [ ] Seluruh integration test yang diwajibkan lulus.
+- [ ] Seluruh E2E test skenario kritis checkout lulus.
+- [ ] Pengujian konkurensi transaksi checkout bersamaan lulus tanpa kendala.
+- [ ] Tidak ada celah keamanan kritis yang belum diperbaiki.
 
-### Deployment Readiness
+### Kesiapan Penerapan (Deployment)
 
-- [ ] GitHub Actions is configured.
-- [ ] Preview environment is available.
-- [ ] Production database is configured.
-- [ ] Database migrations are verified.
-- [ ] Production configuration contains no exposed secrets.
-- [ ] Vercel production deployment succeeds.
-- [ ] Application smoke tests pass.
-- [ ] Release documentation is available.
+- [ ] Alur CI pada GitHub Actions berjalan sukses.
+- [ ] Lingkungan pratinjau (Preview deployment) berfungsi.
+- [ ] Basis data produksi di Neon telah terkonfigurasi dengan aman.
+- [ ] Migrasi basis data terverifikasi dan berjalan mulus.
+- [ ] Konfigurasi produksi tidak mengekspos kredensial rahasia apa pun.
+- [ ] Deployment produksi di platform Vercel berhasil.
+- [ ] Smoke test pada URL produksi demo publik lulus.
+- [ ] Dokumentasi panduan rilis dan deployment tersedia lengkap.
 
-## 13. Required Deliverables
+## 13. Deliverable yang Diperlukan
 
 | Deliverable | Format |
 |---|---|
-| Source Code | GitHub Repository |
-| Business Requirements | Markdown |
-| Product Requirements | Markdown |
-| Functional Requirements | Markdown |
-| Non-Functional Requirements | Markdown |
-| Business Rules | Markdown |
-| User Stories | Markdown |
-| Architecture | Markdown and Mermaid |
-| ERD | Mermaid or equivalent |
-| Data Dictionary | Markdown |
-| CRUD Matrix | Markdown |
-| RBAC Matrix | Markdown |
-| Database Schema | Prisma |
-| Database Migrations | SQL |
-| CI Workflow | YAML |
-| Automated Tests | TypeScript |
-| Deployment Guide | Markdown |
-| Live Demo | Vercel URL |
+| Kode Sumber (Source Code) | GitHub Repository |
+| Persyaratan Bisnis | Dokumen Markdown (`BRD.md`) |
+| Persyaratan Produk | Dokumen Markdown (`PRD.md`) |
+| Persyaratan Fungsional | Dokumen Markdown (`functional-requirements.md`) |
+| Persyaratan Non-Fungsional | Dokumen Markdown (`non-functional-requirements.md`) |
+| Spesifikasi Aturan Bisnis | Dokumen Markdown (`business-rules.md`) |
+| User Stories & Kriteria Penerimaan | Dokumen Markdown (`user-stories.md`) |
+| Arsitektur Sistem | Dokumen Markdown dan Diagram Mermaid (`architecture.md`) |
+| Diagram Relasi Entitas (ERD) | Diagram Mermaid atau setara |
+| Kamus Data (Data Dictionary) | Dokumen Markdown |
+| Matriks CRUD | Dokumen Markdown |
+| Matriks RBAC | Dokumen Markdown |
+| Skema Basis Data | File Skema Prisma |
+| Migrasi Basis Data | File Skrip SQL Migrations |
+| Alur Kerja CI | File Konfigurasi YAML |
+| Pengujian Otomatis | File Kode Pengujian TypeScript |
+| Panduan Deployment | Dokumen Markdown |
+| Demo Aplikasi Langsung | URL Publik Vercel |
 
-## 14. Public Demonstration Rules
+## 14. Aturan Demonstrasi Publik
 
-- Use fictional store, product, and transaction data.
-- Do not expose real customer information.
-- Do not publish production database credentials.
-- Do not provide unrestricted public Owner access to a
-  persistent shared database.
-- Use controlled demo accounts or an isolated demo environment.
-- Document known free-tier infrastructure limitations.
+- Wajib menggunakan data fiktif untuk toko, produk, pelanggan, dan transaksi.
+- Dilarang keras menampilkan informasi pribadi pelanggan asli.
+- Dilarang keras mempublikasikan kredensial basis data produksi ke publik.
+- Dilarang memberikan akses peran Owner publik tanpa pengawasan ke basis data bersama yang persisten.
+- Gunakan akun demo terkontrol atau lingkungan demo terisolasi.
+- Cantumkan catatan batas kapasitas infrastruktur gratis yang digunakan.
 
-## 15. Scope Change Policy
+## 15. Kebijakan Perubahan Cakupan
 
-New feature requests must be evaluated against:
+Setiap permintaan fitur baru di tengah pengembangan wajib dievaluasi berdasarkan:
 
-- Business value.
-- Implementation complexity.
-- Security implications.
-- Testing requirements.
-- Remaining development time.
-- Impact on mandatory features.
+- Nilai manfaat bisnis yang dihasilkan.
+- Tingkat kerumitan teknis implementasi.
+- Implikasi terhadap aspek keamanan sistem.
+- Waktu yang dibutuhkan untuk pembuatan pengujian otomatis.
+- Sisa waktu hari pengembangan yang tersedia.
+- Pengaruhnya terhadap penyelesaian fitur wajib (Must Have).
 
-When development falls behind schedule, optional features
-must be deferred before mandatory security, correctness,
-or testing requirements are reduced.
+Jika waktu pengembangan tertinggal dari jadwal, fitur opsional wajib ditunda terlebih dahulu sebelum mengurangi standar keamanan, ketepatan data, atau pengujian otomatis.
 
-The release date is a planning target. An incomplete or unsafe
-application must not be labeled as a finished MVP.
+Target tanggal rilis adalah sasaran perencanaan. Aplikasi yang belum lengkap atau belum terjamin keamanannya tidak boleh dilabeli sebagai MVP yang selesai.
 
-## 16. Versioning Strategy
+## 16. Strategi Versi (Versioning)
 
-| Version | Purpose |
+| Versi | Tujuan |
 |---|---|
-| v0.1.0 | Initial foundation |
-| v0.2.0 | Authentication and master data |
-| v0.3.0 | Inventory management |
-| v0.4.0 | Point of Sale and checkout |
-| v1.0.0 | Completed MVP release |
-| v1.x.x | Improvements and bug fixes |
-| v2.0.0 | Major future enhancements |
+| v0.1.0 | Fondasi awal proyek dan konfigurasi dasar |
+| v0.2.0 | Implementasi autentikasi dan data master |
+| v0.3.0 | Implementasi manajemen inventaris dan stok |
+| v0.4.0 | Implementasi Point of Sale dan mesin checkout |
+| v1.0.0 | Rilis lengkap MVP yang telah teruji |
+| v1.x.x | Peningkatan fitur minor dan perbaikan bug |
+| v2.0.0 | Rilis pembaruan besar dengan fitur lanjutan |
 
-## 17. Future Roadmap
+## 17. Peta Jalan Masa Depan
 
-### Phase 2
+### Fase 2
 
-- QRIS and payment gateway integration.
-- Refund and return management.
-- Cashier shift management.
-- Advanced analytics.
-- Improved inventory valuation.
-- Docker-based deployment.
+- Integrasi pembayaran digital QRIS dan payment gateway.
+- Manajemen pengembalian dana (refund) dan retur barang.
+- Manajemen pergantian shift kasir.
+- Analitik bisnis dan tren performa tingkat lanjut.
+- Penilaian persediaan yang lebih akurat.
+- Konfigurasi deployment penuh berbasis Docker.
 
-### Phase 3
+### Fase 3
 
-- Multi-branch management.
-- Multi-tenant architecture.
-- Offline functionality.
-- Redis caching where justified.
-- Accounting integration.
-- Advanced monitoring.
+- Manajemen operasional multi-cabang.
+- Arsitektur multi-tenant terisolasi.
+- Dukungan operasional offline secara penuh.
+- Caching terdistribusi menggunakan Redis pada endpoint berbeban tinggi.
+- Integrasi otomatis dengan sistem akuntansi eksternal.
+- Sistem monitoring dan alerting infrastruktur tingkat lanjut.
 
-## 18. Related Documents
+## 18. Dokumen Terkait
 
-- [Business Requirements](BRD.md)
-- [Product Requirements](PRD.md)
-- [Functional Requirements](functional-requirements.md)
-- [Non-Functional Requirements](non-functional-requirements.md)
-- [System Architecture](architecture.md)
+- [Dokumen Persyaratan Bisnis (BRD)](BRD.md)
+- [Dokumen Persyaratan Produk (PRD)](PRD.md)
+- [Persyaratan Fungsional (FRS)](functional-requirements.md)
+- [Persyaratan Non-Fungsional (NFRS)](non-functional-requirements.md)
+- [Arsitektur Sistem](architecture.md)
