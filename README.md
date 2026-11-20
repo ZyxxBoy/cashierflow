@@ -1,430 +1,309 @@
 # CashierFlow
 
-![Status](https://img.shields.io/badge/Status-In%20Development-orange)
-![Version](https://img.shields.io/badge/Version-0.1.0--dev-blue)
-![Next.js](https://img.shields.io/badge/Next.js-black?logo=nextdotjs)
-![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?logo=postgresql&logoColor=white)
-![Prisma](https://img.shields.io/badge/Prisma-2D3748?logo=prisma&logoColor=white)
-![Vercel](https://img.shields.io/badge/Vercel-black?logo=vercel)
-![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?logo=githubactions&logoColor=white)
+![Status](https://img.shields.io/badge/Status-Dalam%20Pengembangan-orange)
+![Version](https://img.shields.io/badge/Version-0.1.0-blue)
+![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=nextdotjs)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4-38B2AC?logo=tailwindcss&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Neon-4169E1?logo=postgresql&logoColor=white)
+![Prisma](https://img.shields.io/badge/Prisma-ORM-2D3748?logo=prisma&logoColor=white)
+![Vitest](https://img.shields.io/badge/Vitest-5-FCC72B?logo=vitest&logoColor=black)
+![Playwright](https://img.shields.io/badge/Playwright-E2E-2EAD33?logo=playwright&logoColor=white)
+![Vercel](https://img.shields.io/badge/Vercel-Deployment-black?logo=vercel)
 
-A modern full-stack Point of Sale (POS) and Inventory Management
-System built with Next.js, TypeScript, PostgreSQL, and Prisma.
+Sistem **Point of Sale (POS)** dan **Manajemen Inventaris** modern berbasis web yang dibangun dengan Next.js (App Router), TypeScript, PostgreSQL, dan Prisma ORM.
 
-CashierFlow is designed to help small and medium-sized businesses
-manage sales transactions, product inventory, and business
-reporting through a centralized web application.
+CashierFlow dirancang untuk mendigitalkan operasional toko ritel, minimarket, dan usaha mikro kecil menengah (UMKM) melalui pencatatan transaksi terpusat, pengawasan stok barang akurat, serta laporan laba rugi bisnis real-time.
 
 ---
 
-## Project Status
+## Informasi Proyek
 
-CashierFlow is currently under active development as part of
-the **30 Days Fullstack & DevOps Challenge**.
+CashierFlow dikembangkan sebagai bagian dari **30 Days Fullstack & DevOps Challenge**.
 
-| Information | Description |
-|---|---|
-| Project | CashierFlow |
-| Current Phase | Project Planning |
-| Current Version | 0.1.0-dev (planned) |
-| Target Version | 1.0.0 |
-| Start Date | November 20, 2026 |
-| Target Release | December 3, 2026 |
-| Development Duration | 14 Days |
-| Architecture | Modular Monolith |
-| Deployment | Vercel |
+| Atribut             | Keterangan                                          |
+| ------------------- | --------------------------------------------------- |
+| Nama Proyek         | CashierFlow                                         |
+| Fase Saat Ini       | Inisialisasi Fondasi Aplikasi & UI (Day 03 Selesai) |
+| Versi Saat Ini      | 0.1.0                                               |
+| Target Versi Rilis  | 1.0.0 (MVP)                                         |
+| Tanggal Mulai       | 20 November 2026                                    |
+| Target Rilis        | 3 Desember 2026                                     |
+| Durasi Pengembangan | 14 Hari Kerja                                       |
+| Pola Arsitektur     | Modular Monolith                                    |
+| Platform Deployment | Vercel (Frontend & Serverless) + Neon (PostgreSQL)  |
 
-## Project Objectives
+---
 
-- Build a production-oriented full-stack web application.
-- Implement secure authentication and role-based access control.
-- Design a structured relational database.
-- Implement reliable and atomic sales transactions.
-- Maintain consistent inventory records.
-- Develop automated unit, integration, and end-to-end tests.
-- Implement Continuous Integration and Continuous Deployment.
-- Maintain professional software engineering documentation.
+## Sasaran Proyek
 
-## Planned Features
+- Membangun aplikasi full-stack berkualitas produksi (_production-ready_).
+- Menerapkan kontrol akses berbasis peran (RBAC) yang aman di sisi server.
+- Merancang basis data relasional ternormalisasi dengan integritas ACID.
+- Menjamin transaksi checkout kasir bersifat atomik dan idempoten (anti transaksi ganda).
+- Memastikan pergerakan persediaan barang tercatat secara kronologis (_immutable audit trail_).
+- Menerapkan otomatisasi pengujian (_unit_, _integration_, dan _end-to-end_).
+- Mengonfigurasi pipeline otomatisasi CI/CD dengan GitHub Actions dan Vercel.
+- Menghadirkan dokumentasi rekayasa perangkat lunak standar industri berbahasa Indonesia.
 
-### Authentication and Authorization
+---
 
-- Email and password authentication.
-- Secure session management.
-- Role-Based Access Control (RBAC).
-- Protected application routes.
-- User account management.
+## Fitur Utama
 
-### Dashboard
+### Autentikasi dan Otorisasi (RBAC)
 
-- Sales overview.
-- Total revenue.
-- Estimated gross profit.
-- Total transactions.
-- Inventory overview.
-- Sales trend visualization.
-- Best-selling products.
+- Login aman menggunakan email dan kata sandi dengan hashing berstandar industri.
+- Manajemen sesi berbasis cookie aman.
+- Tiga peran pengguna bawaan: **Owner**, **Admin**, dan **Kasir**.
+- Otorisasi ketat di sisi server untuk setiap rute dan mutasi data.
+
+### Point of Sale (Layar Kasir)
+
+- Pencarian produk cepat berdasarkan nama, SKU, atau pemindai barcode fisik.
+- Keranjang belanja interaktif berbasis client state (Zustand).
+- Perhitungan total transaksi, diskon flat, uang tunai, dan kembalian otomatis.
+- Transaksi checkout atomik: pemotongan stok kondisional dan pembuatan nota dalam satu transaksi basis data.
+- Sistem idempotensi untuk mencegah transaksi ganda akibat gangguan jaringan.
+- Tampilan dan pencetakan struk pembayaran.
+
+### Manajemen Inventaris & Mutasi Stok
+
+- Ringkasan ketersediaan stok produk terkini.
+- Pencatatan barang masuk (_Stock In_), barang keluar (_Stock Out_), dan koreksi stok fisik (_Stock Adjustment / Opname_).
+- Buku besar mutasi stok (_movement ledger_) yang abadi dan tidak dapat diubah.
+- Indikator visual peringatan stok menipis (_low-stock threshold_).
 
 ### Master Data
 
-- Product management.
-- Category management.
-- Unit management.
-- Supplier management.
-- Customer management (optional).
+- Pengelolaan data produk, kategori, satuan unit, dan pemasok.
+- Validasi keunikan SKU dan barcode.
+- Dukungan penonaktifan lunak (_soft deactivation_) agar riwayat transaksi masa lalu tetap utuh.
 
-### Inventory Management
+### Pelaporan & Dasbor Bisnis
 
-- Stock overview.
-- Stock in.
-- Stock out.
-- Stock adjustment.
-- Stock movement history.
-- Low-stock indicators.
+- Ringkasan pendapatan bersih, total transaksi, dan produk aktif pada dasbor.
+- Laporan estimasi laba kotor menggunakan snapshot harga modal historis (khusus peran Owner).
+- Laporan mutasi dan ketersediaan stok barang.
+- Filter laporan berdasarkan rentang tanggal mengacu pada zona waktu toko (WIB).
 
-### Point of Sale
+---
 
-- Product search.
-- Barcode input.
-- Shopping cart management.
-- Quantity adjustment.
-- Transaction discounts (optional).
-- Cash payments.
-- Automatic change calculation.
-- Atomic database transactions.
-- Checkout idempotency.
-- Receipt generation.
-
-### Transaction Management
-
-- Transaction history.
-- Transaction details.
-- Invoice search.
-- Date-based filtering.
-- Receipt printing.
-- Historical price and cost snapshots.
-
-### Reports
-
-- Sales reports.
-- Estimated gross profit reports.
-- Inventory reports.
-- Date range filtering.
-- Excel export (optional).
-
-### Administration
-
-- User management.
-- Predefined role assignment.
-- Activity logs (optional).
-- Account activation and deactivation.
-- Store settings (optional).
-
-## Technology Stack
+## Stack Teknologi
 
 ### Frontend
 
-| Technology | Purpose |
-|---|---|
-| Next.js | Full-stack application framework |
-| React | User interface |
-| TypeScript | Type safety |
-| Tailwind CSS | Styling |
-| shadcn/ui | Reusable UI components |
-| Zustand | Shopping cart state management |
-| React Hook Form | Form management |
-| Zod | Data validation |
-| Recharts | Data visualization |
+- **Framework**: Next.js 16 (App Router dengan React 19)
+- **Bahasa**: TypeScript (Strict Mode)
+- **Styling**: Tailwind CSS v4
+- **Komponen UI**: shadcn/ui & Radix UI / Base UI
+- **Manajemen Formulir**: React Hook Form
+- **Validasi Skema**: Zod
+- **State Klien Kasir**: Zustand
+- **Ikon**: Lucide React
 
-### Backend
+### Backend & Basis Data
 
-| Technology | Purpose |
-|---|---|
-| Next.js Server Actions | Server-side application operations |
-| Next.js Route Handlers | HTTP endpoints |
-| Auth.js | Authentication |
-| Prisma ORM | Database access |
-| PostgreSQL | Relational database |
+- **Server Runtime**: Next.js Server Actions & Route Handlers
+- **Autentikasi**: Auth.js
+- **Basis Data**: PostgreSQL (Serverless via Neon)
+- **ORM**: Prisma ORM
+- **Integritas Transaksi**: Prisma Interactive Transactions (`$transaction`)
 
-### Testing and Quality
+### Pengujian & Kualitas Kode
 
-| Technology | Purpose |
-|---|---|
-| ESLint | Static code analysis |
-| Prettier | Code formatting |
-| Vitest | Unit and integration testing |
-| Playwright | End-to-end testing |
-| TypeScript | Static type checking |
+- **Unit & Integration Testing**: Vitest 5 & `@vitest/coverage-v8`
+- **End-to-End Testing**: Playwright
+- **Linting**: ESLint 9 (`eslint-config-next`, `eslint-config-prettier`)
+- **Formatting**: Prettier & `prettier-plugin-tailwindcss`
 
-### Infrastructure and DevOps
+### Infrastruktur & DevOps
 
-| Technology | Purpose |
-|---|---|
-| Git | Version control |
-| GitHub | Source code repository |
-| GitHub Actions | Continuous Integration |
-| Vercel | Continuous Deployment |
-| Neon | Managed PostgreSQL database |
-| Docker | Containerization and local development |
+- **Repositori**: GitHub
+- **Continuous Integration (CI)**: GitHub Actions
+- **Continuous Deployment (CD)**: Vercel
+- **Database Hosting**: Neon Database
 
-## System Architecture
+---
 
-```mermaid
-flowchart TD
-    USER[User Browser]
-
-    subgraph APP[Next.js Fullstack Application]
-        UI[Presentation Layer]
-        SERVER[Server Actions and Route Handlers]
-        AUTH[Authentication and Authorization]
-        SERVICE[Business Service Layer]
-        REPO[Repository Layer]
-        ORM[Prisma ORM]
-    end
-
-    DB[(PostgreSQL - Neon)]
-
-    USER -->|HTTPS| UI
-    UI --> SERVER
-    SERVER --> AUTH
-    AUTH --> SERVICE
-    SERVICE --> REPO
-    REPO --> ORM
-    ORM --> DB
-```
-
-CashierFlow follows a modular monolith architecture with clear
-separation between presentation, business logic, authorization,
-and database access.
-
-## User Roles
-
-| Role | Responsibilities |
-|---|---|
-| Owner | Business monitoring, financial reports, user administration |
-| Admin | Master data, inventory, and operational reports |
-| Cashier | Sales transactions, checkout, and personal transaction history |
-
-## Project Structure
-
-The following structure represents the planned application
-architecture and will be introduced progressively.
+## Struktur Direktori Proyek
 
 ```text
-cashierflow/
-├── .github/
-│   └── workflows/
-├── docs/
-├── prisma/
-│   ├── schema.prisma
-│   └── migrations/
-├── public/
+cashierflow-1/
+├── docs/                   # Dokumentasi lengkap rekayasa perangkat lunak
+│   ├── BRD.md
+│   ├── PRD.md
+│   ├── functional-requirements.md
+│   ├── non-functional-requirements.md
+│   ├── business-rules.md
+│   ├── user-stories.md
+│   ├── mvp-scope.md
+│   ├── architecture.md
+│   ├── erd.md
+│   ├── data-dictionary.md
+│   ├── crud-matrix.md
+│   ├── rbac-matrix.md
+│   └── database-design.md
+├── public/                 # Aset statis publik
 ├── src/
-│   ├── app/
-│   ├── components/
-│   ├── features/
-│   ├── server/
-│   │   ├── actions/
-│   │   ├── services/
-│   │   ├── repositories/
-│   │   └── authorization/
-│   ├── schemas/
-│   ├── hooks/
-│   ├── stores/
-│   ├── types/
-│   └── lib/
+│   ├── app/                # Next.js App Router (Halaman & Rute API)
+│   │   ├── api/
+│   │   │   └── health/     # Endpoint pemantauan keaktifan (/api/health)
+│   │   ├── globals.css     # Konfigurasi Tailwind CSS v4
+│   │   ├── layout.tsx      # Root Layout
+│   │   └── page.tsx        # Halaman Beranda / Showcase Komponen
+│   ├── components/         # Komponen UI bersama (shadcn/ui)
+│   │   └── ui/             # Button, Badge, Card, Input, Label, Separator
+│   ├── config/             # Konfigurasi aplikasi & validasi environment
+│   ├── lib/                # Utilitas pembantu (cn, formatters)
+│   └── server/             # Lapisan logika server
+│       └── services/       # Layanan bisnis (HealthService, dsb.)
 ├── tests/
-│   ├── unit/
-│   ├── integration/
-│   └── e2e/
-├── .env.example
+│   ├── e2e/                # Skenario pengujian Playwright E2E
+│   └── unit/               # Pengujian unit Vitest
+├── .env.example            # Contoh template environment variables
 ├── .gitignore
-├── Dockerfile
-├── docker-compose.yml
+├── AGENTS.md               # Catatan aturan agen Next.js
+├── components.json         # Konfigurasi shadcn/ui
+├── eslint.config.mjs       # Konfigurasi ESLint
+├── next.config.ts          # Konfigurasi Next.js
 ├── package.json
-└── README.md
+├── playwright.config.ts    # Konfigurasi Playwright E2E
+├── tsconfig.json           # Konfigurasi TypeScript
+└── vitest.config.mts       # Konfigurasi pengujian Vitest
 ```
 
-## Project Documentation
+---
 
-All project documentation is available in the `docs` directory.
+## Dokumentasi Lengkap Proyek
 
-| Document | Description |
-|---|---|
-| [BRD](docs/BRD.md) | Business Requirements Document |
-| [PRD](docs/PRD.md) | Product Requirements Document |
-| [Functional Requirements](docs/functional-requirements.md) | Application functionality |
-| [Non-Functional Requirements](docs/non-functional-requirements.md) | Quality and technical requirements |
-| [Business Rules](docs/business-rules.md) | Business logic and transaction constraints |
-| [User Stories](docs/user-stories.md) | User stories and acceptance criteria |
-| [MVP Scope](docs/mvp-scope.md) | Feature prioritization and development roadmap |
-| [Architecture](docs/architecture.md) | System architecture and CI/CD strategy |
-| [ERD](docs/erd.md) | Entity Relationship Diagram |
-| [Data Dictionary](docs/data-dictionary.md) | Database columns, types, and constraints |
-| [CRUD Matrix](docs/crud-matrix.md) | Application data operation matrix |
-| [RBAC Matrix](docs/rbac-matrix.md) | Role-based access control specification |
-| [Database Design](docs/database-design.md) | Physical database design and integrity strategy |
+Seluruh dokumentasi teknis tersedia dalam Bahasa Indonesia di dalam direktori [`docs/`](docs/):
 
+| Dokumen                                                                  | Deskripsi                                                                                      |
+| ------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------- |
+| [BRD (Business Requirements Document)](docs/BRD.md)                      | Latar belakang bisnis, analisis AS-IS & TO-BE, sasaran, risiko, dan batasan proyek             |
+| [PRD (Product Requirements Document)](docs/PRD.md)                       | Visi produk, spesifikasi teknis, persona pengguna, arsitektur modul, dan kriteria rilis        |
+| [Persyaratan Fungsional (FRS)](docs/functional-requirements.md)          | Daftar lengkap kebutuhan fungsional sistem dan matriks ketertelusuran                          |
+| [Persyaratan Non-Fungsional (NFRS)](docs/non-functional-requirements.md) | Standar performa, keamanan, keandalan, aksesibilitas, dan observabilitas                       |
+| [Spesifikasi Aturan Bisnis](docs/business-rules.md)                      | Aturan operasional, rumus perhitungan transaksi, laba kotor, dan idempotensi                   |
+| [User Stories & Kriteria Penerimaan](docs/user-stories.md)               | Backlog US-001 s/d US-028 dengan kriteria penerimaan format _Given-When-Then_                  |
+| [Cakupan MVP](docs/mvp-scope.md)                                         | Prioritas fitur metode MoSCoW, kriteria keluar (_exit criteria_), dan peta rilis               |
+| [Arsitektur Sistem](docs/architecture.md)                                | Arsitektur Modular Monolith, sequence diagram checkout, dan catatan keputusan arsitektur (ADR) |
+| [Diagram Relasi Entitas (ERD)](docs/erd.md)                              | Diagram relasi entitas basis data visual (Mermaid) dan konstrain relasional                    |
+| [Kamus Data Basis Data](docs/data-dictionary.md)                         | Struktur 11 tabel, tipe data PostgreSQL & Prisma, batasan numerik, dan aturan kolom            |
+| [Matriks CRUD](docs/crud-matrix.md)                                      | Matriks interaksi antarmodul terhadap entitas basis data dan kebijakan kepemilikan data        |
+| [Matriks RBAC](docs/rbac-matrix.md)                                      | Matriks izin hak akses pengguna bawaan (Owner, Admin, Kasir) dan skenario uji                  |
+| [Perancangan Basis Data](docs/database-design.md)                        | Strategi fisik basis data, UUID, ACID, Row-Level Locking, dan rekonsiliasi stok                |
 
-Database design, API specifications, and deployment guides
-will be added during subsequent development phases.
+---
 
-## Development Roadmap
+## Peta Jalan Pengembangan (14 Hari)
 
-| Day | Development Focus | Status |
-|---|---|---|
-| 01 | Project Planning and Requirements | Completed |
-| 02 | Database Design and ERD | Completed |
-| 03 | Next.js Project Initialization | Pending |
-| 04 | Database Setup and CI/CD | Pending |
-| 05 | Authentication and RBAC | Pending |
-| 06 | Dashboard Layout and Components | Pending |
-| 07 | Product, Category, and Unit Management | Pending |
-| 08 | Supplier and Customer Management | Pending |
-| 09 | Inventory Management | Pending |
-| 10 | POS Interface and Shopping Cart | Pending |
-| 11 | Atomic Checkout and Payment | Pending |
-| 12 | Transaction History and Receipts | Pending |
-| 13 | Dashboard Analytics and Reports | Pending |
-| 14 | Testing and Production Deployment | Pending |
+| Hari | Fokus Pengembangan                                                   | Status                  |
+| ---- | -------------------------------------------------------------------- | ----------------------- |
+| 01   | Perencanaan Proyek, Analisis Kebutuhan Bisnis & Arsitektur           | **Selesai (Completed)** |
+| 02   | Desain Basis Data Fisik, ERD, Kamus Data, dan Matriks RBAC/CRUD      | **Selesai (Completed)** |
+| 03   | Inisialisasi Proyek Next.js 16, TypeScript, Tailwind v4 & Fondasi UI | **Selesai (Completed)** |
+| 04   | Konfigurasi Basis Data PostgreSQL (Prisma + Neon) & CI/CD Pipeline   | **Selanjutnya (Next)**  |
+| 05   | Autentikasi Pengguna & Penegakan Otorisasi RBAC di Sisi Server       | Menunggu (Pending)      |
+| 06   | Tata Letak Aplikasi (Sidebar, Navbar, Responsive Shell)              | Menunggu (Pending)      |
+| 07   | Manajemen Master Data Produk, Kategori, dan Satuan Unit              | Menunggu (Pending)      |
+| 08   | Manajemen Pemasok & Pelanggan Opsional                               | Menunggu (Pending)      |
+| 09   | Modul Inventaris (Stok Masuk, Keluar, Opname & Riwayat Mutasi)       | Menunggu (Pending)      |
+| 10   | Antarmuka Kasir (POS), Pencarian Produk & Keranjang Belanja          | Menunggu (Pending)      |
+| 11   | Mesin Checkout Atomik, Pembayaran Tunai & Idempotensi                | Menunggu (Pending)      |
+| 12   | Riwayat Penjualan, Detail Faktur & Pencetakan Struk Transaksi        | Menunggu (Pending)      |
+| 13   | Dasbor Bisnis, Laporan Penjualan & Laba Kotor                        | Menunggu (Pending)      |
+| 14   | Pengujian Regresi Menyeluruh, Optimasi & Rilis Produksi Cloud        | Menunggu (Pending)      |
 
-## CI/CD Pipeline
+---
 
-The planned development workflow uses GitHub Actions for
-automated quality checks and Vercel for application deployment.
+## Panduan Menjalankan Proyek (Getting Started)
 
-```mermaid
-flowchart TD
-    DEV[Local Development]
-    FEATURE[Feature Branch]
-    PR[Pull Request]
-    CI[GitHub Actions]
-    CHECKS{Quality Checks Passed?}
-    FIX[Fix Issues]
-    MERGE[Merge to Develop]
-    RELEASE[Release Pull Request]
-    MAIN[Merge to Main]
-    PROD[Vercel Production]
-    PREVIEW[Vercel Preview]
+### Prasyarat Sistem
 
-    DEV --> FEATURE
-    FEATURE --> PR
-    FEATURE --> PREVIEW
-    PR --> CI
-    CI --> CHECKS
-    CHECKS -->|No| FIX
-    FIX --> FEATURE
-    CHECKS -->|Yes| MERGE
-    MERGE --> RELEASE
-    RELEASE -->|Required checks passed| MAIN
-    MAIN --> PROD
+- **Node.js**: Versi 20.x, 22.x, atau 24.x (Direkomendasikan versi LTS)
+- **npm**: Versi 10.x atau yang lebih baru
+- **Git**: Terinstal pada komputer
+
+### 1. Kloning Repositori
+
+```bash
+git clone https://github.com/ZyxxBoy/cashierflow.git
+cd cashierflow
 ```
 
-### Continuous Integration
+### 2. Instalasi Dependensi
 
-- Dependency installation.
-- ESLint validation.
-- TypeScript type checking.
-- Unit testing.
-- Integration testing.
-- Application build validation.
-- End-to-end testing.
+```bash
+npm install
+```
 
-### Continuous Deployment
+### 3. Konfigurasi Variabel Lingkungan (_Environment Variables_)
 
-- Feature branch preview deployment.
-- Development integration deployment.
-- Production release from the main branch.
-- Environment variable management.
-- Controlled database migrations.
-- Production smoke testing.
+Salin berkas contoh `.env.example` menjadi `.env.local`:
 
-## Git Branching Strategy
+```bash
+cp .env.example .env.local
+```
 
-| Branch | Purpose |
-|---|---|
-| main | Production-ready releases |
-| develop | Development integration |
-| feature/* | New feature development |
-| fix/* | Bug fixes |
-| hotfix/* | Urgent production fixes |
+Sesuaikan nilai konfigurasi di dalam `.env.local` jika diperlukan.
 
-### Commit Convention
+### 4. Menjalankan Server Pengembangan
 
-This project follows Conventional Commits.
+```bash
+npm run dev
+```
+
+Buka peramban Anda di [http://localhost:3000](http://localhost:3000) untuk melihat aplikasi.
+
+---
+
+## Daftar Perintah Script Tersedia
+
+| Perintah                  | Deskripsi                                                                                           |
+| ------------------------- | --------------------------------------------------------------------------------------------------- |
+| `npm run dev`             | Menjalankan server pengembangan lokal Next.js dengan Turbopack                                      |
+| `npm run build`           | Mengompilasi aplikasi untuk build siap produksi                                                     |
+| `npm run start`           | Menjalankan aplikasi dalam mode produksi lokal setelah di-build                                     |
+| `npm run lint`            | Menjalankan pemeriksaan kualitas kode dengan ESLint                                                 |
+| `npm run lint:fix`        | Memperbaiki masalah linting secara otomatis                                                         |
+| `npm run typecheck`       | Menjalankan pembuatan tipe Next.js dan verifikasi kompilasi TypeScript                              |
+| `npm run format`          | Memformat seluruh kode secara otomatis menggunakan Prettier                                         |
+| `npm run format:check`    | Memeriksa apakah seluruh berkas telah memenuhi standar format Prettier                              |
+| `npm test`                | Menjalankan pengujian interaktif menggunakan Vitest                                                 |
+| `npm run test:ci`         | Menjalankan pengujian unit dan integrasi sekali jalan (_single-run_) untuk CI                       |
+| `npm run test:coverage`   | Menjalankan pengujian dan menghasilkan laporan cakupan kode (_coverage report_)                     |
+| `npm run test:e2e`        | Menjalankan pengujian antarmuka end-to-end dengan Playwright                                        |
+| `npm run test:e2e:report` | Menampilkan laporan visual interaktif hasil pengujian Playwright                                    |
+| `npm run check`           | Menjalankan pipeline verifikasi penuh (`lint` + `typecheck` + `format:check` + `test:ci` + `build`) |
+| `npm run ci:local`        | Menjalankan seluruh pemeriksaan kualitas kode termasuk pengujian E2E Playwright                     |
+
+---
+
+## Alur Kerja Git & Standar Commit
+
+Proyek ini menerapkan standar **Conventional Commits**:
 
 ```text
-feat: implement product management
-fix: resolve inventory validation
-docs: update project documentation
-test: add checkout integration tests
-refactor: improve service architecture
-ci: configure github actions
-chore: update project configuration
+feat: implementasi pemotongan stok otomatis saat checkout
+fix: perbaiki penanganan duplikasi sku pada produk
+docs: perbarui spesifikasi perancangan basis data
+test: tambahkan unit test untuk kalkulasi laba kotor
+refactor: pisahkan logika checkout ke dalam service layer
+ci: tambahkan workflow otomatisasi pengujian github actions
+chore: perbarui dependensi paket proyek
 ```
 
-## Security and Data Integrity
+---
 
-CashierFlow prioritizes:
-
-- Secure password hashing.
-- Server-side authentication and authorization.
-- Input validation.
-- Database constraints.
-- Atomic database transactions.
-- Concurrent inventory update handling.
-- Checkout idempotency.
-- Environment variable protection.
-- Historical transaction integrity.
-- Prevention of negative inventory.
-
-## Getting Started
-
-The application is currently in the project planning phase.
-
-Installation instructions, environment configuration,
-database migrations, and local development commands
-will be added after project initialization.
-
-## Live Demo
-
-| Environment | Status |
-|---|---|
-| Development | Not configured |
-| Preview | Coming soon |
-| Production | Coming soon |
-| CI/CD Pipeline | Planned |
-
-## Screenshots
-
-Application screenshots will be added after the
-user interface implementation is completed.
-
-## Future Enhancements
-
-- QRIS payment gateway integration.
-- Multi-branch store management.
-- Refund and return management.
-- Cashier shift management.
-- Customer loyalty programs.
-- Advanced inventory valuation.
-- Offline POS functionality.
-- Redis caching.
-- Advanced business analytics.
-
-## Author
+## Penulis
 
 **ZyxxBoy**
 
 - GitHub: [@ZyxxBoy](https://github.com/ZyxxBoy)
 
-## License
-
-A license has not yet been selected.
-
 ---
 
-Built as part of the **30 Days Fullstack & DevOps Challenge**.
+## Lisensi
 
-CashierFlow is developed for educational and portfolio purposes.
+Proyek ini dikembangkan untuk keperluan edukasi dan portofolio teknis dalam **30 Days Fullstack & DevOps Challenge**.
