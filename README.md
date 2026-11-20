@@ -260,6 +260,12 @@ All project documentation is available in the `docs` directory.
 | [User Stories](docs/user-stories.md) | User stories and acceptance criteria |
 | [MVP Scope](docs/mvp-scope.md) | Feature prioritization and development roadmap |
 | [Architecture](docs/architecture.md) | System architecture and CI/CD strategy |
+| [ERD](docs/erd.md) | Entity Relationship Diagram |
+| [Data Dictionary](docs/data-dictionary.md) | Database columns, types, and constraints |
+| [CRUD Matrix](docs/crud-matrix.md) | Application data operation matrix |
+| [RBAC Matrix](docs/rbac-matrix.md) | Role-based access control specification |
+| [Database Design](docs/database-design.md) | Physical database design and integrity strategy |
+
 
 Database design, API specifications, and deployment guides
 will be added during subsequent development phases.
@@ -268,8 +274,8 @@ will be added during subsequent development phases.
 
 | Day | Development Focus | Status |
 |---|---|---|
-| 01 | Project Planning and Requirements | In Progress |
-| 02 | Database Design and ERD | Pending |
+| 01 | Project Planning and Requirements | Completed |
+| 02 | Database Design and ERD | Completed |
 | 03 | Next.js Project Initialization | Pending |
 | 04 | Database Setup and CI/CD | Pending |
 | 05 | Authentication and RBAC | Pending |
