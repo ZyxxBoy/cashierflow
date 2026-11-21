@@ -21,17 +21,17 @@ CashierFlow dirancang untuk mendigitalkan operasional toko ritel, minimarket, da
 
 CashierFlow dikembangkan sebagai bagian dari **30 Days Fullstack & DevOps Challenge**.
 
-| Atribut             | Keterangan                                          |
-| ------------------- | --------------------------------------------------- |
-| Nama Proyek         | CashierFlow                                         |
-| Fase Saat Ini       | Inisialisasi Fondasi Aplikasi & UI (Day 03 Selesai) |
-| Versi Saat Ini      | 0.1.0                                               |
-| Target Versi Rilis  | 1.0.0 (MVP)                                         |
-| Tanggal Mulai       | 20 November 2026                                    |
-| Target Rilis        | 3 Desember 2026                                     |
-| Durasi Pengembangan | 14 Hari Kerja                                       |
-| Pola Arsitektur     | Modular Monolith                                    |
-| Platform Deployment | Vercel (Frontend & Serverless) + Neon (PostgreSQL)  |
+| Atribut             | Keterangan                                         |
+| ------------------- | -------------------------------------------------- |
+| Nama Proyek         | CashierFlow                                        |
+| Fase Saat Ini       | Setup Basis Data & Pipeline CI/CD (Day 04 Selesai) |
+| Versi Saat Ini      | 0.1.0                                              |
+| Target Versi Rilis  | 1.0.0 (MVP)                                        |
+| Tanggal Mulai       | 20 November 2026                                   |
+| Target Rilis        | 3 Desember 2026                                    |
+| Durasi Pengembangan | 14 Hari Kerja                                      |
+| Pola Arsitektur     | Modular Monolith                                   |
+| Platform Deployment | Vercel (Frontend & Serverless) + Neon (PostgreSQL) |
 
 ---
 
@@ -129,6 +129,11 @@ CashierFlow dikembangkan sebagai bagian dari **30 Days Fullstack & DevOps Challe
 
 ```text
 cashierflow-1/
+├── .github/
+│   └── workflows/          # Pipeline otomatisasi CI/CD
+│       ├── ci.yml          # Continuous Integration (Lint, Test, Typecheck, Build)
+│       ├── cd.yml          # Continuous Deployment ke Vercel (Preview & Production)
+│       └── migrate-production.yml # Migrasi basis data terisolasi untuk produksi
 ├── docs/                   # Dokumentasi lengkap rekayasa perangkat lunak
 │   ├── BRD.md
 │   ├── PRD.md
@@ -143,18 +148,23 @@ cashierflow-1/
 │   ├── crud-matrix.md
 │   ├── rbac-matrix.md
 │   └── database-design.md
+├── prisma/
+│   ├── migrations/         # Riwayat migrasi skema SQL
+│   ├── schema.prisma       # Skema 11 entitas basis data Prisma
+│   └── seed.ts             # Data inisialisasi awal (seeder)
 ├── public/                 # Aset statis publik
 ├── src/
 │   ├── app/                # Next.js App Router (Halaman & Rute API)
 │   │   ├── api/
-│   │   │   └── health/     # Endpoint pemantauan keaktifan (/api/health)
+│   │   │   ├── health/     # Endpoint pemantauan keaktifan (/api/health)
+│   │   │   └── db-health/  # Endpoint status koneksi database (/api/db-health)
 │   │   ├── globals.css     # Konfigurasi Tailwind CSS v4
 │   │   ├── layout.tsx      # Root Layout
 │   │   └── page.tsx        # Halaman Beranda / Showcase Komponen
 │   ├── components/         # Komponen UI bersama (shadcn/ui)
 │   │   └── ui/             # Button, Badge, Card, Input, Label, Separator
 │   ├── config/             # Konfigurasi aplikasi & validasi environment
-│   ├── lib/                # Utilitas pembantu (cn, formatters)
+│   ├── lib/                # Utilitas pembantu (cn, prisma singleton, formatters)
 │   └── server/             # Lapisan logika server
 │       └── services/       # Layanan bisnis (HealthService, dsb.)
 ├── tests/
@@ -168,7 +178,9 @@ cashierflow-1/
 ├── next.config.ts          # Konfigurasi Next.js
 ├── package.json
 ├── playwright.config.ts    # Konfigurasi Playwright E2E
+├── prisma.config.ts        # Konfigurasi Prisma 7 Modern
 ├── tsconfig.json           # Konfigurasi TypeScript
+├── vercel.json             # Konfigurasi deployment Vercel
 └── vitest.config.mts       # Konfigurasi pengujian Vitest
 ```
 
@@ -203,8 +215,8 @@ Seluruh dokumentasi teknis tersedia dalam Bahasa Indonesia di dalam direktori [`
 | 01   | Perencanaan Proyek, Analisis Kebutuhan Bisnis & Arsitektur           | **Selesai (Completed)** |
 | 02   | Desain Basis Data Fisik, ERD, Kamus Data, dan Matriks RBAC/CRUD      | **Selesai (Completed)** |
 | 03   | Inisialisasi Proyek Next.js 16, TypeScript, Tailwind v4 & Fondasi UI | **Selesai (Completed)** |
-| 04   | Konfigurasi Basis Data PostgreSQL (Prisma + Neon) & CI/CD Pipeline   | **Selanjutnya (Next)**  |
-| 05   | Autentikasi Pengguna & Penegakan Otorisasi RBAC di Sisi Server       | Menunggu (Pending)      |
+| 04   | Konfigurasi Basis Data PostgreSQL (Prisma + Neon) & CI/CD Pipeline   | **Selesai (Completed)** |
+| 05   | Autentikasi Pengguna & Penegakan Otorisasi RBAC di Sisi Server       | **Selanjutnya (Next)**  |
 | 06   | Tata Letak Aplikasi (Sidebar, Navbar, Responsive Shell)              | Menunggu (Pending)      |
 | 07   | Manajemen Master Data Produk, Kategori, dan Satuan Unit              | Menunggu (Pending)      |
 | 08   | Manajemen Pemasok & Pelanggan Opsional                               | Menunggu (Pending)      |
@@ -275,6 +287,12 @@ Buka peramban Anda di [http://localhost:3000](http://localhost:3000) untuk melih
 | `npm run test:coverage`   | Menjalankan pengujian dan menghasilkan laporan cakupan kode (_coverage report_)                     |
 | `npm run test:e2e`        | Menjalankan pengujian antarmuka end-to-end dengan Playwright                                        |
 | `npm run test:e2e:report` | Menampilkan laporan visual interaktif hasil pengujian Playwright                                    |
+| `npm run db:generate`     | Men-generate Prisma Client terbaru                                                                  |
+| `npm run db:validate`     | Memvalidasi kebenaran skema Prisma                                                                  |
+| `npm run db:migrate`      | Menjalankan migrasi database di lingkungan pengembangan lokal                                       |
+| `npm run db:deploy`       | Menerapkan migrasi database siap produksi (`prisma migrate deploy`)                                 |
+| `npm run db:seed`         | Menjalankan seeding data awal ke database                                                           |
+| `npm run db:studio`       | Membuka antarmuka grafis Prisma Studio untuk manajemen data                                         |
 | `npm run check`           | Menjalankan pipeline verifikasi penuh (`lint` + `typecheck` + `format:check` + `test:ci` + `build`) |
 | `npm run ci:local`        | Menjalankan seluruh pemeriksaan kualitas kode termasuk pengujian E2E Playwright                     |
 
