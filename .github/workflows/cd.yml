@@ -87,6 +87,52 @@ jobs:
       - name: Pull Vercel configuration
         run: vercel pull --yes --environment=production --token="$VERCEL_TOKEN"
 
+      - name: Prepare build timezone
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import re
+          from pathlib import Path
+
+          path = Path(".vercel/.env.production.local")
+
+          if not path.exists():
+              raise SystemExit("Vercel production env file not found")
+
+          lines = path.read_text(encoding="utf-8").splitlines()
+
+          lines = [
+              line for line in lines
+              if not re.match(
+                  r"^\s*(?:export\s+)?STORE_TIMEZONE\s*=",
+                  line,
+              )
+          ]
+
+          lines.append('STORE_TIMEZONE="Asia/Jakarta"')
+
+          path.write_text(
+              "\n".join(lines) + "\n",
+              encoding="utf-8",
+          )
+
+          print("Production build timezone configured")
+
+          # Verify the configured timezone
+          import subprocess
+
+          subprocess.run(
+              [
+                  "node",
+                  "-e",
+                  "new Intl.DateTimeFormat('en-US', "
+                  "{timeZone:'Asia/Jakarta'}); "
+                  "console.log('Timezone validation passed')",
+              ],
+              check=True,
+          )
+          PY
+
       - name: Build production application
         run: vercel build --prod --token="$VERCEL_TOKEN"
 

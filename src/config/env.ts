@@ -20,7 +20,9 @@ const envSchema = z.object({
   STORE_TIMEZONE: z
     .string()
     .optional()
-    .transform((value) => (value && value.trim() ? value.trim() : appConfig.defaultTimezone))
+    .transform((value) =>
+      value && value.trim() ? value.trim() : appConfig.defaultTimezone,
+    )
     .refine(isValidTimezone, {
       message: "Invalid store timezone",
     }),
