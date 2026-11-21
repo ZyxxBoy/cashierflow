@@ -19,10 +19,11 @@ function isValidTimezone(value: string): boolean {
 const envSchema = z.object({
   STORE_TIMEZONE: z
     .string()
+    .optional()
+    .transform((value) => (value && value.trim() ? value.trim() : appConfig.defaultTimezone))
     .refine(isValidTimezone, {
       message: "Invalid store timezone",
-    })
-    .default(appConfig.defaultTimezone),
+    }),
 });
 
 export const env = envSchema.parse({
