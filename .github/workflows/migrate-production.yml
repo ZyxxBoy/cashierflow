@@ -1,0 +1,39 @@
+name: Production Database Migration
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  migrate:
+    name: migrate-production
+    runs-on: ubuntu-latest
+
+    environment: production
+
+    env:
+      DATABASE_URL_UNPOOLED: ${{ secrets.NEON_PRODUCTION_DATABASE_URL_UNPOOLED }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate schema
+        run: npx prisma validate
+
+      - name: Apply production migrations
+        run: npx prisma migrate deploy
+
+      - name: Verify migration status
+        run: npx prisma migrate status

@@ -5,40 +5,22 @@ export async function GET() {
     const prisma = getPrisma();
 
     await prisma.$queryRaw`SELECT 1`;
-
-    // Verify that the application table exists
     await prisma.product.count();
 
-    return Response.json(
-      {
-        status: "ok",
-        database: "connected",
-        schema: "ready",
-      },
-      {
-        status: 200,
-        headers: {
-          "Cache-Control": "no-store",
-        },
-      },
-    );
+    return Response.json({
+      status: "ok",
+      database: "connected",
+      schema: "ready",
+    });
   } catch (error) {
-    console.error(
-      "Database health check failed:",
-      error instanceof Error ? error.name : "UnknownError",
-    );
+    console.error("Database health check failed", error);
 
     return Response.json(
       {
         status: "error",
         database: "unavailable",
       },
-      {
-        status: 503,
-        headers: {
-          "Cache-Control": "no-store",
-        },
-      },
+      { status: 503 },
     );
   }
 }
